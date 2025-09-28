@@ -37,7 +37,7 @@ import {
   Download,
   Refresh,
   CheckCircle,
-  Error,
+  Error as ErrorIcon,
   Schedule,
   TrendingUp,
   Assessment,
@@ -238,7 +238,7 @@ const CognitiveDashboard: React.FC = () => {
       case 'completed':
         return <CheckCircle color="success" />;
       case 'failed':
-        return <Error color="error" />;
+        return <ErrorIcon color="error" />;
       case 'processing':
         return <Schedule color="warning" />;
       default:

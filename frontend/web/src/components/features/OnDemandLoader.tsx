@@ -113,8 +113,8 @@ const OnDemandLoader: React.FC<OnDemandLoaderProps> = ({
         setConfigLoading(prev => ({ ...prev, [name]: true }));
         setConfigErrors(prev => ({ ...prev, [name]: '' }));
 
-        const response = await featureService.getFeatureConfig(name);
-        const data = response.data as any;
+        const response = await featureService.getFeatureConfig(name) as { data: any };
+        const data = response.data;
         setSelectedConfig({
           name,
           displayName: data.displayName || name,
@@ -144,7 +144,7 @@ const OnDemandLoader: React.FC<OnDemandLoaderProps> = ({
 
     try {
       setConfigLoading(prev => ({ ...prev, [selectedConfig.name!]: true }));
-      setConfigErrors(prev => ({ ...prev, [selectedConfig.name!]: null }));
+      setConfigErrors(prev => ({ ...prev, [selectedConfig.name!]: '' }));
 
       await featureService.updateFeatureConfig(selectedConfig.name!, {
         displayName: selectedConfig.displayName,

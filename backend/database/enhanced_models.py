@@ -13,6 +13,7 @@ from sqlalchemy import JSON, Boolean, Column, DateTime, Index
 from sqlalchemy import Enum as SQLEnum
 from sqlalchemy import ForeignKey, Integer, Numeric, String, Text
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import String as UUIDString
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -30,7 +31,7 @@ class User(Base):
         {'extend_existing': True}
     )
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     email = Column(String(255), unique=True, nullable=False, index=True)
     username = Column(String(100), unique=True, nullable=False, index=True)
     hashed_password = Column(String(255), nullable=False)

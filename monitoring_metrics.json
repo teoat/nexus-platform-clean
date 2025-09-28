@@ -1,1637 +1,5 @@
 [
   {
-    "timestamp": "2025-09-29T00:09:12.934709",
-    "system": {
-      "cpu_percent": 93.8,
-      "cpu_count": 6,
-      "memory_percent": 49.4,
-      "memory_used_mb": 32034,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 691,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:09:06.545534"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 8.134126663208008,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 4.207849502563477,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 4.944801330566406,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 5.6610107421875,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:09:12.934536"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 93.8% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:09:12.934662"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:09:12.934672"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:09:50.310123",
-    "system": {
-      "cpu_percent": 86.2,
-      "cpu_count": 6,
-      "memory_percent": 49.4,
-      "memory_used_mb": 32022,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 687,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:09:44.012740"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 3.7603378295898438,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 7.091283798217773,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 4.743099212646484,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 4.5928955078125,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:09:50.309960"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 86.2% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:09:50.310080"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:09:50.310088"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:10:34.326333",
-    "system": {
-      "cpu_percent": 99.8,
-      "cpu_count": 6,
-      "memory_percent": 49.5,
-      "memory_used_mb": 32096,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 691,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:10:21.375773"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 4.225015640258789,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 3.857135772705078,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 4.319906234741211,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 4.416942596435547,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:10:34.326160"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 99.8% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:10:34.326287"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:10:34.326297"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:11:21.969894",
-    "system": {
-      "cpu_percent": 98.3,
-      "cpu_count": 6,
-      "memory_percent": 49.9,
-      "memory_used_mb": 32384,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 692,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:11:05.414694"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 4.451990127563477,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 3.3211708068847656,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 3.804922103881836,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 5.441904067993164,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:11:21.969536"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 98.3% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:11:21.969802"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:11:21.969853"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:12:04.548310",
-    "system": {
-      "cpu_percent": 96.8,
-      "cpu_count": 6,
-      "memory_percent": 49.9,
-      "memory_used_mb": 32364,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 690,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:11:53.183003"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 5.370140075683594,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 4.523038864135742,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 3.7360191345214844,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 3.6439895629882812,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:12:04.548140"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 96.8% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:12:04.548268"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:12:04.548276"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:12:45.219315",
-    "system": {
-      "cpu_percent": 97.2,
-      "cpu_count": 6,
-      "memory_percent": 49.8,
-      "memory_used_mb": 32286,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 698,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:12:35.621102"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 5.9299468994140625,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 3.845691680908203,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 3.6330223083496094,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 3.2639503479003906,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:12:45.219150"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 97.2% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:12:45.219272"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:12:45.219280"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:13:27.590348",
-    "system": {
-      "cpu_percent": 98.0,
-      "cpu_count": 6,
-      "memory_percent": 49.8,
-      "memory_used_mb": 32324,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 694,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:13:16.288840"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 4.754066467285156,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 4.89497184753418,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 3.459930419921875,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 3.3190250396728516,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:13:27.590158"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 98.0% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:13:27.590294"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:13:27.590312"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:14:15.173235",
-    "system": {
-      "cpu_percent": 96.9,
-      "cpu_count": 6,
-      "memory_percent": 49.9,
-      "memory_used_mb": 32357,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 699,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:13:58.669801"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 4.2591094970703125,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 3.2122135162353516,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 3.7691593170166016,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 3.7078857421875,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:14:15.172257"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 96.9% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:14:15.172386"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:14:15.172395"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:14:55.023315",
-    "system": {
-      "cpu_percent": 91.3,
-      "cpu_count": 6,
-      "memory_percent": 49.7,
-      "memory_used_mb": 32238,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 689,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:14:46.335581"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 3.73077392578125,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 3.482818603515625,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 3.9758682250976562,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 3.738880157470703,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:14:55.023034"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 91.3% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:14:55.023204"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:14:55.023276"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:15:39.569354",
-    "system": {
-      "cpu_percent": 99.3,
-      "cpu_count": 6,
-      "memory_percent": 47.4,
-      "memory_used_mb": 30748,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 691,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:15:26.102280"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 3.9670467376708984,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 4.375934600830078,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 5.053043365478516,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 4.16111946105957,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:15:39.561532"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 99.3% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:15:39.569301"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:15:39.569316"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:16:20.729737",
-    "system": {
-      "cpu_percent": 98.8,
-      "cpu_count": 6,
-      "memory_percent": 47.6,
-      "memory_used_mb": 30898,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 692,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:16:10.689974"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 3.802061080932617,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 3.668069839477539,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 5.739927291870117,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 3.2570362091064453,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:16:20.729459"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 98.8% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:16:20.729612"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:16:20.729684"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:17:10.097332",
-    "system": {
-      "cpu_percent": 97.8,
-      "cpu_count": 6,
-      "memory_percent": 47.6,
-      "memory_used_mb": 30876,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 694,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:16:51.812614"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 6.731748580932617,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 6.018161773681641,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 5.420207977294922,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 3.704071044921875,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:17:10.097064"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 97.8% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:17:10.097232"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:17:10.097267"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:17:49.447740",
-    "system": {
-      "cpu_percent": 98.0,
-      "cpu_count": 6,
-      "memory_percent": 47.5,
-      "memory_used_mb": 30775,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 697,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:17:41.170496"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 11.420249938964844,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 3.9680004119873047,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 4.511833190917969,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 3.8051605224609375,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:17:49.447563"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 98.0% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:17:49.447695"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:17:49.447705"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:18:30.905394",
-    "system": {
-      "cpu_percent": 97.2,
-      "cpu_count": 6,
-      "memory_percent": 47.5,
-      "memory_used_mb": 30803,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 697,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:18:20.520170"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 4.152059555053711,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 3.3750534057617188,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 4.622936248779297,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 3.9327144622802734,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:18:30.905078"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 97.2% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:18:30.905229"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:18:30.905317"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:19:08.965964",
-    "system": {
-      "cpu_percent": 93.7,
-      "cpu_count": 6,
-      "memory_percent": 47.6,
-      "memory_used_mb": 30834,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 695,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:19:01.981638"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 4.588127136230469,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 4.273891448974609,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 4.5909881591796875,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 3.329038619995117,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:19:08.965677"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 93.7% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:19:08.965854"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:19:08.965906"
-      }
-    ]
-  },
-  {
-    "timestamp": "2025-09-29T00:19:59.560019",
-    "system": {
-      "cpu_percent": 100.0,
-      "cpu_count": 6,
-      "memory_percent": 47.4,
-      "memory_used_mb": 30713,
-      "memory_total_mb": 65536,
-      "disk_percent": 1.098215028428726,
-      "disk_used_mb": 10724,
-      "disk_total_mb": 976562,
-      "process_count": 696,
-      "nexus_processes": 4,
-      "timestamp": "2025-09-29T00:19:40.048806"
-    },
-    "application": {
-      "api_metrics": {
-        "http://localhost:8000/health": {
-          "status_code": 200,
-          "response_time_ms": 4.717826843261719,
-          "success": true
-        },
-        "http://localhost:8000/api/health": {
-          "status_code": 404,
-          "response_time_ms": 6.536960601806641,
-          "success": false
-        },
-        "http://localhost:8000/api/status": {
-          "status_code": 200,
-          "response_time_ms": 4.194021224975586,
-          "success": true
-        },
-        "http://localhost:3000/": {
-          "status_code": 200,
-          "response_time_ms": 3.899097442626953,
-          "success": true
-        }
-      },
-      "database_metrics": {
-        "nexus_platform.db": {
-          "file_size_mb": 0,
-          "table_count": 0,
-          "user_count": 0,
-          "status": "error",
-          "error": "'NoneType' object is not subscriptable"
-        },
-        "nexus.db": {
-          "file_size_mb": 0,
-          "table_count": 4,
-          "user_count": 0,
-          "status": "healthy"
-        }
-      },
-      "filesystem_metrics": {
-        "backend/": {
-          "file_count": 179,
-          "total_size_mb": 2,
-          "status": "healthy"
-        },
-        "frontend/": {
-          "file_count": 174927,
-          "total_size_mb": 752,
-          "status": "healthy"
-        },
-        "nexus/": {
-          "file_count": 558,
-          "total_size_mb": 5,
-          "status": "healthy"
-        },
-        "services/": {
-          "file_count": 20,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "logs/": {
-          "file_count": 2,
-          "total_size_mb": 0,
-          "status": "healthy"
-        },
-        "data/": {
-          "file_count": 9,
-          "total_size_mb": 0,
-          "status": "healthy"
-        }
-      },
-      "timestamp": "2025-09-29T00:19:59.559574"
-    },
-    "alerts": [
-      {
-        "type": "cpu_high",
-        "message": "CPU usage is 100.0% (threshold: 80.0%)",
-        "severity": "warning",
-        "timestamp": "2025-09-29T00:19:59.559971"
-      },
-      {
-        "type": "api_down",
-        "message": "API endpoint http://localhost:8000/api/health is not responding",
-        "severity": "critical",
-        "timestamp": "2025-09-29T00:19:59.559982"
-      }
-    ]
-  },
-  {
     "timestamp": "2025-09-29T00:20:43.591255",
     "system": {
       "cpu_percent": 98.5,
@@ -10064,6 +8432,1836 @@
         "message": "API endpoint http://localhost:8000/api/health is not responding",
         "severity": "critical",
         "timestamp": "2025-09-29T01:21:31.827936"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:22:21.530270",
+    "system": {
+      "cpu_percent": 100.0,
+      "cpu_count": 6,
+      "memory_percent": 44.9,
+      "memory_used_mb": 29150,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 705,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:22:02.920099"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 200,
+          "response_time_ms": 4.269123077392578,
+          "success": true
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 404,
+          "response_time_ms": 5.7392120361328125,
+          "success": false
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 200,
+          "response_time_ms": 6.047964096069336,
+          "success": true
+        },
+        "http://localhost:3000/": {
+          "status_code": 200,
+          "response_time_ms": 3.565073013305664,
+          "success": true
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 179350,
+          "total_size_mb": 761,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:22:21.530041"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 100.0% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:22:21.530178"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:22:21.530201"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:23:14.068140",
+    "system": {
+      "cpu_percent": 99.8,
+      "cpu_count": 6,
+      "memory_percent": 43.6,
+      "memory_used_mb": 28271,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 697,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:22:52.727986"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 200,
+          "response_time_ms": 16.353130340576172,
+          "success": true
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 404,
+          "response_time_ms": 5.0220489501953125,
+          "success": false
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 200,
+          "response_time_ms": 4.539012908935547,
+          "success": true
+        },
+        "http://localhost:3000/": {
+          "status_code": 200,
+          "response_time_ms": 3.387928009033203,
+          "success": true
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181762,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:23:14.067968"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 99.8% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:23:14.068094"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:23:14.068103"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:23:55.169382",
+    "system": {
+      "cpu_percent": 91.1,
+      "cpu_count": 6,
+      "memory_percent": 43.0,
+      "memory_used_mb": 27859,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 695,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:23:45.149037"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 200,
+          "response_time_ms": 4.951715469360352,
+          "success": true
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 404,
+          "response_time_ms": 4.010915756225586,
+          "success": false
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 200,
+          "response_time_ms": 3.7870407104492188,
+          "success": true
+        },
+        "http://localhost:3000/": {
+          "status_code": 200,
+          "response_time_ms": 3.8340091705322266,
+          "success": true
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181762,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:23:55.168723"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 91.1% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:23:55.168895"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:23:55.168972"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:24:48.473851",
+    "system": {
+      "cpu_percent": 99.7,
+      "cpu_count": 6,
+      "memory_percent": 44.3,
+      "memory_used_mb": 28734,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 704,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:24:26.236847"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 200,
+          "response_time_ms": 61.45000457763672,
+          "success": true
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 404,
+          "response_time_ms": 8.401155471801758,
+          "success": false
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 200,
+          "response_time_ms": 8.719921112060547,
+          "success": true
+        },
+        "http://localhost:3000/": {
+          "status_code": 200,
+          "response_time_ms": 4.77910041809082,
+          "success": true
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181764,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:24:48.473633"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 99.7% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:24:48.473757"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:24:48.473766"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:25:27.642172",
+    "system": {
+      "cpu_percent": 90.6,
+      "cpu_count": 6,
+      "memory_percent": 43.1,
+      "memory_used_mb": 27951,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 690,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:25:19.573469"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 200,
+          "response_time_ms": 5.035877227783203,
+          "success": true
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 404,
+          "response_time_ms": 3.9169788360595703,
+          "success": false
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 200,
+          "response_time_ms": 4.442930221557617,
+          "success": true
+        },
+        "http://localhost:3000/": {
+          "status_code": 200,
+          "response_time_ms": 3.62396240234375,
+          "success": true
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181764,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:25:27.642004"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 90.6% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:25:27.642127"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:25:27.642136"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:26:08.347318",
+    "system": {
+      "cpu_percent": 94.5,
+      "cpu_count": 6,
+      "memory_percent": 43.4,
+      "memory_used_mb": 28154,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 694,
+      "nexus_processes": 6,
+      "timestamp": "2025-09-29T01:25:58.743536"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 200,
+          "response_time_ms": 5.439996719360352,
+          "success": true
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 404,
+          "response_time_ms": 6.309032440185547,
+          "success": false
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 200,
+          "response_time_ms": 6.2961578369140625,
+          "success": true
+        },
+        "http://localhost:3000/": {
+          "status_code": 200,
+          "response_time_ms": 5.367040634155273,
+          "success": true
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181771,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:26:08.347149"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 94.5% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:26:08.347273"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:26:08.347283"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:26:52.862027",
+    "system": {
+      "cpu_percent": 98.3,
+      "cpu_count": 6,
+      "memory_percent": 43.4,
+      "memory_used_mb": 28168,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 697,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:26:39.420017"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 200,
+          "response_time_ms": 9.042978286743164,
+          "success": true
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 404,
+          "response_time_ms": 6.109952926635742,
+          "success": false
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 200,
+          "response_time_ms": 9.396076202392578,
+          "success": true
+        },
+        "http://localhost:3000/": {
+          "status_code": 200,
+          "response_time_ms": 3.8919448852539062,
+          "success": true
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181771,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:26:52.861853"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 98.3% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:26:52.861983"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:26:52.861993"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:27:46.243528",
+    "system": {
+      "cpu_percent": 98.2,
+      "cpu_count": 6,
+      "memory_percent": 43.4,
+      "memory_used_mb": 28126,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 696,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:27:23.939423"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:3000/": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181771,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:27:46.243454"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 98.2% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:27:46.243481"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:27:46.243486"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:27:46.243489"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/status is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:27:46.243491"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:3000/ is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:27:46.243493"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:28:48.807565",
+    "system": {
+      "cpu_percent": 100.0,
+      "cpu_count": 6,
+      "memory_percent": 43.3,
+      "memory_used_mb": 28110,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 690,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:28:40.518145"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:3000/": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181771,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:28:48.807485"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 100.0% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:28:48.807516"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:28:48.807522"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:28:48.807525"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/status is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:28:48.807527"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:3000/ is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:28:48.807528"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:29:27.816900",
+    "system": {
+      "cpu_percent": 99.8,
+      "cpu_count": 6,
+      "memory_percent": 43.7,
+      "memory_used_mb": 28325,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 698,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:29:19.885833"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:3000/": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181771,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:29:27.816831"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 99.8% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:29:27.816854"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:29:27.816860"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:29:27.816862"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/status is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:29:27.816864"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:3000/ is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:29:27.816866"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:30:05.694140",
+    "system": {
+      "cpu_percent": 85.6,
+      "cpu_count": 6,
+      "memory_percent": 44.0,
+      "memory_used_mb": 28528,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 699,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:29:58.914029"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1025009e0>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x102501480>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/status (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1025017b0>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+        },
+        "http://localhost:3000/": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181771,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:30:05.694066"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 85.6% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:30:05.694091"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:30:05.694097"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:30:05.694099"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/status is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:30:05.694102"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:3000/ is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:30:05.694104"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:30:51.632665",
+    "system": {
+      "cpu_percent": 90.3,
+      "cpu_count": 6,
+      "memory_percent": 44.2,
+      "memory_used_mb": 28643,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 696,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:30:36.782379"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x102501590>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x102501480>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/status (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1025017b0>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+        },
+        "http://localhost:3000/": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181771,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:30:51.632591"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 90.3% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:30:51.632617"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:30:51.632623"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:30:51.632625"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/status is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:30:51.632627"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:3000/ is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:30:51.632629"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:31:34.382009",
+    "system": {
+      "cpu_percent": 95.0,
+      "cpu_count": 6,
+      "memory_percent": 45.0,
+      "memory_used_mb": 29190,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 709,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:31:22.714718"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x102501150>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x102501480>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/status (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1025017b0>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+        },
+        "http://localhost:3000/": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181771,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:31:34.381938"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 95.0% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:31:34.381964"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:31:34.381970"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:31:34.381972"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/status is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:31:34.381974"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:3000/ is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:31:34.381976"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:32:15.091087",
+    "system": {
+      "cpu_percent": 99.0,
+      "cpu_count": 6,
+      "memory_percent": 45.3,
+      "memory_used_mb": 29405,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 696,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:32:05.449171"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x102501480>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x102501590>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/status (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1025017b0>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+        },
+        "http://localhost:3000/": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181771,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:32:15.091014"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 99.0% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:32:15.091041"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:32:15.091048"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:32:15.091050"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/status is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:32:15.091052"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:3000/ is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:32:15.091054"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:32:58.959044",
+    "system": {
+      "cpu_percent": 100.0,
+      "cpu_count": 6,
+      "memory_percent": 46.5,
+      "memory_used_mb": 30210,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 695,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:32:46.217288"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:3000/": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181771,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:32:58.958889"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 100.0% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:32:58.958916"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:32:58.958921"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:32:58.958978"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/status is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:32:58.958983"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:3000/ is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:32:58.958986"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-09-29T01:34:14.429733",
+    "system": {
+      "cpu_percent": 100.0,
+      "cpu_count": 6,
+      "memory_percent": 48.8,
+      "memory_used_mb": 31722,
+      "memory_total_mb": 65536,
+      "disk_percent": 1.098215028428726,
+      "disk_used_mb": 10724,
+      "disk_total_mb": 976562,
+      "process_count": 697,
+      "nexus_processes": 4,
+      "timestamp": "2025-09-29T01:33:52.199524"
+    },
+    "application": {
+      "api_metrics": {
+        "http://localhost:8000/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:8000/api/health": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:8000/api/status": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        },
+        "http://localhost:3000/": {
+          "status_code": 0,
+          "response_time_ms": 0,
+          "success": false,
+          "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+        }
+      },
+      "database_metrics": {
+        "nexus_platform.db": {
+          "file_size_mb": 0,
+          "table_count": 0,
+          "user_count": 0,
+          "status": "error",
+          "error": "'NoneType' object is not subscriptable"
+        },
+        "nexus.db": {
+          "file_size_mb": 0,
+          "table_count": 4,
+          "user_count": 0,
+          "status": "healthy"
+        }
+      },
+      "filesystem_metrics": {
+        "backend/": {
+          "file_count": 182,
+          "total_size_mb": 2,
+          "status": "healthy"
+        },
+        "frontend/": {
+          "file_count": 181771,
+          "total_size_mb": 714,
+          "status": "healthy"
+        },
+        "nexus/": {
+          "file_count": 558,
+          "total_size_mb": 5,
+          "status": "healthy"
+        },
+        "services/": {
+          "file_count": 20,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "logs/": {
+          "file_count": 2,
+          "total_size_mb": 0,
+          "status": "healthy"
+        },
+        "data/": {
+          "file_count": 9,
+          "total_size_mb": 0,
+          "status": "healthy"
+        }
+      },
+      "timestamp": "2025-09-29T01:34:14.429580"
+    },
+    "alerts": [
+      {
+        "type": "cpu_high",
+        "message": "CPU usage is 100.0% (threshold: 80.0%)",
+        "severity": "warning",
+        "timestamp": "2025-09-29T01:34:14.429611"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:34:14.429632"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/health is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:34:14.429640"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:8000/api/status is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:34:14.429650"
+      },
+      {
+        "type": "api_down",
+        "message": "API endpoint http://localhost:3000/ is not responding",
+        "severity": "critical",
+        "timestamp": "2025-09-29T01:34:14.429661"
       }
     ]
   }

@@ -54,19 +54,19 @@ class AIOrchestrationService {
     parameters: Record<string, any> = {},
     priority: number = 2
   ): Promise<string> {
-    const response = await apiClient.post(`${this.baseUrl}/submit`, {
+    const response = await apiClient.post<{ request_id: string }>(`${this.baseUrl}/submit`, {
       model_type: modelType,
       input_data: inputData,
       parameters,
       priority
     });
-    return response.request_id;
+    return response.data.request_id;
   }
 
   async getResponse(requestId: string): Promise<AIRequest | null> {
     try {
-      const response = await apiClient.get(`${this.baseUrl}/response/${requestId}`);
-      return response;
+      const response = await apiClient.get<AIRequest>(`${this.baseUrl}/response/${requestId}`);
+      return response.data;
     } catch (error) {
       console.error('Failed to get response:', error);
       return null;
@@ -90,11 +90,11 @@ class AIOrchestrationService {
       priority: task.priority
     }));
 
-    const response = await apiClient.post(`${this.baseUrl}/orchestrate`, {
+    const response = await apiClient.post<{ plan_id: string }>(`${this.baseUrl}/orchestrate`, {
       tasks: formattedTasks,
       strategy
     });
-    return response.plan_id;
+    return response.data.plan_id;
   }
 
   async getPlanStatus(planId: string): Promise<{
@@ -106,27 +106,38 @@ class AIOrchestrationService {
     progress: number;
     estimated_time: number;
   }> {
-    const response = await apiClient.get(`${this.baseUrl}/plan/${planId}/status`);
-    return response;
+    const response = await apiClient.get<{
+      plan_id: string;
+      strategy: string;
+      total_tasks: number;
+      completed_tasks: number;
+      failed_tasks: number;
+      progress: number;
+      estimated_time: number;
+    }>(`${this.baseUrl}/plan/${planId}/status`);
+    return response.data;
   }
 
   // Platform Management
   async getOrchestratorStatus(): Promise<OrchestratorStatus> {
-    const response = await apiClient.get(`${this.baseUrl}/status`);
-    return response;
+    const response = await apiClient.get<OrchestratorStatus>(`${this.baseUrl}/status`);
+    return response.data;
   }
 
   async getAvailableModels(): Promise<{
     available_models: Record<string, string[]>;
     model_registry: Record<string, string[]>;
   }> {
-    const response = await apiClient.get(`${this.baseUrl}/models`);
-    return response;
+    const response = await apiClient.get<{
+      available_models: Record<string, string[]>;
+      model_registry: Record<string, string[]>;
+    }>(`${this.baseUrl}/models`);
+    return response.data;
   }
 
   async getMetrics(): Promise<OrchestrationMetrics> {
-    const response = await apiClient.get(`${this.baseUrl}/metrics`);
-    return response;
+    const response = await apiClient.get<OrchestrationMetrics>(`${this.baseUrl}/metrics`);
+    return response.data;
   }
 
   // Batch Operations
@@ -139,12 +150,16 @@ class AIOrchestrationService {
     request_ids: string[];
     total_requests: number;
   }> {
-    const response = await apiClient.post(`${this.baseUrl}/batch/nlp`, {
+    const response = await apiClient.post<{
+      batch_id: string;
+      request_ids: string[];
+      total_requests: number;
+    }>(`${this.baseUrl}/batch/nlp`, {
       texts,
       operations,
       priority
     });
-    return response;
+    return response.data;
   }
 
   async batchVisionProcessing(
@@ -156,12 +171,16 @@ class AIOrchestrationService {
     request_ids: string[];
     total_requests: number;
   }> {
-    const response = await apiClient.post(`${this.baseUrl}/batch/vision`, {
+    const response = await apiClient.post<{
+      batch_id: string;
+      request_ids: string[];
+      total_requests: number;
+    }>(`${this.baseUrl}/batch/vision`, {
       image_data: imageData,
       operations,
       priority
     });
-    return response;
+    return response.data;
   }
 
   // Intelligent Routing
@@ -174,11 +193,16 @@ class AIOrchestrationService {
     routed_operation: string;
     status: string;
   }> {
-    const response = await apiClient.post(`${this.baseUrl}/intelligent-routing`, {
+    const response = await apiClient.post<{
+      request_id: string;
+      routed_model_type: string;
+      routed_operation: string;
+      status: string;
+    }>(`${this.baseUrl}/intelligent-routing`, {
       input_data: inputData,
       context
     });
-    return response;
+    return response.data;
   }
 
   // Performance Analysis
@@ -193,8 +217,18 @@ class AIOrchestrationService {
     recommendations: string[];
     last_updated: string;
   }> {
-    const response = await apiClient.get(`${this.baseUrl}/performance`);
-    return response;
+    const response = await apiClient.get<{
+      overall_performance: {
+        total_requests: number;
+        success_rate: number;
+        failure_rate: number;
+        average_processing_time: number;
+      };
+      model_performance: Record<string, any>;
+      recommendations: string[];
+      last_updated: string;
+    }>(`${this.baseUrl}/performance`);
+    return response.data;
   }
 
   // Utility Methods

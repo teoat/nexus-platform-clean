@@ -274,7 +274,7 @@ export const Chart: React.FC<ChartProps> = ({
               cx="50%"
               cy="50%"
               labelLine={false}
-              label={({ name, percent }) =>
+              label={({ name, percent }: { name: string; percent: number }) =>
                 `${name} ${(percent * 100).toFixed(0)}%`
               }
               outerRadius={80}
