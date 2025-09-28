@@ -413,9 +413,9 @@ const SiteMap: React.FC = () => {
             <Card 
               sx={{ 
                 height: '100%',
-                border: `2px solid ${alpha(theme.palette[getCategoryColor(category) as keyof typeof theme.palette].main || theme.palette.primary.main, 0.1)}`,
+                border: `2px solid ${alpha((theme.palette as any)[getCategoryColor(category)]?.main || theme.palette.primary.main, 0.1)}`,
                 '&:hover': {
-                  borderColor: theme.palette[getCategoryColor(category) as keyof typeof theme.palette].main || theme.palette.primary.main,
+                  borderColor: (theme.palette as any)[getCategoryColor(category)]?.main || theme.palette.primary.main,
                   boxShadow: theme.shadows[4]
                 }
               }}

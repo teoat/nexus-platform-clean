@@ -320,11 +320,7 @@ const OptimizedMonitoringDashboard: React.FC = () => {
       <TabPanel value={activeTab} index={3}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
-            <FrenlyInsights
-              insights={insights}
-              onSendMessage={handleSendFrenlyMessage}
-              loading={insightsLoading}
-            />
+            <FrenlyInsights />
           </Grid>
           <Grid item xs={12} md={4}>
             <Card>

@@ -53,7 +53,6 @@ import {
   Policy,
   Assignment,
   VerifiedUser,
-  Security as SecurityIcon,
   Lock,
   Visibility,
   VisibilityOff,
