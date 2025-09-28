@@ -1,0 +1,11 @@
+{
+  "created_at": "2025-09-28T20:23:06.137665",
+  "version": "1.0.0",
+  "description": "NEXUS Platform Archive Manifest",
+  "archived_files": [
+    "archive_manifest.json"
+  ],
+  "failed_archives": [],
+  "total_archived": 1,
+  "total_failed": 0
+}

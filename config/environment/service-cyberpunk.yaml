@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-frontend-cyberpunk
+  namespace: nexus-platform
+  labels:
+    app: nexus-frontend-cyberpunk
+    version: cyberpunk
+spec:
+  selector:
+    app: nexus-frontend-cyberpunk
+  ports:
+    - name: http
+      port: 2100
+      targetPort: 2100
+      protocol: TCP
+  type: ClusterIP

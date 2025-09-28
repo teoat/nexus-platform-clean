@@ -1,0 +1,2244 @@
+{
+  "timestamp": "2025-09-24T15:33:46.518653",
+  "total_files": 20707,
+  "duplicate_groups": 196,
+  "total_duplicates": 567,
+  "potential_space_saved": 2996455,
+  "consolidation_log": [
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/security/zero_trust_architecture.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/consolidated_backend_20250924_142130/security/zero_trust_architecture.py",
+      "space_saved": 20682
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/security/security_scanning.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/consolidated_backend_20250924_142130/security/security_scanning.py",
+      "space_saved": 27048
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/compliance/gdpr_compliance.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/scripts/backup/gdpr_compliance.py",
+      "space_saved": 6896
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/security/security_config.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/consolidated_backend_20250924_142130/security/security_config.py",
+      "space_saved": 7762
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/schemas/transaction.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/consolidated_backend_20250924_142130/schemas/transaction.py",
+      "space_saved": 2357
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/schemas/category.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/consolidated_backend_20250924_142130/schemas/category.py",
+      "space_saved": 1098
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/monitoring/risk_assessment_model.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/scripts/monitoring/risk_assessment_model.py",
+      "space_saved": 4758
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/monitoring/smart_alerting.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/scripts/monitoring/smart_alerting.py",
+      "space_saved": 33400
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/monitoring/anomaly_detection_model.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/scripts/monitoring/anomaly_detection_model.py",
+      "space_saved": 4998
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/monitoring/predictive_analytics.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/scripts/monitoring/predictive_analytics.py",
+      "space_saved": 17125
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/schemas/account.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/consolidated_backend_20250924_142130/schemas/account.py",
+      "space_saved": 1135
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/security/security_validator.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/consolidated_backend_20250924_142130/security/security_validator.py",
+      "space_saved": 2304
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/__init__.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/contrib/_securetransport/__init__.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/contrib/__init__.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/resolvelib/compat/__init__.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_internal/utils/__init__.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_internal/resolution/resolvelib/__init__.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_internal/resolution/legacy/__init__.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_internal/resolution/__init__.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_internal/operations/__init__.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/docs/archived_consolidated_20250921_100106/deployment/deployment_strategies.md",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/config/environment/snyk.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/config/environment/swagger.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/config/environment/tasks.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/config/security/index.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py",
+      "space_saved": 0
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/idna/compat.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_internal/utils/direct_url_helpers.py",
+      "space_saved": 7
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/rich/_pick.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/rich/_extension.py",
+      "space_saved": 2
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_internal/distributions/__init__.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/rich/_extension.py",
+      "space_saved": 2
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/rich/_fileno.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_env/lib/python3.13/site-packages/pip/_vendor/rich/_windows_renderer.py",
+      "space_saved": 3
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/app/test_implementations.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/backup_backends/app/test_implementations.py",
+      "space_saved": 2488
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/app/security/least_privilege_example.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/consolidated_backend/security/least_privilege_example.py",
+      "space_saved": 2385
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/app/tests/test_basic.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/backup_backends/app/tests/test_basic.py",
+      "space_saved": 333
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/app/tests/conftest.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/backup_backends/app/tests/conftest.py",
+      "space_saved": 1074
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/app/tests/test_security.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/backup_backends/app/tests/test_security.py",
+      "space_saved": 1088
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/app/tests/simple_ml_test.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/backup_backends/app/tests/simple_ml_test.py",
+      "space_saved": 685
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/monitor_fixed_system.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/monitor_fixed_system.py",
+      "space_saved": 2600
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/app/tests/simple_test.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/backup_backends/app/tests/simple_test.py",
+      "space_saved": 958
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/archive/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/tests/test_consolidated_system.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/archive/old_archives/archived_systems/nexus_ssot_consolidated/tests/test_consolidated_system.py",
+      "space_saved": 526
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/app/tests/test_advanced_fraud_detection.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/backup_backends/app/tests/test_advanced_fraud_detection.py",
+      "space_saved": 4847
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/app/tests/test_ml_pipeline.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/backup_backends/app/tests/test_ml_pipeline.py",
+      "space_saved": 2084
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/app/tests/test_financial_integration.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/backup_backends/app/tests/test_financial_integration.py",
+      "space_saved": 750
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/comprehensive_system_monitor.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/comprehensive_system_monitor.py",
+      "space_saved": 7313
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/monitor_direct_processor.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/monitor_direct_processor.py",
+      "space_saved": 3108
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/monitor_complete_automation.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/monitor_complete_automation.py",
+      "space_saved": 3144
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/nexus_ssot_file_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/nexus_ssot_file_manager.py",
+      "space_saved": 11728
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/core/nexus_ssot_file_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/nexus_ssot_file_manager.py",
+      "space_saved": 11728
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/nexus_ssot_file_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/nexus_ssot_file_manager.py",
+      "space_saved": 11728
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/nexus_ssot_file_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/nexus_ssot_file_manager.py",
+      "space_saved": 11728
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/nexus_ssot_file_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/nexus_ssot_file_manager.py",
+      "space_saved": 11728
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/core/nexus_ssot_file_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/nexus_ssot_file_manager.py",
+      "space_saved": 11728
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/nexus_ssot_file_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/nexus_ssot_file_manager.py",
+      "space_saved": 11728
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/nexus_ssot_working_system.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/nexus_ssot_working_system.py",
+      "space_saved": 18547
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/encoding_safe_processor.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/encoding_safe_processor.py",
+      "space_saved": 20738
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/fix_simulation_issue.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/fix_simulation_issue.py",
+      "space_saved": 31543
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/aio_automation_ssot.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/aio_automation_ssot.py",
+      "space_saved": 49978
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/nexus_ssot_automation_system.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/nexus_ssot_automation_system.py",
+      "space_saved": 23576
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot/launch_nexus_ssot.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot/launch_nexus_ssot.py",
+      "space_saved": 969
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/direct_task_processor.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/direct_task_processor.py",
+      "space_saved": 19913
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/fix_master_todo_encoding.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/fix_master_todo_encoding.py",
+      "space_saved": 24835
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/simple_monitor.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/simple_monitor.py",
+      "space_saved": 1023
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/complete_task_automation.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/complete_task_automation.py",
+      "space_saved": 21623
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/core/nexus_consolidated_automation.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/core/nexus_consolidated_automation.py",
+      "space_saved": 462
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/core/aio_task_completion_tracker.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/aio_task_completion_tracker.py",
+      "space_saved": 11593
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/aio_task_completion_tracker.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/aio_task_completion_tracker.py",
+      "space_saved": 11593
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/core/aio_task_completion_tracker.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/aio_task_completion_tracker.py",
+      "space_saved": 11593
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/core/aio_worker_optimizer.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/aio_worker_optimizer.py",
+      "space_saved": 18057
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/aio_worker_optimizer.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/aio_worker_optimizer.py",
+      "space_saved": 18057
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/core/aio_worker_optimizer.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/aio_worker_optimizer.py",
+      "space_saved": 18057
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/nexus_ssot_automation_system.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/archived_ssot_systems/archived_nexus_ssot_automation_system.py",
+      "space_saved": 23577
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/core/nexus_ssot_automation_system.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/archived_ssot_systems/archived_nexus_ssot_automation_system.py",
+      "space_saved": 23577
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot/nexus_ssot_automation_system.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/archived_ssot_systems/archived_nexus_ssot_automation_system.py",
+      "space_saved": 23577
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/archived_ssot_systems/archived_nexus_ssot_automation_system.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/archived_ssot_systems/archived_nexus_ssot_automation_system.py",
+      "space_saved": 23577
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/nexus_ssot_automation_system.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/archived_ssot_systems/archived_nexus_ssot_automation_system.py",
+      "space_saved": 23577
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/core/nexus_ssot_automation_system.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/archived_ssot_systems/archived_nexus_ssot_automation_system.py",
+      "space_saved": 23577
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot/nexus_ssot_automation_system.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/archived_ssot_systems/archived_nexus_ssot_automation_system.py",
+      "space_saved": 23577
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/comprehensive_fix_and_restart.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/comprehensive_fix_and_restart.py",
+      "space_saved": 22222
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/frenly_meta_ssot_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/frenly_meta_ssot_manager.py",
+      "space_saved": 16819
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/core/frenly_meta_ssot_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/frenly_meta_ssot_manager.py",
+      "space_saved": 16819
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/frenly_meta_ssot_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/frenly_meta_ssot_manager.py",
+      "space_saved": 16819
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/frenly_meta_ssot_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/frenly_meta_ssot_manager.py",
+      "space_saved": 16819
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/core/frenly_meta_ssot_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/frenly_meta_ssot_manager.py",
+      "space_saved": 16819
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/frenly_meta_agent.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/frenly_meta_agent.py",
+      "space_saved": 41884
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/frenly_meta_agent.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/frenly_meta_agent.py",
+      "space_saved": 41884
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/frenly_meta_agent.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/frenly_meta_agent.py",
+      "space_saved": 41884
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/core/frenly_meta_agent.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/frenly_meta_agent.py",
+      "space_saved": 41884
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/core/frenly_meta_agent.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/frenly_meta_agent.py",
+      "space_saved": 41884
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/core/aio_quality_control_worker.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/aio_quality_control_worker.py",
+      "space_saved": 14736
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/aio_quality_control_worker.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/aio_quality_control_worker.py",
+      "space_saved": 14736
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/core/aio_quality_control_worker.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/aio_quality_control_worker.py",
+      "space_saved": 14736
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/core/aio_analytics_dashboard.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/aio_analytics_dashboard.py",
+      "space_saved": 19521
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/aio_analytics_dashboard.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/aio_analytics_dashboard.py",
+      "space_saved": 19521
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/core/aio_analytics_dashboard.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/aio_analytics_dashboard.py",
+      "space_saved": 19521
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/launch_nexus_ssot.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/scripts/launch_nexus_ssot.py",
+      "space_saved": 1429
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/scripts/launch_nexus_ssot.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/scripts/launch_nexus_ssot.py",
+      "space_saved": 1429
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/launch_nexus_ssot.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/scripts/launch_nexus_ssot.py",
+      "space_saved": 1429
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/core/nexus_task_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/nexus_task_manager.py",
+      "space_saved": 4803
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/nexus_task_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/nexus_task_manager.py",
+      "space_saved": 4803
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/core/nexus_task_manager.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/nexus_task_manager.py",
+      "space_saved": 4803
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/launch_nexus_unified.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/launch_nexus_unified.py",
+      "space_saved": 7556
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/core/frenly_meta_runner.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/core/frenly_meta_runner.py",
+      "space_saved": 10070
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/verify_system.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/verify_system.py",
+      "space_saved": 3750
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/launch_consolidated_ssot.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/launch_consolidated_ssot.py",
+      "space_saved": 9305
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/nexus_simple.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/nexus_simple.py",
+      "space_saved": 27142
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/nexus_simple.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/nexus_simple.py",
+      "space_saved": 27142
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/core/nexus_simple.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/nexus_simple.py",
+      "space_saved": 27142
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/core/nexus_simple.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/nexus_simple.py",
+      "space_saved": 27142
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/core/nexus_simple.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/nexus_simple.py",
+      "space_saved": 27142
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/nexus_port_controller.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/nexus_port_controller.py",
+      "space_saved": 21851
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_files/auto_cleanup.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_files/auto_cleanup.py",
+      "space_saved": 8490
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/core/nexus_launch_orchestrator.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/core/nexus_launch_orchestrator.py",
+      "space_saved": 20315
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_files/nexus_integration_orchestrator.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_files/nexus_integration_orchestrator.py",
+      "space_saved": 24071
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_files/nexus_documentation_consolidator.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_files/nexus_documentation_consolidator.py",
+      "space_saved": 29168
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_files/safe_cleanup.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_files/safe_cleanup.py",
+      "space_saved": 8807
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_files/execute_cleanup.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_files/execute_cleanup.py",
+      "space_saved": 3307
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_files/nexus_comprehensive_cleanup.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_files/nexus_comprehensive_cleanup.py",
+      "space_saved": 30191
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_files/nexus_file_organizer.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_files/nexus_file_organizer.py",
+      "space_saved": 21662
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_files/frenly_simple.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_files/frenly_simple.py",
+      "space_saved": 30337
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/scripts/development/startup_checks.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/consolidated_backend_20250924_142130/security/startup_checks.py",
+      "space_saved": 2565
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/scripts/utilities/setup_financial_config.py",
+      "kept_file": "/Users/Arief/Desktop/Nexus/scripts/backup/setup_financial_config.py",
+      "space_saved": 12301
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/frontend/static/performance-monitor.js",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/static/performance-monitor.js",
+      "space_saved": 4435
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/frontend/static/emscripten_fetch_worker.js",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/static/emscripten_fetch_worker.js",
+      "space_saved": 3655
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/tests/e2e/performance/load-test.js",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/tests/e2e/performance/load-test.js",
+      "space_saved": 4449
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/frontend/static/sw.js",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/static/sw.js",
+      "space_saved": 2018
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/public/sw.js",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/web/src/public/sw.js",
+      "space_saved": 9002
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/frontend/static/script.js",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/static/script.js",
+      "space_saved": 6902
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/eslint.config.js",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/mobile/eslint.config.js",
+      "space_saved": 237
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/scripts/reset-project.js",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/mobile/scripts/reset-project.js",
+      "space_saved": 3608
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/public/sw-enhanced.js",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/web/src/public/sw-enhanced.js",
+      "space_saved": 17556
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/docker/frontend/src/e2e/dashboard.spec.ts",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/web/src/e2e-backup/dashboard.spec.ts",
+      "space_saved": 4003
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/e2e/dashboard.spec.ts",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/web/src/e2e-backup/dashboard.spec.ts",
+      "space_saved": 4003
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/index.ts",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/index.ts",
+      "space_saved": 513
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/hooks/use-color-scheme.web.ts",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/mobile/hooks/use-color-scheme.web.ts",
+      "space_saved": 480
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/hooks/use-color-scheme.ts",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/mobile/hooks/use-color-scheme.ts",
+      "space_saved": 47
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/hooks/use-theme-color.ts",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/mobile/hooks/use-theme-color.ts",
+      "space_saved": 537
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/NexusMobile/src/services/offlineManager.ts",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/mobile/src/services/offlineManager.ts",
+      "space_saved": 6139
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/NexusMobile/src/services/notificationService.ts",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/mobile/src/services/notificationService.ts",
+      "space_saved": 5502
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/qwen-code/packages/cli/src/generated/git-commit.ts",
+      "kept_file": "/Users/Arief/Desktop/Nexus/qwen-code/packages/core/src/generated/git-commit.ts",
+      "space_saved": 293
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/components/Button.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/components/Button.tsx",
+      "space_saved": 3754
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/tests/e2e/App.test.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/web/src/tests/e2e/App.test.tsx",
+      "space_saved": 12808
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/utils/App.test.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/web/src/tests/e2e/App.test.tsx",
+      "space_saved": 12808
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/Badge.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Badge.tsx",
+      "space_saved": 2212
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/Select.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Select.tsx",
+      "space_saved": 3733
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/Textarea.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Textarea.tsx",
+      "space_saved": 3068
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/Input.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Input.tsx",
+      "space_saved": 2265
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/__tests__/Button.test.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/__tests__/Button.test.tsx",
+      "space_saved": 2324
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/__tests__/Modal.test.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/__tests__/Modal.test.tsx",
+      "space_saved": 2957
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/__tests__/Card.test.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/__tests__/Card.test.tsx",
+      "space_saved": 1640
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/Alert.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Alert.tsx",
+      "space_saved": 3716
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/Table.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Table.tsx",
+      "space_saved": 3114
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/Tooltip.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Tooltip.tsx",
+      "space_saved": 3031
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/Modal.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Modal.tsx",
+      "space_saved": 3047
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/metric-card.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/metric-card.tsx",
+      "space_saved": 3057
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/NexusMobile/components/metric-card.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/metric-card.tsx",
+      "space_saved": 3057
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/Card.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Card.tsx",
+      "space_saved": 1567
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/web/src/design-system/components/Button.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Button.tsx",
+      "space_saved": 5748
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/risk-alert.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/risk-alert.tsx",
+      "space_saved": 4569
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/NexusMobile/components/risk-alert.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/risk-alert.tsx",
+      "space_saved": 4569
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/quick-actions.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/quick-actions.tsx",
+      "space_saved": 3365
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/NexusMobile/components/quick-actions.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/quick-actions.tsx",
+      "space_saved": 3365
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/touch-button.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/touch-button.tsx",
+      "space_saved": 5534
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/NexusMobile/components/touch-button.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/touch-button.tsx",
+      "space_saved": 5534
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/recent-transactions.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/recent-transactions.tsx",
+      "space_saved": 4209
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/NexusMobile/components/recent-transactions.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/recent-transactions.tsx",
+      "space_saved": 4209
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/NexusMobile/app/(tabs)/analytics.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_frontend/utils/analytics.tsx",
+      "space_saved": 9135
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/app/(tabs)/explore.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_frontend/utils/explore.tsx",
+      "space_saved": 4363
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/themed-text.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/themed-text.tsx",
+      "space_saved": 1285
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/components/themed-text.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/themed-text.tsx",
+      "space_saved": 1285
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/app/modal.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/nexus_frontend/utils/modal.tsx",
+      "space_saved": 703
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/hello-wave.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/hello-wave.tsx",
+      "space_saved": 405
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/components/hello-wave.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/hello-wave.tsx",
+      "space_saved": 405
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/FinancialDashboardIntegration.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/components/integration/FinancialDashboardIntegration.tsx",
+      "space_saved": 11532
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/parallax-scroll-view.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/parallax-scroll-view.tsx",
+      "space_saved": 1996
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/components/parallax-scroll-view.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/parallax-scroll-view.tsx",
+      "space_saved": 1996
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/Card.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/components/ui/Card.tsx",
+      "space_saved": 5467
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/Radio.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Radio.tsx",
+      "space_saved": 2468
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/UserMenu.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/components/UserMenu.tsx",
+      "space_saved": 4303
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/AccessibleButton.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/components/ui/AccessibleButton.tsx",
+      "space_saved": 1580
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/MobileOptimizer.test.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/tests/components/mobile/MobileOptimizer.test.tsx",
+      "space_saved": 12637
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/RiskAlerts.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/components/RiskAlerts.tsx",
+      "space_saved": 2865
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/ExpenseJournalIntegration.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/components/integration/ExpenseJournalIntegration.tsx",
+      "space_saved": 16905
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/themed-view.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/themed-view.tsx",
+      "space_saved": 470
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/components/themed-view.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/themed-view.tsx",
+      "space_saved": 470
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/Input.test.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/__tests__/Input.test.tsx",
+      "space_saved": 2216
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/ErrorFallback.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/components/ErrorFallback.tsx",
+      "space_saved": 5249
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/ResponsiveLayout.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/components/layout/ResponsiveLayout.tsx",
+      "space_saved": 3046
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/icon-symbol.ios.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/ui/icon-symbol.ios.tsx",
+      "space_saved": 598
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/components/ui/icon-symbol.ios.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/ui/icon-symbol.ios.tsx",
+      "space_saved": 598
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/Switch.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Switch.tsx",
+      "space_saved": 2657
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/FinancialChart.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/components/FinancialChart.tsx",
+      "space_saved": 2037
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/haptic-tab.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/haptic-tab.tsx",
+      "space_saved": 564
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/components/haptic-tab.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/haptic-tab.tsx",
+      "space_saved": 564
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/FinancialDashboard.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/components/financial/FinancialDashboard.tsx",
+      "space_saved": 15674
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/icon-symbol.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/ui/icon-symbol.tsx",
+      "space_saved": 1422
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/components/ui/icon-symbol.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/ui/icon-symbol.tsx",
+      "space_saved": 1422
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/external-link.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/external-link.tsx",
+      "space_saved": 794
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/components/external-link.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/external-link.tsx",
+      "space_saved": 794
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/Button.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/components/ui/Button.tsx",
+      "space_saved": 3080
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/collapsible.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/ui/collapsible.tsx",
+      "space_saved": 1362
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/components/ui/collapsible.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/mobile-components/ui/collapsible.tsx",
+      "space_saved": 1362
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/Spinner.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Spinner.tsx",
+      "space_saved": 1483
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/Table.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/components/ui/Table.tsx",
+      "space_saved": 9745
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/Modal.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/components/ui/Modal.tsx",
+      "space_saved": 6800
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/MobileMenu.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/components/MobileMenu.tsx",
+      "space_saved": 5804
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/Checkbox.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/web-components/Checkbox.tsx",
+      "space_saved": 2562
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/Input.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/components/ui/Input.tsx",
+      "space_saved": 4845
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/EnhancedNavigation.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/components/navigation/EnhancedNavigation.tsx",
+      "space_saved": 9321
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/nexus_frontend/components/BankStatementIntegration.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/components/integration/BankStatementIntegration.tsx",
+      "space_saved": 12585
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/unified-frontend/src/components/AccountManagement.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/components/AccountManagement.tsx",
+      "space_saved": 15168
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/unified-frontend/src/components/PerformanceMonitor.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/components/PerformanceMonitor.tsx",
+      "space_saved": 7930
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/unified-frontend/src/components/__tests__/ErrorFallback.test.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/shared-frontend/components/__tests__/ErrorFallback.test.tsx",
+      "space_saved": 4639
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/frontend/src/contexts/AuthContext.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/src/frontend/src/contexts/AuthContext.tsx",
+      "space_saved": 4079
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/backup_backends/src/frontend/src/index.tsx",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/frontend/src/index.tsx",
+      "space_saved": 273
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/NexusMobile/tsconfig.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/frontend/mobile/tsconfig.json",
+      "space_saved": 242
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/frontend/mobile/package-lock.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/NexusMobile/package-lock.json",
+      "space_saved": 471806
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/NexusMobile/app.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/environment/app.json",
+      "space_saved": 1224
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/config/environment/en.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/frontend/src/i18n/translations/en.json",
+      "space_saved": 5695
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/config/environment/service_registry.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/data/service_registry.json",
+      "space_saved": 34525
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/unified-frontend/public/manifest.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/environment/manifest.json",
+      "space_saved": 701
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/frontend/public/manifest.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/src/frontend/public/manifest.json",
+      "space_saved": 303
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_automation_files/automation_config.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_automation_files/automation_config.json",
+      "space_saved": 332
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/manifest.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/manifest.json",
+      "space_saved": 511
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/package-lock.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/package-lock.json",
+      "space_saved": 369618
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/config/nexus_ssot_config.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/config/nexus_ssot_config.json",
+      "space_saved": 2103
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/config/nexus_ssot_config.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/config/nexus_ssot_config.json",
+      "space_saved": 2103
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/nexus_ssot_consolidated/config/nexus_ssot_config.json",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/config/nexus_ssot_config.json",
+      "space_saved": 2103
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/backend/requirements.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backend-consolidated/requirements.txt",
+      "space_saved": 1028
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/requirements-test.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/requirements-test.txt",
+      "space_saved": 332
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/app/requirements.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/app/requirements.txt",
+      "space_saved": 696
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/backend-implementations/nexus_backend/requirements.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/backup_backends/nexus_backend/requirements.txt",
+      "space_saved": 407
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_documentation/20250917_220924/.nexus/ssot/master/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_documentation/20250917_220924/.nexus/ssot/master/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_documentation/20250917_220924/.nexus/ssot/master/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/backups/final_security_20250917_193518/complete_ssot_backup/unified_ssot_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/consolidated_other/vendor/vendor.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_documentation/20250917_220924/nexus_env/lib/python3.13/site-packages/pip/_vendor/vendor.txt",
+      "space_saved": 343
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/requirements.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/requirements.txt",
+      "space_saved": 814
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/infrastructure/terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/5.100.0/darwin_amd64/LICENSE.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/infrastructure/terraform/.terraform/providers/registry.terraform.io/hashicorp/random/3.7.2/darwin_amd64/LICENSE.txt",
+      "space_saved": 16761
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/services/audit_service/requirements.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/services/performance_service/requirements.txt",
+      "space_saved": 16
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/services/backup_service/requirements.txt",
+      "kept_file": "/Users/Arief/Desktop/Nexus/services/performance_service/requirements.txt",
+      "space_saved": 16
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/consolidated_other/database_schema/database_schema.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/database/database_schema.yml",
+      "space_saved": 8575
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/database_schema.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/database/database_schema.yml",
+      "space_saved": 8575
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/database_schema.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/database/database_schema.yml",
+      "space_saved": 8575
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/database_schema.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/database/database_schema.yml",
+      "space_saved": 8575
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/consolidated_other/security_policies/security_policies.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/security/security_policies.yml",
+      "space_saved": 9441
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/security_policies.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/security/security_policies.yml",
+      "space_saved": 9441
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/security_policies.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/security/security_policies.yml",
+      "space_saved": 9441
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/security_policies.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/security/security_policies.yml",
+      "space_saved": 9441
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/monitoring/jaeger.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/environment/jaeger.yml",
+      "space_saved": 99
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/monitoring/jaeger.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/environment/jaeger.yml",
+      "space_saved": 99
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/monitoring/jaeger.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/environment/jaeger.yml",
+      "space_saved": 99
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/enhanced_ports.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/environment/enhanced_ports.yml",
+      "space_saved": 1234
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/enhanced_ports.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/environment/enhanced_ports.yml",
+      "space_saved": 1234
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/enhanced_ports.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/environment/enhanced_ports.yml",
+      "space_saved": 1234
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/monitoring/elasticsearch.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/environment/elasticsearch.yml",
+      "space_saved": 174
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/monitoring/elasticsearch.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/environment/elasticsearch.yml",
+      "space_saved": 174
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/monitoring/elasticsearch.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/environment/elasticsearch.yml",
+      "space_saved": 174
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/ports.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/ports.yml",
+      "space_saved": 948
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/ports.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/config/ports.yml",
+      "space_saved": 948
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_cleaned/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/monitoring/prometheus.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/monitoring/prometheus.yml",
+      "space_saved": 818
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/monitoring/prometheus.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archive_system_backup_20250917_010736/ssot_backup/monitoring/prometheus.yml",
+      "space_saved": 818
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/alertmanager.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/alertmanager.yml",
+      "space_saved": 281
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/docker-compose.jaeger.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/docker-compose.jaeger.yml",
+      "space_saved": 257
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/config/prometheus.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/config/prometheus.yml",
+      "space_saved": 887
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/docker-compose.optimized.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/config/docker-compose.optimized.yml",
+      "space_saved": 6455
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/docker-compose.optimized.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/config/docker-compose.optimized.yml",
+      "space_saved": 6455
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/docker-compose.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/docker-compose.yml",
+      "space_saved": 4220
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/environment.yml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/environment.yml",
+      "space_saved": 25
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/qwen-code/integration-tests/terminal-bench/ci-tasks/hello-world/docker-compose.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/docker/docker-compose.yaml",
+      "space_saved": 430
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/k8s/namespace.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/kubernetes/namespace.yaml",
+      "space_saved": 105
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/k8s/namespace.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/kubernetes/namespace.yaml",
+      "space_saved": 105
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/k8s/postgres.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/kubernetes/postgres.yaml",
+      "space_saved": 2042
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/k8s/postgres.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/kubernetes/postgres.yaml",
+      "space_saved": 2042
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/k8s/configmap.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/kubernetes/configmap.yaml",
+      "space_saved": 522
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/k8s/configmap.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/kubernetes/configmap.yaml",
+      "space_saved": 522
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/k8s/pvc.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/kubernetes/pvc.yaml",
+      "space_saved": 1086
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/k8s/pvc.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/kubernetes/pvc.yaml",
+      "space_saved": 1086
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/k8s/redis.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/kubernetes/redis.yaml",
+      "space_saved": 1593
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/k8s/redis.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/config/kubernetes/redis.yaml",
+      "space_saved": 1593
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/ingress.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/ingress.yaml",
+      "space_saved": 1055
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/hpa.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/hpa.yaml",
+      "space_saved": 2557
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/namespace.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/namespace.yaml",
+      "space_saved": 643
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/kustomization.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/kustomization.yaml",
+      "space_saved": 416
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/frontend-deployment.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/frontend-deployment.yaml",
+      "space_saved": 2119
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/k8s/nexus-ssot-main.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/k8s/nexus-ssot-main.yaml",
+      "space_saved": 2542
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/k8s/secret.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/k8s/secret.yaml",
+      "space_saved": 335
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/k8s/nexus-simple-ui.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/k8s/nexus-simple-ui.yaml",
+      "space_saved": 2737
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/postgres-optimized.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/postgres-optimized.yaml",
+      "space_saved": 4334
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/redis-cluster.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archive_consolidated/archive_consolidated_archived_files_consolidated_configs/redis-cluster.yaml",
+      "space_saved": 5456
+    },
+    {
+      "action": "removed_duplicate",
+      "file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archived_systems/nexus_ssot_consolidated/k8s/nexus-api-gateway.yaml",
+      "kept_file": "/Users/Arief/Desktop/Nexus/archived_bin/old_archives/archives_backup_phase4/archived_systems/nexus_ssot_consolidated/k8s/nexus-api-gateway.yaml",
+      "space_saved": 2767
+    }
+  ],
+  "recommendations": [
+    "Consider consolidating 17372 python files into modules",
+    "Consider consolidating 1322 javascript files into modules",
+    "Consider consolidating 201 json files into modules",
+    "Consider consolidating 1334 markdown files into modules",
+    "Consider consolidating 156 other files into modules",
+    "Consider consolidating 322 yaml files into modules",
+    "Found 788 groups of files with similar names that might be candidates for consolidation"
+  ]
+}

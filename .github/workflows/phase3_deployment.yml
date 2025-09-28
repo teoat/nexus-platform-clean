@@ -1,0 +1,205 @@
+name: Phase 3 Production Deployment
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/services/ai_optimizer.py"
+      - "backend/services/performance_monitor.py"
+      - "backend/services/security_hardening.py"
+      - "backend/services/deployment_automation.py"
+      - "backend/services/analytics_engine.py"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deployment environment"
+        required: true
+        default: "staging"
+        type: choice
+        options:
+          - staging
+          - production
+      skip_tests:
+        description: "Skip tests"
+        required: false
+        default: false
+        type: boolean
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: nexus-platform
+
+jobs:
+  # Pre-deployment validation
+  validate:
+    runs-on: ubuntu-latest
+    outputs:
+      should-deploy: ${{ steps.decision.outputs.should-deploy }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+
+      - name: Run Phase 3 validation
+        run: |
+          python scripts/validate_phase3_implementation.py
+
+      - name: Run security scan
+        run: |
+          python scripts/automated_security_scan.py --run-once
+
+      - name: Check for critical issues
+        id: decision
+        run: |
+          if [ -f "phase3_validation_results.json" ]; then
+            CRITICAL_ISSUES=$(jq '.validation_checks.security_features.checks.vulnerability_scanning.vulnerabilities_found' phase3_validation_results.json)
+            if [ "$CRITICAL_ISSUES" -gt 0 ]; then
+              echo "should-deploy=false" >> $GITHUB_OUTPUT
+              echo "Critical security issues found, blocking deployment"
+            else
+              echo "should-deploy=true" >> $GITHUB_OUTPUT
+              echo "No critical issues, proceeding with deployment"
+            fi
+          else
+            echo "should-deploy=false" >> $GITHUB_OUTPUT
+            echo "Validation results not found, blocking deployment"
+          fi
+
+  # Build and test
+  build-and-test:
+    needs: validate
+    if: needs.validate.outputs.should-deploy == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service:
+          [
+            ai-optimizer,
+            performance-monitor,
+            security-hardening,
+            deployment-automation,
+            analytics-engine,
+          ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+
+      - name: Run service tests
+        run: |
+          python -m pytest backend/tests/test_${matrix.service}.py -v
+
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${matrix.service}:${{ github.sha }} \
+            -f docker/Dockerfile.${matrix.service} .
+
+      - name: Push Docker image
+        if: github.event_name != 'pull_request'
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${matrix.service}:${{ github.sha }}
+
+  # Deploy to staging
+  deploy-staging:
+    needs: [validate, build-and-test]
+    if: needs.validate.outputs.should-deploy == 'true' && (github.ref == 'refs/heads/main' || github.event.inputs.environment == 'staging')
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to staging
+        run: |
+          python scripts/deploy_phase3_production.py --environment staging
+
+      - name: Run smoke tests
+        run: |
+          python scripts/run_smoke_tests.py --environment staging
+
+      - name: Notify deployment
+        if: always()
+        run: |
+          echo "Staging deployment completed"
+
+  # Deploy to production
+  deploy-production:
+    needs: [validate, build-and-test, deploy-staging]
+    if: needs.validate.outputs.should-deploy == 'true' && github.event.inputs.environment == 'production'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to production
+        run: |
+          python scripts/deploy_phase3_production.py --environment production
+
+      - name: Run production tests
+        run: |
+          python scripts/run_production_tests.py --environment production
+
+      - name: Update monitoring dashboards
+        run: |
+          python scripts/update_monitoring_dashboards.py
+
+      - name: Notify deployment
+        if: always()
+        run: |
+          echo "Production deployment completed"
+
+  # Post-deployment monitoring
+  monitor-deployment:
+    needs: [deploy-staging, deploy-production]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+
+      - name: Monitor deployment health
+        run: |
+          python scripts/monitor_deployment_health.py --duration 300
+
+      - name: Generate deployment report
+        run: |
+          python scripts/generate_deployment_report.py
+
+      - name: Upload deployment artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-artifacts
+          path: |
+            deployment_report.json
+            phase3_validation_results.json
+            phase3_integration_results.json

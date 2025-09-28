@@ -1,0 +1,94 @@
+# NEXUS Platform - Environment Configuration SSOT Anchor
+# Generated: 2025-01-27T12:30:00Z
+# Version: 1.0
+
+metadata:
+  anchor_id: "env_config"
+  family: "deployment"
+  description: "Environment-specific configuration settings"
+  format: "yaml"
+  owner: "@nexus-devops-team"
+  version: "v1.0.0"
+  centrality_score: 0.88
+
+environments:
+  development:
+    database:
+      host: "localhost"
+      port: 5432
+      name: "nexus_dev"
+      user: "nexus"
+      ssl: false
+    redis:
+      host: "localhost"
+      port: 6379
+      db: 0
+    api:
+      base_url: "http://localhost:8000"
+      timeout: 30
+    monitoring:
+      enabled: true
+      level: "debug"
+    features:
+      ssot_aliasing: true
+      audit_logging: true
+      rate_limiting: false
+
+  staging:
+    database:
+      host: "staging-db.nexus.com"
+      port: 5432
+      name: "nexus_staging"
+      user: "nexus"
+      ssl: true
+    redis:
+      host: "staging-redis.nexus.com"
+      port: 6379
+      db: 0
+    api:
+      base_url: "https://staging-api.nexus.com"
+      timeout: 30
+    monitoring:
+      enabled: true
+      level: "info"
+    features:
+      ssot_aliasing: true
+      audit_logging: true
+      rate_limiting: true
+
+  production:
+    database:
+      host: "prod-db.nexus.com"
+      port: 5432
+      name: "nexus_prod"
+      user: "nexus"
+      ssl: true
+    redis:
+      host: "prod-redis.nexus.com"
+      port: 6379
+      db: 0
+    api:
+      base_url: "https://api.nexus.com"
+      timeout: 30
+    monitoring:
+      enabled: true
+      level: "warn"
+    features:
+      ssot_aliasing: true
+      audit_logging: true
+      rate_limiting: true
+      security_scanning: true
+
+secrets:
+  database_passwords:
+    development: "nexus123"
+    staging: "${STAGING_DB_PASSWORD}"
+    production: "${PROD_DB_PASSWORD}"
+  redis_passwords:
+    development: "redis123"
+    staging: "${STAGING_REDIS_PASSWORD}"
+    production: "${PROD_REDIS_PASSWORD}"
+  jwt_secrets:
+    development: "dev-jwt-secret"
+    staging: "${STAGING_JWT_SECRET}"
+    production: "${PROD_JWT_SECRET}"

@@ -1,0 +1,20 @@
+# Monitoring Configuration
+metrics:
+  enabled: true
+  interval: 30
+  retention: 7d
+
+alerts:
+  enabled: true
+  channels:
+    - email
+    - slack
+    - webhook
+
+dashboards:
+  - name: "System Overview"
+    refresh: 30s
+  - name: "Performance"
+    refresh: 60s
+  - name: "Security"
+    refresh: 300s

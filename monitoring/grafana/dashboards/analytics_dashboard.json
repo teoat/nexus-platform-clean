@@ -1,0 +1,148 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "NEXUS Analytics Dashboard",
+    "tags": ["nexus", "analytics", "ai", "insights"],
+    "style": "dark",
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Analytics Overview",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "nexus_analytics_insights_total",
+            "legendFormat": "Total Insights"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 }
+      },
+      {
+        "id": 2,
+        "title": "Predictive Insights",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "nexus_predictive_insights_total",
+            "legendFormat": "Predictive Insights"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 }
+      },
+      {
+        "id": 3,
+        "title": "Usage Pattern Analysis",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "nexus_usage_patterns_detected",
+            "legendFormat": "Usage Patterns"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 24, "x": 0, "y": 8 }
+      },
+      {
+        "id": 4,
+        "title": "Anomaly Detection",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "nexus_anomalies_detected",
+            "legendFormat": "Anomalies"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 }
+      },
+      {
+        "id": 5,
+        "title": "Trend Analysis",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "nexus_trends_identified",
+            "legendFormat": "Trends"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 }
+      },
+      {
+        "id": 6,
+        "title": "AI Optimization Opportunities",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "nexus_ai_optimization_opportunities",
+            "legendFormat": "Optimization Opportunities"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 24, "x": 0, "y": 24 }
+      },
+      {
+        "id": 7,
+        "title": "Confidence Scores",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "nexus_ai_confidence_scores",
+            "legendFormat": "Confidence Score"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 32 }
+      },
+      {
+        "id": 8,
+        "title": "Impact Scores",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "nexus_ai_impact_scores",
+            "legendFormat": "Impact Score"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 32 }
+      },
+      {
+        "id": 9,
+        "title": "Business Intelligence Metrics",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "nexus_business_metrics",
+            "legendFormat": "Business Metrics"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 24, "x": 0, "y": 40 }
+      },
+      {
+        "id": 10,
+        "title": "Analytics Processing Time",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "nexus_analytics_processing_time_seconds",
+            "legendFormat": "Processing Time"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 48 }
+      },
+      {
+        "id": 11,
+        "title": "Data Quality Score",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "nexus_data_quality_score",
+            "legendFormat": "Data Quality"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 48 }
+      }
+    ],
+    "time": {
+      "from": "now-24h",
+      "to": "now"
+    },
+    "refresh": "30s"
+  }
+}

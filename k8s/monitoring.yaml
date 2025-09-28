@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus-monitoring
+  namespace: nexus
+  labels:
+    app: nexus-monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nexus-monitoring
+  template:
+    metadata:
+      labels:
+        app: nexus-monitoring
+    spec:
+      containers:
+        - name: monitoring
+          image: nexus-monitoring:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PHASE_SYSTEM_URI
+              value: "ws://nexus-phase-system:8766"
+            - name: MONITORING_INTERVAL
+              valueFrom:
+                configMapKeyRef:
+                  name: nexus-config
+                  key: MONITORING_INTERVAL
+            - name: QUALITY_CHECK_INTERVAL
+              valueFrom:
+                configMapKeyRef:
+                  name: nexus-config
+                  key: QUALITY_CHECK_INTERVAL
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: nexus-config
+                  key: REDIS_URL
+            - name: REDIS_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: nexus-config
+                  key: REDIS_PASSWORD
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
+          volumeMounts:
+            - name: logs
+              mountPath: /app/logs
+            - name: data
+              mountPath: /app/data
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "ps aux | grep -E '(monitoring|quality)' | grep -v grep"
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "ps aux | grep -E '(monitoring|quality)' | grep -v grep"
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+      volumes:
+        - name: logs
+          persistentVolumeClaim:
+            claimName: logs-pvc
+        - name: data
+          persistentVolumeClaim:
+            claimName: data-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-monitoring
+  namespace: nexus
+  labels:
+    app: nexus-monitoring
+spec:
+  selector:
+    app: nexus-monitoring
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: ClusterIP

@@ -1,0 +1,46 @@
+# Kibana configuration for NEXUS Platform
+
+server.name: nexus-kibana
+server.host: "0.0.0.0"
+server.port: 5601
+
+# Elasticsearch configuration
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+elasticsearch.requestTimeout: 60000
+elasticsearch.pingTimeout: 3000
+
+# Security
+server.securityResponseHeaders.strictTransportSecurity: "max-age=31536000"
+server.securityResponseHeaders.xContentTypeOptions: nosniff
+server.securityResponseHeaders.xFrameOptions: DENY
+
+# UI settings
+kibana.index: ".kibana"
+kibana.defaultAppId: "discover"
+
+# Logging
+logging:
+  appenders:
+    file:
+      type: file
+      fileName: /usr/share/kibana/logs/kibana.log
+      layout:
+        type: pattern
+        pattern: "[%date][%level] %message"
+  root:
+    appenders: [file]
+    level: info
+
+# Telemetry
+telemetry.enabled: false
+telemetry.optIn: false
+
+# News feed
+newsfeed.enabled: false
+
+# i18n
+i18n.locale: "en"
+
+# Custom branding
+server.customResponseHeaders:
+  X-NEXUS-PLATFORM: "true"

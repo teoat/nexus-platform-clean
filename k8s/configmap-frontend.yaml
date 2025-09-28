@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nexus-frontend-config
+  namespace: nexus-production
+data:
+  backend-api-url: "http://nexus-backend-service:8000"
+  ai-api-url: "http://nexus-frenly-ai-service:8001"

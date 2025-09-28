@@ -1,0 +1,113 @@
+# NEXUS Platform - Monitoring Configuration SSOT Anchor
+# Generated: 2025-01-27T12:30:00Z
+# Version: 1.0
+
+metadata:
+  anchor_id: "monitoring_config"
+  family: "observability"
+  description: "Monitoring, logging, and observability configuration"
+  format: "yaml"
+  owner: "@nexus-sre-team"
+  version: "v1.0.0"
+  centrality_score: 0.82
+
+prometheus:
+  global:
+    scrape_interval: "15s"
+    evaluation_interval: "15s"
+
+  rule_files:
+    - "ssot_rules.yml"
+
+  scrape_configs:
+    - job_name: "ssot-registry"
+      static_configs:
+        - targets: ["ssot-registry:8000"]
+      metrics_path: "/metrics"
+      scrape_interval: "30s"
+
+    - job_name: "frenly-ai-operator"
+      static_configs:
+        - targets: ["frenly-ai-operator:8000"]
+      metrics_path: "/metrics"
+      scrape_interval: "30s"
+
+    - job_name: "api-alias-router"
+      static_configs:
+        - targets: ["api-alias-router:8000"]
+      metrics_path: "/metrics"
+      scrape_interval: "30s"
+
+alerting_rules:
+  ssot_alerts:
+    - alert: "SSOTRegistryDown"
+      expr: 'up{job="ssot-registry"} == 0'
+      for: "1m"
+      labels:
+        severity: "critical"
+      annotations:
+        summary: "SSOT Registry is down"
+        description: "SSOT Registry has been down for more than 1 minute"
+
+    - alert: "HighAliasResolutionLatency"
+      expr: "alias_resolution_duration_seconds > 0.1"
+      for: "5m"
+      labels:
+        severity: "warning"
+      annotations:
+        summary: "High alias resolution latency"
+        description: "Alias resolution is taking longer than 100ms"
+
+    - alert: "SSOTValidationFailure"
+      expr: "ssot_validation_failures_total > 0"
+      for: "1m"
+      labels:
+        severity: "critical"
+      annotations:
+        summary: "SSOT validation failures detected"
+        description: "SSOT validation is failing, system integrity at risk"
+
+grafana:
+  dashboards:
+    - name: "SSOT Overview"
+      panels:
+        - title: "SSOT Registry Health"
+          type: "stat"
+          targets:
+            - expr: 'up{job="ssot-registry"}'
+        - title: "Alias Resolution Rate"
+          type: "graph"
+          targets:
+            - expr: "rate(alias_resolutions_total[5m])"
+        - title: "SSOT Validation Success Rate"
+          type: "graph"
+          targets:
+            - expr: 'rate(ssot_validations_total{status="success"}[5m])'
+
+logging:
+  level: "info"
+  format: "json"
+  outputs:
+    - type: "file"
+      path: "/var/log/nexus/ssot.log"
+      max_size: "100MB"
+      max_files: 5
+    - type: "stdout"
+
+  structured_logging:
+    enabled: true
+    fields:
+      - "timestamp"
+      - "level"
+      - "message"
+      - "operation_id"
+      - "context"
+
+metrics:
+  collection_interval: "30s"
+  retention_period: "30d"
+  storage:
+    type: "prometheus"
+    config:
+      retention_time: "30d"
+      storage_tsdb_retention_size: "10GB"

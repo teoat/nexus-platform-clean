@@ -1,0 +1,370 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: nexus-istio-control-plane
+  namespace: istio-system
+spec:
+  profile: default
+  components:
+    pilot:
+      enabled: true
+      k8s:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+    ingressGateways:
+      - name: istio-ingressgateway
+        enabled: true
+        k8s:
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 2000m
+              memory: 1024Mi
+          service:
+            ports:
+              - port: 15021
+                targetPort: 15021
+                name: status-port
+                protocol: TCP
+              - port: 80
+                targetPort: 8080
+                name: http2
+                protocol: TCP
+              - port: 443
+                targetPort: 8443
+                name: https
+                protocol: TCP
+              - port: 15012
+                targetPort: 15012
+                name: tls-passthrough
+                protocol: TCP
+    egressGateways:
+      - name: istio-egressgateway
+        enabled: true
+        k8s:
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 2000m
+              memory: 512Mi
+  values:
+    global:
+      proxy:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 2000m
+            memory: 1024Mi
+    pilot:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
+    gateways:
+      istio-ingressgateway:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 2000m
+            memory: 1024Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-gateway
+  namespace: nexus-platform
+spec:
+  selector:
+    app: nexus-gateway
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 8443
+      protocol: TCP
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus-gateway
+  namespace: nexus-platform
+  labels:
+    app: nexus-gateway
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nexus-gateway
+  template:
+    metadata:
+      labels:
+        app: nexus-gateway
+        security.istio.io/tlsMode: istio
+      annotations:
+        sidecar.istio.io/status: '{"version":"12345","initContainers":["istio-init"],"containers":["istio-proxy"],"volumes":["istio-envoy","istio-data","istio-podinfo","istio-token","istiod-ca-cert"]}'
+    spec:
+      containers:
+        - name: nexus-gateway
+          image: nexusplatform/nexus-gateway:latest
+          ports:
+            - containerPort: 8080
+              name: http
+            - containerPort: 8443
+              name: https
+          env:
+            - name: SERVICE_NAME
+              value: "nexus-gateway"
+            - name: SERVICE_VERSION
+              value: "v1.0.0"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+---
+apiVersion: config.istio.io/v1alpha2
+kind: Gateway
+metadata:
+  name: nexus-gateway
+  namespace: nexus-platform
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "api.nexusplatform.com"
+        - "app.nexusplatform.com"
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      hosts:
+        - "api.nexusplatform.com"
+        - "app.nexusplatform.com"
+      tls:
+        mode: SIMPLE
+        credentialName: nexus-tls-secret
+---
+apiVersion: config.istio.io/v1alpha2
+kind: VirtualService
+metadata:
+  name: nexus-api-vs
+  namespace: nexus-platform
+spec:
+  hosts:
+    - "api.nexusplatform.com"
+  gateways:
+    - nexus-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/api/v1/"
+      route:
+        - destination:
+            host: api-gateway
+            port:
+              number: 80
+            subset: v1
+          weight: 100
+    - match:
+        - uri:
+            prefix: "/health"
+      route:
+        - destination:
+            host: api-gateway
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: "/metrics"
+      route:
+        - destination:
+            host: api-gateway
+            port:
+              number: 80
+---
+apiVersion: config.istio.io/v1alpha2
+kind: VirtualService
+metadata:
+  name: nexus-app-vs
+  namespace: nexus-platform
+spec:
+  hosts:
+    - "app.nexusplatform.com"
+  gateways:
+    - nexus-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/"
+      route:
+        - destination:
+            host: frontend-service
+            port:
+              number: 80
+            subset: v1
+          weight: 100
+---
+apiVersion: config.istio.io/v1alpha2
+kind: DestinationRule
+metadata:
+  name: api-gateway-dr
+  namespace: nexus-platform
+spec:
+  host: api-gateway
+  subsets:
+    - name: v1
+      labels:
+        version: v1
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+    loadBalancer:
+      simple: ROUND_ROBIN
+    outlierDetection:
+      consecutive5xxErrors: 5
+      interval: 10s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+---
+apiVersion: config.istio.io/v1alpha2
+kind: DestinationRule
+metadata:
+  name: frontend-service-dr
+  namespace: nexus-platform
+spec:
+  host: frontend-service
+  subsets:
+    - name: v1
+      labels:
+        version: v1
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+    loadBalancer:
+      simple: ROUND_ROBIN
+---
+apiVersion: config.istio.io/v1alpha2
+kind: ServiceEntry
+metadata:
+  name: external-payment-gateway
+  namespace: nexus-platform
+spec:
+  hosts:
+    - payment.stripe.com
+    - api.paypal.com
+  ports:
+    - number: 443
+      name: https
+      protocol: HTTPS
+  location: MESH_EXTERNAL
+  resolution: DNS
+---
+apiVersion: config.istio.io/v1alpha2
+kind: EnvoyFilter
+metadata:
+  name: nexus-custom-filter
+  namespace: nexus-platform
+spec:
+  workloadSelector:
+    labels:
+      app: api-gateway
+  configPatches:
+    - applyTo: HTTP_FILTER
+      match:
+        context: SIDECAR_INBOUND
+        listener:
+          filterChain:
+            filter:
+              name: envoy.filters.network.http_connection_manager
+              subFilter:
+                name: envoy.filters.http.router
+      patch:
+        operation: INSERT_BEFORE
+        value:
+          name: envoy.filters.http.lua
+          typed_config:
+            "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
+            inline_code: |
+              function envoy_on_request(request_handle)
+                request_handle:headers():add("x-nexus-service-mesh", "enabled")
+                request_handle:headers():add("x-request-trace-id", request_handle:headers():get("x-request-id") or "")
+              end
+---
+apiVersion: config.istio.io/v1alpha2
+kind: AuthorizationPolicy
+metadata:
+  name: nexus-auth-policy
+  namespace: nexus-platform
+spec:
+  selector:
+    matchLabels:
+      app: api-gateway
+  rules:
+    - key: request.headers[authorization]
+      values: ["Bearer *"]
+    - key: request.headers[x-api-key]
+      values: ["*"]
+---
+apiVersion: config.istio.io/v1alpha2
+kind: RequestAuthentication
+metadata:
+  name: nexus-jwt-auth
+  namespace: nexus-platform
+spec:
+  selector:
+    matchLabels:
+      app: api-gateway
+  jwtRules:
+    - issuer: "nexus-platform"
+      jwksUri: "http://keycloak.nexus-platform.svc.cluster.local:8080/auth/realms/nexus/protocol/openid-connect/certs"
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: nexus-mtls
+  namespace: nexus-platform
+spec:
+  selector:
+    matchLabels:
+      app: nexus-gateway
+  mtls:
+    mode: STRICT

@@ -1,0 +1,136 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "NEXUS Phase 3 - Production Monitoring",
+    "tags": ["nexus", "phase3", "production"],
+    "style": "dark",
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "System Overview",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "nexus_system_health",
+            "legendFormat": "System Health"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 }
+      },
+      {
+        "id": 2,
+        "title": "CPU Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "nexus_cpu_percent",
+            "legendFormat": "CPU %"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 }
+      },
+      {
+        "id": 3,
+        "title": "Memory Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "nexus_memory_percent",
+            "legendFormat": "Memory %"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 }
+      },
+      {
+        "id": 4,
+        "title": "Response Time",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "nexus_response_time_seconds",
+            "legendFormat": "Response Time"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 }
+      },
+      {
+        "id": 5,
+        "title": "Error Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "nexus_error_rate",
+            "legendFormat": "Error Rate"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 }
+      },
+      {
+        "id": 6,
+        "title": "Cache Hit Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "nexus_cache_hit_rate",
+            "legendFormat": "Cache Hit Rate"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 }
+      },
+      {
+        "id": 7,
+        "title": "AI Optimization Opportunities",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "nexus_ai_optimization_opportunities",
+            "legendFormat": "Optimization Opportunities"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 24, "x": 0, "y": 24 }
+      },
+      {
+        "id": 8,
+        "title": "Security Vulnerabilities",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "nexus_security_vulnerabilities",
+            "legendFormat": "Security Issues"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 32 }
+      },
+      {
+        "id": 9,
+        "title": "Deployment Status",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "nexus_deployment_status",
+            "legendFormat": "Deployment Status"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 32 }
+      },
+      {
+        "id": 10,
+        "title": "Analytics Insights",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "nexus_analytics_insights",
+            "legendFormat": "Analytics Insights"
+          }
+        ],
+        "gridPos": { "h": 8, "w": 24, "x": 0, "y": 40 }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "30s"
+  }
+}

@@ -1,0 +1,238 @@
+# NEXUS Platform - Security Scan Configuration
+# Configuration for automated security scanning
+
+# Global settings
+global:
+  log_level: INFO
+  timeout: 300
+  reports_dir: /nexus_backend/reports/security
+  logs_dir: /nexus_backend/logs
+  fail_on_critical: true
+  fail_on_high: false
+
+# Container scanning configuration
+container_scanning:
+  enabled: true
+  images:
+    - nexus-backend-staging
+    - nexus-backend
+    - postgres:15
+    - redis:7.2
+  severity_threshold: MEDIUM
+  scanners:
+    - trivy
+    - clair
+  trivy:
+    format: json
+    severity: "HIGH,CRITICAL"
+    ignore_unfixed: false
+    vuln_type: "os,library"
+  clair:
+    uri: http://localhost:6060
+
+# Dependency scanning configuration
+dependency_scanning:
+  enabled: true
+  files:
+    - requirements.txt
+    - requirements-staging.txt
+    - package.json
+    - package-lock.json
+  scanners:
+    - safety
+    - pip-audit
+    - npm-audit
+    - owasp-dependency-check
+  safety:
+    format: json
+    ignore_ids: []
+  pip_audit:
+    format: json
+    require_hashes: false
+  npm_audit:
+    audit_level: moderate
+    production: true
+
+# Code security scanning (SAST) configuration
+code_scanning:
+  enabled: true
+  paths:
+    - nexus_backend/
+    - nexus_backend/
+    - nexus_backend/
+  exclude_patterns:
+    - "**/__pycache__/**"
+    - "**/*.pyc"
+    - "**/node_modules/**"
+    - "**/migrations/**"
+    - "**/tests/**"
+  scanners:
+    - bandit
+    - semgrep
+    - sonarlint
+  bandit:
+    config_file: .bandit
+    severity: HIGH,MEDIUM
+    confidence: HIGH,MEDIUM
+  semgrep:
+    config: auto
+    severity: ERROR,WARNING
+    include:
+      - "*.py"
+      - "*.js"
+      - "*.ts"
+  sonarlint:
+    rules:
+      - python:S2077 # SQL injection
+      - python:S2068 # Hardcoded passwords
+      - python:S4790 # Cryptographic keys
+
+# Compliance scanning configuration
+compliance_scanning:
+  enabled: true
+  standards:
+    - owasp_top_10
+    - pci_dss
+    - nist_800_53
+    - iso_27001
+  owasp_top_10:
+    checks:
+      - injection
+      - broken_authentication
+      - sensitive_data_exposure
+      - xml_external_entities
+      - broken_access_control
+      - security_misconfiguration
+      - cross_site_scripting
+      - insecure_deserialization
+      - vulnerable_components
+      - insufficient_logging
+  pci_dss:
+    version: "3.2.1"
+    checks:
+      - data_encryption
+      - access_control
+      - network_security
+      - logging_monitoring
+  nist_800_53:
+    controls:
+      - AC-2 # Account Management
+      - AC-3 # Access Enforcement
+      - IA-2 # Identification and Authentication
+      - SC-8 # Transmission Confidentiality
+
+# Infrastructure scanning configuration
+infrastructure_scanning:
+  enabled: true
+  checks:
+    - docker_security
+    - kubernetes_security
+    - network_security
+    - configuration_security
+  docker:
+    privileged_containers: false
+    root_containers: false
+    exposed_ports_check: true
+    security_options_check: true
+  kubernetes:
+    privileged_pods: false
+    root_pods: false
+    network_policies: true
+    rbac_enabled: true
+  network:
+    open_ports_check: true
+    firewall_rules: true
+    ssl_tls_check: true
+  configuration:
+    secrets_in_code: false
+    hardcoded_credentials: false
+    debug_mode: false
+
+# Secret scanning configuration
+secret_scanning:
+  enabled: true
+  patterns:
+    - aws_access_key_id
+    - aws_secret_access_key
+    - github_token
+    - slack_token
+    - stripe_secret_key
+    - database_password
+    - jwt_secret
+  exclude_paths:
+    - "**/test/**"
+    - "**/spec/**"
+    - "**/*.md"
+    - "**/docs/**"
+
+# Vulnerability management
+vulnerability_management:
+  enabled: true
+  max_age_days: 30
+  severity_threshold: MEDIUM
+  auto_remediation: false
+  notification:
+    enabled: true
+    channels:
+      - slack
+      - email
+    recipients:
+      - security-team@nexusplatform.com
+
+# CI/CD integration
+ci_cd_integration:
+  enabled: true
+  fail_pipeline_on:
+    critical_vulnerabilities: true
+    high_vulnerabilities: false
+    failed_scans: true
+  baseline_comparison: true
+  generate_sarif: true
+  upload_results: true
+
+# Reporting configuration
+reporting:
+  enabled: true
+  formats:
+    - json
+    - html
+    - pdf
+    - sarif
+  retention_days: 90
+  dashboard_integration: true
+  email_reports: true
+  email_recipients:
+    - security-team@nexusplatform.com
+    - devops-team@nexusplatform.com
+
+# Performance tuning
+performance:
+  parallel_scans: true
+  max_concurrent_scans: 3
+  scan_timeout: 600
+  cache_results: true
+  cache_ttl: 3600
+
+# Custom rules
+custom_rules:
+  enabled: false
+  rules_file: config/custom_security_rules.yaml
+
+# Integration endpoints
+integrations:
+  slack:
+    enabled: false
+    webhook_url: ""
+    channel: "#security-alerts"
+  jira:
+    enabled: false
+    url: ""
+    project_key: "SEC"
+    issue_type: "Bug"
+  elasticsearch:
+    enabled: false
+    url: ""
+    index: "security-scans"
+  prometheus:
+    enabled: false
+    pushgateway_url: ""

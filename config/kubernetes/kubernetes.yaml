@@ -1,0 +1,12 @@
+dependencies:
+  - docker
+metadata:
+  cluster: nexus-prod
+  namespace: nexus
+  replicas: 3
+name: kubernetes_config
+type: kubernetes
+validation_rules:
+  - manifest_validation
+  - resource_check
+version: 1.0.0

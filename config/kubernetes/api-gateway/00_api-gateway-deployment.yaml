@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus-api-gateway
+  namespace: nexus
+  labels:
+    app: nexus-api-gateway
+    component: gateway
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nexus-api-gateway
+  template:
+    metadata:
+      labels:
+        app: nexus-api-gateway
+        component: gateway
+    spec:
+      containers:
+        - name: nexus-api-gateway
+          image: nexus-ssot:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: http
+            - containerPort: 443
+              name: https
+          env:
+            - name: NEXUS_MODE
+              valueFrom:
+                configMapKeyRef:
+                  name: nexus-config
+                  key: NEXUS_MODE
+            - name: PYTHONPATH
+              valueFrom:
+                configMapKeyRef:
+                  name: nexus-config
+                  key: PYTHONPATH
+          command: ["python3", "core/nexus_api_gateway.py", "--port", "80"]
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          volumeMounts:
+            - name: config-volume
+              mountPath: /nexus_backend/config
+            - name: logs-volume
+              mountPath: /nexus_backend/logs
+      volumes:
+        - name: config-volume
+          configMap:
+            name: nexus-config
+        - name: logs-volume
+          persistentVolumeClaim:
+            claimName: nexus-logs-pvc
+      restartPolicy: Always

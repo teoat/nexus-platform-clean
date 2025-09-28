@@ -1,0 +1,12 @@
+# Application-wide settings for Nexus Platform
+
+# API Endpoints
+api_urls:
+  backend: "http://nexus-backend-service:8000"
+  ai_orchestrator: "http://nexus-frenly-ai-service:8001"
+
+# Performance Thresholds for System Validation
+performance_thresholds:
+  max_response_time_ms: 2000
+  max_memory_mb: 100
+  min_success_rate: 95

@@ -1,0 +1,84 @@
+# Advanced Prometheus Configuration for On-Demand Monitoring
+# Agent 3: DevOps & Configuration Agent Implementation
+
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+rule_files:
+  - "advanced_alert_rules.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # NEXUS Backend (High Frequency)
+  - job_name: "nexus-backend-advanced"
+    static_configs:
+      - targets: ["nexus-backend:8002"]
+    metrics_path: "/metrics"
+    scrape_interval: 5s
+
+  # NEXUS Frontend (High Frequency)
+  - job_name: "nexus-frontend-advanced"
+    static_configs:
+      - targets: ["nexus-frontend:80"]
+    metrics_path: "/metrics"
+    scrape_interval: 5s
+
+  # PostgreSQL (High Frequency)
+  - job_name: "postgres-advanced"
+    static_configs:
+      - targets: ["nexus-postgres:5432"]
+    scrape_interval: 5s
+
+  # Redis (High Frequency)
+  - job_name: "redis-advanced"
+    static_configs:
+      - targets: ["nexus-redis:6379"]
+    scrape_interval: 5s
+
+  # Frenly AI Brain (High Frequency)
+  - job_name: "frenly-brain-advanced"
+    static_configs:
+      - targets: ["frenly-brain:8766"]
+    metrics_path: "/metrics"
+    scrape_interval: 5s
+
+  # Kubernetes Integration (if enabled)
+  - job_name: "kubernetes-integration"
+    static_configs:
+      - targets: ["kubernetes-integration:8080"]
+    scrape_interval: 10s
+
+  # Advanced Security (if enabled)
+  - job_name: "advanced-security"
+    static_configs:
+      - targets: ["advanced-security:8080"]
+    scrape_interval: 10s
+
+  # Application Performance Monitoring
+  - job_name: "apm"
+    static_configs:
+      - targets: ["apm-agent:8126"]
+    scrape_interval: 5s
+
+  # Custom Business Metrics
+  - job_name: "business-metrics"
+    static_configs:
+      - targets: ["business-metrics:8080"]
+    scrape_interval: 10s
+
+  # User Experience Monitoring
+  - job_name: "ux-monitoring"
+    static_configs:
+      - targets: ["ux-monitoring:8080"]
+    scrape_interval: 15s

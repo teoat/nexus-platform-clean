@@ -1,0 +1,41 @@
+# NEXUS Platform - Development Environment Configuration
+# This file contains development-specific overrides
+
+# System Settings
+system:
+  workspace_path: "/Users/Arief/Desktop/Nexus"
+  master_todo_path: ".nexus/ssot/master/master_todo.md"
+
+# Database Configuration
+database:
+  host: "localhost"
+  port: 5432
+  name: "nexus_dev"
+  user: "nexus_user"
+  password: "dev_password"
+
+# API Configuration
+api:
+  host: "localhost"
+  port: 8000
+  debug: true
+
+# Security Configuration
+security:
+  enable_encryption: false
+  enable_authentication: false
+  jwt_secret_key: "dev-secret-key-change-in-production"
+
+# Performance Configuration
+performance:
+  enable_profiling: true
+
+# Logging Configuration
+logging:
+  level: "DEBUG"
+  file: "nexus_dev.log"
+
+# Features
+features:
+  web_interface: true
+  api_endpoints: true

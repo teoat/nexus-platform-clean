@@ -1,0 +1,66 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nexus-ingress
+  namespace: nexus
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+    - hosts:
+        - nexus.example.com
+      secretName: nexus-tls
+  rules:
+    - host: nexus.example.com
+      http:
+        paths:
+          - path: /phase-system
+            pathType: Prefix
+            backend:
+              service:
+                name: nexus-phase-system
+                port:
+                  number: 8766
+          - path: /agents
+            pathType: Prefix
+            backend:
+              service:
+                name: nexus-agents
+                port:
+                  number: 8080
+          - path: /monitoring
+            pathType: Prefix
+            backend:
+              service:
+                name: nexus-monitoring
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nexus-phase-system
+                port:
+                  number: 8766
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-loadbalancer
+  namespace: nexus
+  labels:
+    app: nexus-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: nexus-phase-system
+  ports:
+    - port: 80
+      targetPort: 8766
+      protocol: TCP
+    - port: 443
+      targetPort: 8766
+      protocol: TCP

@@ -1,0 +1,42 @@
+{
+  "name": "nexus-platform",
+  "version": "3.0.0",
+  "description": "NEXUS Platform - Advanced Financial Examination System with AI Orchestration",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && python3 -m uvicorn main_unified:app --host 0.0.0.0 --port 8000 --reload",
+    "frontend": "cd frontend/web && npm start",
+    "build": "cd frontend/web && npm run build",
+    "test": "python3 scripts/validate_system.py",
+    "deploy": "./scripts/deploy_final_production.sh",
+    "validate": "python3 scripts/frenly_validation_master.py"
+  },
+  "keywords": [
+    "nexus",
+    "platform",
+    "financial",
+    "examination",
+    "ai",
+    "orchestration",
+    "ssot",
+    "monitoring"
+  ],
+  "author": "NEXUS Platform Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nexus-platform/nexus"
+  },
+  "bugs": {
+    "url": "https://github.com/nexus-platform/nexus/issues"
+  },
+  "homepage": "https://github.com/nexus-platform/nexus#readme"
+}

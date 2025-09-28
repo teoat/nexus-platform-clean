@@ -1,0 +1,245 @@
+# NEXUS Platform - SSOT Documentation System Configuration
+# Single Source of Truth for Documentation Management
+
+version: "1.0"
+last_updated: "2025-01-27"
+description: "SSOT Documentation System with fixed file counts and automation triggers"
+
+# Documentation Types with Fixed File Limits
+documentation_types:
+  architecture:
+    name: "Architecture Documentation"
+    max_files: 3
+    required_files:
+      - "CONSOLIDATED_ARCHITECTURE.md"
+      - "MASTER_DOCUMENTATION_INDEX.md"
+    primary_file: "CONSOLIDATED_ARCHITECTURE.md"
+    consolidation_rules:
+      merge_strategy: "append_sections"
+      archive_duplicates: true
+      preserve_structure: true
+    validation_rules:
+      - "schema_validation"
+      - "link_integrity"
+      - "completeness_check"
+    automation_threshold: 3
+    current_count: 2
+    status: "within_limits"
+
+  api:
+    name: "API Documentation"
+    max_files: 2
+    required_files:
+      - "CONSOLIDATED_API_INTEGRATION.md"
+    primary_file: "CONSOLIDATED_API_INTEGRATION.md"
+    consolidation_rules:
+      merge_strategy: "merge_endpoints"
+      archive_duplicates: true
+      preserve_structure: true
+    validation_rules:
+      - "api_schema_validation"
+      - "endpoint_consistency"
+    automation_threshold: 3
+    current_count: 1
+    status: "within_limits"
+
+  deployment:
+    name: "Deployment Documentation"
+    max_files: 2
+    required_files:
+      - "CONSOLIDATED_DEPLOYMENT_OPERATIONS.md"
+    primary_file: "CONSOLIDATED_DEPLOYMENT_OPERATIONS.md"
+    consolidation_rules:
+      merge_strategy: "merge_operations"
+      archive_duplicates: true
+      preserve_structure: true
+    validation_rules:
+      - "deployment_validation"
+      - "command_consistency"
+    automation_threshold: 3
+    current_count: 1
+    status: "within_limits"
+
+  development:
+    name: "Development Documentation"
+    max_files: 2
+    required_files:
+      - "CONSOLIDATED_DEVELOPMENT_GUIDE.md"
+    primary_file: "CONSOLIDATED_DEVELOPMENT_GUIDE.md"
+    consolidation_rules:
+      merge_strategy: "merge_guides"
+      archive_duplicates: true
+      preserve_structure: true
+    validation_rules:
+      - "code_standards_validation"
+      - "guide_consistency"
+    automation_threshold: 3
+    current_count: 1
+    status: "within_limits"
+
+  user:
+    name: "User Documentation"
+    max_files: 2
+    required_files:
+      - "CONSOLIDATED_USER_DOCUMENTATION.md"
+    primary_file: "CONSOLIDATED_USER_DOCUMENTATION.md"
+    consolidation_rules:
+      merge_strategy: "merge_user_guides"
+      archive_duplicates: true
+      preserve_structure: true
+    validation_rules:
+      - "user_guide_validation"
+      - "workflow_consistency"
+    automation_threshold: 3
+    current_count: 1
+    status: "within_limits"
+
+  security:
+    name: "Security Documentation"
+    max_files: 2
+    required_files:
+      - "CONSOLIDATED_SECURITY_COMPLIANCE.md"
+    primary_file: "CONSOLIDATED_SECURITY_COMPLIANCE.md"
+    consolidation_rules:
+      merge_strategy: "merge_security_policies"
+      archive_duplicates: true
+      preserve_structure: true
+    validation_rules:
+      - "security_validation"
+      - "compliance_consistency"
+    automation_threshold: 3
+    current_count: 1
+    status: "within_limits"
+
+# Automation Configuration
+automation:
+  enabled: true
+  trigger_threshold: 3 # Trigger after 3 new files
+  consolidation_delay: 30 # seconds
+  archive_after_consolidation: true
+  backup_before_consolidation: true
+  notification_enabled: true
+
+# Agent Integration
+agent_integration:
+  enabled: true
+  agent_documentation_map: "AGENT_DOCUMENTATION_MAP.md"
+  quick_access_enabled: true
+  role_based_access: true
+  task_specific_docs: true
+
+# Validation Rules
+validation:
+  schema_validation:
+    enabled: true
+    strict_mode: false
+    auto_fix: true
+
+  link_integrity:
+    enabled: true
+    check_external_links: false
+    auto_fix_broken_links: true
+
+  completeness_check:
+    enabled: true
+    required_sections: ["overview", "quick_start", "troubleshooting"]
+    auto_generate_missing: true
+
+# File Management
+file_management:
+  archive_directory: "docs/archived"
+  backup_directory: "docs/backups"
+  temp_directory: "docs/temp"
+  max_file_size: "10MB"
+  allowed_extensions: [".md", ".txt", ".rst"]
+
+# Monitoring and Metrics
+monitoring:
+  enabled: true
+  metrics_collection: true
+  usage_tracking: true
+  performance_monitoring: true
+  alert_thresholds:
+    file_count_warning: 2
+    file_count_critical: 3
+    consolidation_failure: 1
+    validation_failure: 5
+
+# NUC Integration
+nuc_integration:
+  enabled: true
+  service_name: "ssot_documentation_manager"
+  health_check_interval: 30
+  event_handlers:
+    - "documentation_consolidated"
+    - "ssot_drift_detected"
+    - "validation_failed"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file: "logs/ssot_documentation.log"
+  max_size: "10MB"
+  backup_count: 5
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Security Configuration
+security:
+  file_permissions: "644"
+  directory_permissions: "755"
+  backup_encryption: false
+  access_control: false
+  audit_logging: true
+
+# Performance Configuration
+performance:
+  max_concurrent_operations: 5
+  consolidation_timeout: 300 # seconds
+  validation_timeout: 60 # seconds
+  cache_enabled: true
+  cache_ttl: 3600 # seconds
+
+# Backup and Recovery
+backup:
+  enabled: true
+  schedule: "daily"
+  retention_days: 30
+  compression: true
+  encryption: false
+  remote_backup: false
+
+# Notifications
+notifications:
+  email:
+    enabled: false
+    smtp_server: ""
+    smtp_port: 587
+    username: ""
+    password: ""
+    recipients: []
+
+  slack:
+    enabled: false
+    webhook_url: ""
+    channel: "#documentation"
+
+  webhook:
+    enabled: false
+    url: ""
+    timeout: 30
+
+# Development and Testing
+development:
+  debug_mode: false
+  test_mode: false
+  mock_consolidation: false
+  dry_run: false
+  verbose_logging: false
+
+# Maintenance
+maintenance:
+  auto_cleanup: true
+  cleanup_schedule: "weekly"
+  temp_file_retention: 7 # days
+  log_retention: 30 # days
+  archive_retention: 90 # days

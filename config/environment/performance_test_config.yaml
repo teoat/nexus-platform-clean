@@ -1,0 +1,221 @@
+# NEXUS Platform - Performance Testing Configuration
+# Configuration for comprehensive performance testing
+
+# Global settings
+global:
+  base_url: "http://localhost:8000"
+  log_level: INFO
+  timeout: 300
+  reports_dir: /nexus_backend/reports/performance
+  logs_dir: /nexus_backend/logs
+  warmup_duration: 60
+  cooldown_duration: 30
+
+# Performance thresholds
+thresholds:
+  max_response_time_avg: 500 # milliseconds
+  max_response_time_95p: 2000 # milliseconds
+  max_response_time_99p: 5000 # milliseconds
+  max_error_rate: 5.0 # percentage
+  min_throughput_rps: 10 # requests per second
+  max_cpu_usage: 80 # percentage
+  max_memory_usage: 85 # percentage
+  max_database_connections: 100
+
+# Load testing scenarios
+scenarios:
+  light_load:
+    name: "Light Load Test"
+    description: "Basic functionality test with light load"
+    users: 10
+    spawn_rate: 2
+    duration: 120 # seconds
+    think_time_min: 1.0
+    think_time_max: 3.0
+
+  medium_load:
+    name: "Medium Load Test"
+    description: "Moderate load testing for typical usage"
+    users: 50
+    spawn_rate: 5
+    duration: 300 # seconds
+    think_time_min: 1.0
+    think_time_max: 4.0
+
+  heavy_load:
+    name: "Heavy Load Test"
+    description: "High load testing for peak usage"
+    users: 200
+    spawn_rate: 10
+    duration: 600 # seconds
+    think_time_min: 0.5
+    think_time_max: 2.0
+
+  stress_test:
+    name: "Stress Test"
+    description: "System limits testing under extreme load"
+    users: 500
+    spawn_rate: 20
+    duration: 900 # seconds
+    think_time_min: 0.2
+    think_time_max: 1.0
+
+# Financial transaction scenarios
+financial_scenarios:
+  user_registration:
+    weight: 0.05
+    method: POST
+    endpoint: "/api/v1/auth/register"
+    data:
+      email: "perf_test_{user_id}@nexus.test"
+      password: "SecurePass123!"
+      first_name: "PerfTest"
+      last_name: "User{user_id}"
+
+  user_login:
+    weight: 0.25
+    method: POST
+    endpoint: "/api/v1/auth/login"
+    data:
+      email: "perf_test_{user_id}@nexus.test"
+      password: "SecurePass123!"
+
+  account_balance_check:
+    weight: 0.35
+    method: GET
+    endpoint: "/api/v1/accounts/balance"
+    requires_auth: true
+
+  transaction_history:
+    weight: 0.20
+    method: GET
+    endpoint: "/api/v1/transactions/history"
+    requires_auth: true
+    params:
+      limit: 20
+      offset: 0
+
+  fund_transfer:
+    weight: 0.10
+    method: POST
+    endpoint: "/api/v1/transactions/transfer"
+    requires_auth: true
+    data:
+      recipient_account: "ACC{recipient_id}"
+      amount: 50.00
+      description: "Performance test transfer"
+
+  payment_processing:
+    weight: 0.05
+    method: POST
+    endpoint: "/api/v1/payments/process"
+    requires_auth: true
+    data:
+      amount: 100.00
+      currency: "USD"
+      payment_method: "credit_card"
+      description: "Performance test payment"
+
+# Locust test configuration
+locust:
+  host: "http://localhost:8000"
+  user_classes:
+    - FinancialUser
+    - PaymentUser
+    - AdminUser
+  user_weights:
+    FinancialUser: 7 # 70%
+    PaymentUser: 2 # 20%
+    AdminUser: 1 # 10%
+
+# Monitoring configuration
+monitoring:
+  enabled: true
+  interval: 5 # seconds
+  metrics:
+    - cpu_usage
+    - memory_usage
+    - disk_io
+    - network_io
+    - database_connections
+    - cache_hit_rate
+
+# Profiling configuration
+profiling:
+  enabled: true
+  memory_profiling: true
+  cpu_profiling: true
+  database_profiling: true
+  cache_profiling: true
+
+# Database performance testing
+database_testing:
+  enabled: true
+  connection_pool_test: true
+  query_performance_test: true
+  concurrent_access_test: true
+  test_queries:
+    - "SELECT COUNT(*) FROM users"
+    - "SELECT * FROM transactions ORDER BY created_at DESC LIMIT 100"
+    - "SELECT SUM(amount) FROM transactions WHERE user_id = $1"
+
+# API performance testing
+api_testing:
+  enabled: true
+  endpoints:
+    - "/health"
+    - "/api/v1/auth/login"
+    - "/api/v1/accounts/balance"
+    - "/api/v1/transactions/history"
+    - "/api/v1/user/profile"
+  methods: ["GET", "POST", "PUT", "DELETE"]
+  concurrent_requests: 10
+
+# Stress testing configuration
+stress_testing:
+  enabled: true
+  gradual_increase: true
+  increase_interval: 60 # seconds
+  user_increment: 50
+  max_users: 1000
+  stop_on_failure_threshold: 50 # percent error rate
+
+# Reporting configuration
+reporting:
+  enabled: true
+  formats:
+    - json
+    - html
+    - csv
+    - pdf
+  charts:
+    - response_times
+    - throughput
+    - error_rates
+    - resource_usage
+  retention_days: 30
+
+# CI/CD integration
+ci_cd:
+  enabled: true
+  fail_on_threshold_breach: true
+  generate_baseline: true
+  compare_with_baseline: true
+  slack_notifications: false
+  email_reports: false
+
+# Custom test scenarios
+custom_scenarios:
+  enabled: false
+  scenarios_file: config/custom_performance_scenarios.yaml
+
+# Performance regression detection
+regression_detection:
+  enabled: true
+  baseline_file: config/performance_baseline.json
+  threshold_violation_percent: 10 # percent change allowed
+  metrics_to_check:
+    - response_times_avg
+    - response_times_95p
+    - throughput_rps
+    - error_rate

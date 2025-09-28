@@ -1,0 +1,12 @@
+dependencies:
+  - application
+metadata:
+  namespace: nexus
+  registry: nexus-registry
+  tag_strategy: semantic
+name: docker_config
+type: docker
+validation_rules:
+  - image_validation
+  - registry_check
+version: 1.0.0

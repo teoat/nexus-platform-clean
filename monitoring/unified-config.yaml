@@ -1,0 +1,1515 @@
+alerts:
+  - groups:
+      - name: nexus_alerts
+        rules:
+          - alert: HighCPUUsage
+            annotations:
+              description: CPU usage is above 80% for more than 5 minutes
+              summary: High CPU usage detected
+            expr:
+              100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))
+              * 100) > 80
+            for: 5m
+            labels:
+              severity: warning
+          - alert: HighMemoryUsage
+            annotations:
+              description: Memory usage is above 85% for more than 5 minutes
+              summary: High memory usage detected
+            expr:
+              100 - ((node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) *
+              100) > 85
+            for: 5m
+            labels:
+              severity: warning
+          - alert: LowDiskSpace
+            annotations:
+              description: Available disk space is less than 10%
+              summary: Low disk space
+            expr:
+              (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"})
+              * 100 < 10
+            for: 1m
+            labels:
+              severity: critical
+          - alert: BackendServiceDown
+            annotations:
+              description: NEXUS backend service is not responding
+              summary: Backend service is down
+            expr: up{job="nexus-backend"} == 0
+            for: 1m
+            labels:
+              severity: critical
+          - alert: HighErrorRate
+            annotations:
+              description: Error rate is above 5% for more than 5 minutes
+              summary: High error rate detected
+            expr:
+              rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])
+              > 0.05
+            for: 5m
+            labels:
+              severity: critical
+          - alert: SlowResponseTime
+            annotations:
+              description: 95th percentile response time is above 2 seconds
+              summary: Slow response time detected
+            expr:
+              histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+              > 2
+            for: 5m
+            labels:
+              severity: warning
+          - alert: DatabaseConnectionIssues
+            annotations:
+              description: Database has more than 50 active connections
+              summary: High database connection count
+            expr: pg_stat_activity_count > 50
+            for: 5m
+            labels:
+              severity: warning
+          - alert: HighRedisMemoryUsage
+            annotations:
+              description: Redis memory usage is above 80%
+              summary: High Redis memory usage
+            expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.8
+            for: 5m
+            labels:
+              severity: warning
+  - global:
+      smtp_from: alerts@nexus.local
+      smtp_smarthost: localhost:587
+    receivers:
+      - name: web.hook
+        webhook_configs:
+          - url: http://nexus-app:2000/webhook/alerts
+    route:
+      group_by:
+        - alertname
+      group_interval: 10s
+      group_wait: 10s
+      receiver: web.hook
+      repeat_interval: 1h
+  - networks:
+      nexus-network:
+        external: true
+    services:
+      alertmanager:
+        command:
+          - --config.file=/etc/alertmanager/alertmanager.yml
+          - --storage.path=/alertmanager
+          - --web.external-url=http://alertmanager.nexus.local:2400
+          - --cluster.peer=alertmanager:2400
+        container_name: nexus-alertmanager
+        healthcheck:
+          interval: 30s
+          retries: 3
+          test:
+            - CMD-SHELL
+            - curl -f http://localhost:9093/-/healthy || exit 1
+          timeout: 10s
+        image: prom/alertmanager:0.26.0
+        networks:
+          - nexus-network
+        ports:
+          - 2400:9093
+        volumes:
+          - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+          - alertmanager_data:/alertmanager
+    version: "3.8"
+    volumes:
+      alertmanager_data:
+        driver: local
+  - global:
+      smtp_from: alerts@nexus.local
+      smtp_smarthost: localhost:587
+    receivers:
+      - name: web.hook
+        webhook_configs:
+          - url: http://nexus-app:2000/webhook/alerts
+    route:
+      group_by:
+        - alertname
+      group_interval: 10s
+      group_wait: 10s
+      receiver: web.hook
+      repeat_interval: 1h
+  - networks:
+      nexus-network:
+        external: true
+    services:
+      alertmanager:
+        command:
+          - --config.file=/etc/alertmanager/alertmanager.yml
+          - --storage.path=/alertmanager
+          - --web.external-url=http://alertmanager.nexus.local:2400
+          - --cluster.peer=alertmanager:2400
+        container_name: nexus-alertmanager
+        healthcheck:
+          interval: 30s
+          retries: 3
+          test:
+            - CMD-SHELL
+            - curl -f http://localhost:9093/-/healthy || exit 1
+          timeout: 10s
+        image: prom/alertmanager:0.26.0
+        networks:
+          - nexus-network
+        ports:
+          - 2400:9093
+        volumes:
+          - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+          - alertmanager_data:/alertmanager
+    version: "3.8"
+    volumes:
+      alertmanager_data:
+        driver: local
+  - groups:
+      - name: nexus_alerts
+        rules:
+          - alert: BackendDown
+            annotations:
+              description: NEXUS backend has been down for more than 5 minutes.
+              summary: Backend service is down
+            expr: up{job="nexus-backend"} == 0
+            for: 5m
+            labels:
+              severity: critical
+          - alert: BackendHighCPU
+            annotations:
+              description: Backend CPU usage is above 80% for 10 minutes.
+              summary: High CPU usage on backend
+            expr: rate(process_cpu_user_seconds_total{job="nexus-backend"}[5m]) > 0.8
+            for: 10m
+            labels:
+              severity: warning
+          - alert: BackendHighMemory
+            annotations:
+              description: Backend memory usage is above 90%.
+              summary: High memory usage on backend
+            expr:
+              process_resident_memory_bytes{job="nexus-backend"} / process_virtual_memory_max_bytes
+              > 0.9
+            for: 5m
+            labels:
+              severity: warning
+          - alert: DatabaseDown
+            annotations:
+              description: PostgreSQL database has been down for more than 2 minutes.
+              summary: Database is down
+            expr: up{job="postgresql"} == 0
+            for: 2m
+            labels:
+              severity: critical
+          - alert: DatabaseHighConnections
+            annotations:
+              description: Database has more than 100 active connections.
+              summary: High database connections
+            expr: pg_stat_activity_count{datname="nexus"} > 100
+            for: 5m
+            labels:
+              severity: warning
+          - alert: RedisDown
+            annotations:
+              description: Redis cache has been down for more than 2 minutes.
+              summary: Redis is down
+            expr: up{job="redis"} == 0
+            for: 2m
+            labels:
+              severity: critical
+          - alert: RedisHighMemory
+            annotations:
+              description: Redis memory usage is above 90%.
+              summary: High Redis memory usage
+            expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.9
+            for: 5m
+            labels:
+              severity: warning
+          - alert: FrontendDown
+            annotations:
+              description: NEXUS frontend has been down for more than 5 minutes.
+              summary: Frontend service is down
+            expr: up{job="nexus-frontend"} == 0
+            for: 5m
+            labels:
+              severity: warning
+          - alert: HighErrorRate
+            annotations:
+              description: Error rate is above 10% for 5 minutes.
+              summary: High error rate detected
+            expr:
+              rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])
+              > 0.1
+            for: 5m
+            labels:
+              severity: warning
+          - alert: WAFBlocksHigh
+            annotations:
+              description: WAF is blocking more than 10 requests per minute.
+              summary: High WAF block rate
+            expr: rate(waf_blocks_total[5m]) > 10
+            for: 5m
+            labels:
+              severity: warning
+          - alert: SlowResponseTime
+            annotations:
+              description: 95th percentile response time is above 5 seconds.
+              summary: Slow response times
+            expr:
+              histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+              > 5
+            for: 10m
+            labels:
+              severity: warning
+          - alert: HighQueueLength
+            annotations:
+              description: Celery task queue has more than 1000 pending tasks.
+              summary: High task queue length
+            expr: celery_queue_length > 1000
+            for: 5m
+            labels:
+              severity: warning
+          - alert: LowDiskSpace
+            annotations:
+              description: Disk space is below 10% available.
+              summary: Low disk space
+            expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.1
+            for: 5m
+            labels:
+              severity: warning
+          - alert: HighNetworkErrors
+            annotations:
+              description: Network receive errors are above threshold.
+              summary: High network errors
+            expr: rate(node_network_receive_errs_total[5m]) > 10
+            for: 5m
+            labels:
+              severity: warning
+  - groups:
+      - name: nexus-platform.rules
+        rules:
+          - alert: HighCPUUsage
+            annotations:
+              description:
+                CPU usage is above 80% for more than 5 minutes on {{ $labels.instance
+                }}
+              summary: High CPU usage detected
+            expr:
+              100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m]))
+              * 100) > 80
+            for: 5m
+            labels:
+              severity: warning
+          - alert: HighMemoryUsage
+            annotations:
+              description:
+                Memory usage is above 85% for more than 5 minutes on {{ $labels.instance
+                }}
+              summary: High memory usage detected
+            expr:
+              (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) *
+              100 > 85
+            for: 5m
+            labels:
+              severity: warning
+          - alert: LowDiskSpace
+            annotations:
+              description:
+                Disk space is above 90% on {{ $labels.instance }} mount {{ $labels.mountpoint
+                }}
+              summary: Low disk space
+            expr:
+              (1 - (node_filesystem_avail_bytes / node_filesystem_size_bytes)) * 100
+              > 90
+            for: 5m
+            labels:
+              severity: critical
+          - alert: ServiceDown
+            annotations:
+              description: Nexus Backend service has been down for more than 1 minute
+              summary: Nexus Backend service is down
+            expr: up{job="nexus-backend"} == 0
+            for: 1m
+            labels:
+              severity: critical
+          - alert: HighResponseTime
+            annotations:
+              description:
+                95th percentile response time is above 2 seconds for more than
+                5 minutes
+              summary: High response time
+            expr:
+              histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+              > 2
+            for: 5m
+            labels:
+              severity: warning
+          - alert: HighErrorRate
+            annotations:
+              description: Error rate is above 5% for more than 5 minutes
+              summary: High error rate
+            expr:
+              rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])
+              > 0.05
+            for: 5m
+            labels:
+              severity: critical
+          - alert: DatabaseConnectionIssues
+            annotations:
+              description: Cannot connect to PostgreSQL database
+              summary: Database connection issues
+            expr: pg_up == 0
+            for: 1m
+            labels:
+              severity: critical
+          - alert: RedisConnectionIssues
+            annotations:
+              description: Cannot connect to Redis
+              summary: Redis connection issues
+            expr: redis_up == 0
+            for: 1m
+            labels:
+              severity: warning
+          - alert: HighDatabaseConnections
+            annotations:
+              description:
+                Database connections are above 80% of maximum for more than 5
+                minutes
+              summary: High database connections
+            expr: pg_stat_database_numbackends / pg_settings_max_connections * 100 > 80
+            for: 5m
+            labels:
+              severity: warning
+          - alert: SlowDatabaseQueries
+            annotations:
+              description:
+                95th percentile database query time is above 1 second for more
+                than 5 minutes
+              summary: Slow database queries
+            expr: histogram_quantile(0.95, rate(pg_stat_database_tup_returned[5m])) > 1000
+            for: 5m
+            labels:
+              severity: warning
+          - alert: HighRedisMemoryUsage
+            annotations:
+              description: Redis memory usage is above 80% for more than 5 minutes
+              summary: High Redis memory usage
+            expr: redis_memory_used_bytes / redis_memory_max_bytes * 100 > 80
+            for: 5m
+            labels:
+              severity: warning
+          - alert: ContainerRestart
+            annotations:
+              description: Container {{ $labels.name }} has restarted
+              summary: Container restart detected
+            expr: rate(container_start_time_seconds[1h]) > 0
+            for: 0m
+            labels:
+              severity: warning
+          - alert: OutOfMemory
+            annotations:
+              description:
+                Container {{ $labels.name }} is using more than 95% of its memory
+                limit
+              summary: Container out of memory
+            expr:
+              container_memory_usage_bytes / container_spec_memory_limit_bytes * 100
+              > 95
+            for: 2m
+            labels:
+              severity: critical
+          - alert: HighNetworkTraffic
+            annotations:
+              description:
+                Network receive traffic is above 100MB/s for more than 5 minutes
+                on {{ $labels.instance }}
+              summary: High network traffic
+            expr: rate(node_network_receive_bytes_total[5m]) > 100000000
+            for: 5m
+            labels:
+              severity: warning
+          - alert: SSLCertificateExpiry
+            annotations:
+              description:
+                SSL certificate for {{ $labels.instance }} expires in {{ $value
+                }} days
+              summary: SSL certificate expiring soon
+            expr: (ssl_cert_not_after - time()) / 86400 < 30
+            for: 0m
+            labels:
+              severity: warning
+          - alert: BlackboxProbeFailure
+            annotations:
+              description: Blackbox probe failed for {{ $labels.instance }}
+              summary: Blackbox probe failure
+            expr: probe_success == 0
+            for: 1m
+            labels:
+              severity: critical
+          - alert: HighQueueDepth
+            annotations:
+              description: Queue depth is above 1000 for more than 5 minutes
+              summary: High queue depth
+            expr: redis_list_length > 1000
+            for: 5m
+            labels:
+              severity: warning
+          - alert: DatabaseLockContention
+            annotations:
+              description: High number of database locks detected for more than 5 minutes
+              summary: Database lock contention
+            expr: pg_locks_count > 100
+            for: 5m
+            labels:
+              severity: warning
+          - alert: LowCacheHitRate
+            annotations:
+              description: Cache hit rate is below 80% for more than 10 minutes
+              summary: Low cache hit rate
+            expr:
+              redis_keyspace_hits / (redis_keyspace_hits + redis_keyspace_misses) *
+              100 < 80
+            for: 10m
+            labels:
+              severity: warning
+  - global:
+      smtp_auth_password: your-smtp-password
+      smtp_auth_username: alerts@nexus-platform.com
+      smtp_from: alerts@nexus-platform.com
+      smtp_smarthost: localhost:587
+    inhibit_rules:
+      - equal:
+          - alertname
+          - cluster
+          - service
+        source_match:
+          severity: critical
+        target_match:
+          severity: warning
+    receivers:
+      - name: web.hook
+        webhook_configs:
+          - url: http://localhost:5001/
+      - email_configs:
+          - body: "{{ range .Alerts }}
+
+              Alert: {{ .Annotations.summary }}
+
+              Description: {{ .Annotations.description }}
+
+              Severity: {{ .Labels.severity }}
+
+              Instance: {{ .Labels.instance }}
+
+              {{ end }}
+
+              "
+            subject: "\U0001F6A8 CRITICAL: {{ .GroupLabels.alertname }}"
+            to: oncall@nexus-platform.com
+        name: critical-alerts
+        pagerduty_configs:
+          - description: "{{ .GroupLabels.alertname }} - {{ .GroupLabels.instance }}"
+            service_key: your-pagerduty-service-key
+        slack_configs:
+          - api_url: https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
+            channel: "#alerts-critical"
+            text: "{{ range .Alerts }}
+
+              *Alert:* {{ .Annotations.summary }}
+
+              *Description:* {{ .Annotations.description }}
+
+              *Severity:* {{ .Labels.severity }}
+
+              *Instance:* {{ .Labels.instance }}
+
+              {{ end }}
+
+              "
+            title: "\U0001F6A8 CRITICAL Alert"
+      - email_configs:
+          - body: "{{ range .Alerts }}
+
+              Alert: {{ .Annotations.summary }}
+
+              Description: {{ .Annotations.description }}
+
+              Severity: {{ .Labels.severity }}
+
+              Instance: {{ .Labels.instance }}
+
+              {{ end }}
+
+              "
+            subject: "\u26A0\uFE0F WARNING: {{ .GroupLabels.alertname }}"
+            to: devops@nexus-platform.com
+        name: warning-alerts
+        slack_configs:
+          - api_url: https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
+            channel: "#alerts-warning"
+            text: "{{ range .Alerts }}
+
+              *Alert:* {{ .Annotations.summary }}
+
+              *Description:* {{ .Annotations.description }}
+
+              *Severity:* {{ .Labels.severity }}
+
+              *Instance:* {{ .Labels.instance }}
+
+              {{ end }}
+
+              "
+            title: "\u26A0\uFE0F WARNING Alert"
+      - name: pagerduty
+        pagerduty_configs:
+          - description: "{{ .GroupLabels.alertname }} - {{ .GroupLabels.instance }}"
+            details:
+              description: "{{ .Annotations.description }}"
+              instance: "{{ .Labels.instance }}"
+              severity: "{{ .Labels.severity }}"
+              summary: "{{ .Annotations.summary }}"
+            service_key: your-pagerduty-service-key
+    route:
+      group_by:
+        - alertname
+        - cluster
+        - service
+      group_interval: 10s
+      group_wait: 10s
+      receiver: web.hook
+      repeat_interval: 1h
+      routes:
+        - group_wait: 5s
+          match:
+            severity: critical
+          receiver: critical-alerts
+          repeat_interval: 5m
+        - group_wait: 30s
+          match:
+            severity: warning
+          receiver: warning-alerts
+          repeat_interval: 30m
+        - group_wait: 0s
+          match:
+            alertname: ServiceDown
+          receiver: pagerduty
+          repeat_interval: 5m
+  - apiVersion: monitoring.coreos.com/v1
+    kind: PrometheusRule
+    metadata:
+      labels:
+        app: nexus-platform
+        component: monitoring
+      name: nexus-alerts
+      namespace: nexus-platform
+    spec:
+      groups:
+        - name: nexus.rules
+          rules:
+            - alert: NexusApplicationDown
+              annotations:
+                description: NEXUS Backend has been down for more than 1 minute
+                runbook_url: https://docs.nexusplatform.com/runbooks/application-down
+                summary: NEXUS Backend is down
+              expr: up{job="nexus-backend"} == 0
+              for: 1m
+              labels:
+                service: nexus-backend
+                severity: critical
+            - alert: NexusFrontendDown
+              annotations:
+                description: NEXUS Frontend has been down for more than 1 minute
+                runbook_url: https://docs.nexusplatform.com/runbooks/application-down
+                summary: NEXUS Frontend is down
+              expr: up{job="nexus-frontend"} == 0
+              for: 1m
+              labels:
+                service: nexus-frontend
+                severity: critical
+            - alert: NexusHighErrorRate
+              annotations:
+                description:
+                  Error rate is {{ $value | humanizePercentage }} for the last
+                  5 minutes
+                runbook_url: https://docs.nexusplatform.com/runbooks/high-error-rate
+                summary: High error rate detected
+              expr:
+                rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])
+                > 0.05
+              for: 2m
+              labels:
+                service: nexus-backend
+                severity: critical
+            - alert: NexusHigh4xxRate
+              annotations:
+                description:
+                  4xx error rate is {{ $value | humanizePercentage }} for the
+                  last 5 minutes
+                runbook_url: https://docs.nexusplatform.com/runbooks/high-4xx-rate
+                summary: High 4xx error rate detected
+              expr:
+                rate(http_requests_total{status=~"4.."}[5m]) / rate(http_requests_total[5m])
+                > 0.1
+              for: 5m
+              labels:
+                service: nexus-backend
+                severity: warning
+            - alert: NexusHighResponseTime
+              annotations:
+                description:
+                  95th percentile response time is {{ $value }}s for the last
+                  5 minutes
+                runbook_url: https://docs.nexusplatform.com/runbooks/high-response-time
+                summary: High response time detected
+              expr:
+                histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+                > 2
+              for: 5m
+              labels:
+                service: nexus-backend
+                severity: warning
+            - alert: NexusVeryHighResponseTime
+              annotations:
+                description:
+                  95th percentile response time is {{ $value }}s for the last
+                  5 minutes
+                runbook_url: https://docs.nexusplatform.com/runbooks/high-response-time
+                summary: Very high response time detected
+              expr:
+                histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+                > 5
+              for: 2m
+              labels:
+                service: nexus-backend
+                severity: critical
+            - alert: NexusHighCPUUsage
+              annotations:
+                description:
+                  CPU usage is {{ $value | humanizePercentage }} for pod {{ $labels.pod
+                  }}
+                runbook_url: https://docs.nexusplatform.com/runbooks/high-cpu-usage
+                summary: High CPU usage detected
+              expr: rate(container_cpu_usage_seconds_total{pod=~"nexus-.*"}[5m]) > 0.8
+              for: 5m
+              labels:
+                service: nexus-platform
+                severity: warning
+            - alert: NexusHighMemoryUsage
+              annotations:
+                description:
+                  Memory usage is {{ $value | humanizePercentage }} for pod {{
+                  $labels.pod }}
+                runbook_url: https://docs.nexusplatform.com/runbooks/high-memory-usage
+                summary: High memory usage detected
+              expr:
+                container_memory_usage_bytes{pod=~"nexus-.*"} / container_spec_memory_limit_bytes
+                > 0.85
+              for: 5m
+              labels:
+                service: nexus-platform
+                severity: warning
+            - alert: NexusDiskSpaceLow
+              annotations:
+                description:
+                  Disk space is {{ $value | humanizePercentage }} available on
+                  {{ $labels.instance }}
+                runbook_url: https://docs.nexusplatform.com/runbooks/disk-space-low
+                summary: Disk space is low
+              expr:
+                (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"})
+                < 0.1
+              for: 5m
+              labels:
+                service: nexus-platform
+                severity: critical
+            - alert: NexusDatabaseDown
+              annotations:
+                description: NEXUS Database has been down for more than 1 minute
+                runbook_url: https://docs.nexusplatform.com/runbooks/database-down
+                summary: Database is down
+              expr: up{job="nexus-database"} == 0
+              for: 1m
+              labels:
+                service: nexus-database
+                severity: critical
+            - alert: NexusDatabaseHighConnections
+              annotations:
+                description: Database has {{ $value }} active connections
+                runbook_url: https://docs.nexusplatform.com/runbooks/database-high-connections
+                summary: High database connections
+              expr: pg_stat_database_numbackends{job="nexus-database"} > 80
+              for: 5m
+              labels:
+                service: nexus-database
+                severity: warning
+            - alert: NexusDatabaseSlowQueries
+              annotations:
+                description:
+                  Database query efficiency is {{ $value | humanizePercentage
+                  }}
+                runbook_url: https://docs.nexusplatform.com/runbooks/slow-database-queries
+                summary: Slow database queries detected
+              expr:
+                rate(pg_stat_database_tup_returned{job="nexus-database"}[5m]) / rate(pg_stat_database_tup_fetched{job="nexus-database"}[5m])
+                < 0.1
+              for: 10m
+              labels:
+                service: nexus-database
+                severity: warning
+            - alert: NexusRedisDown
+              annotations:
+                description: NEXUS Redis has been down for more than 1 minute
+                runbook_url: https://docs.nexusplatform.com/runbooks/redis-down
+                summary: Redis is down
+              expr: up{job="nexus-redis"} == 0
+              for: 1m
+              labels:
+                service: nexus-redis
+                severity: critical
+            - alert: NexusRedisHighMemoryUsage
+              annotations:
+                description: Redis memory usage is {{ $value | humanizePercentage }}
+                runbook_url: https://docs.nexusplatform.com/runbooks/redis-high-memory
+                summary: High Redis memory usage
+              expr:
+                redis_memory_used_bytes{job="nexus-redis"} / redis_config_maxmemory_bytes
+                > 0.9
+              for: 5m
+              labels:
+                service: nexus-redis
+                severity: warning
+            - alert: NexusSSLCertificateExpiringSoon
+              annotations:
+                description: SSL certificate expires in {{ $value }} days
+                runbook_url: https://docs.nexusplatform.com/runbooks/ssl-certificate-expiring
+                summary: SSL certificate expiring soon
+              expr: (ssl_cert_not_after - time()) / 86400 < 30
+              for: 1h
+              labels:
+                service: nexus-platform
+                severity: warning
+            - alert: NexusSSLCertificateExpired
+              annotations:
+                description: SSL certificate has expired
+                runbook_url: https://docs.nexusplatform.com/runbooks/ssl-certificate-expired
+                summary: SSL certificate expired
+              expr: ssl_cert_not_after - time() < 0
+              for: 0m
+              labels:
+                service: nexus-platform
+                severity: critical
+            - alert: NexusBackupFailed
+              annotations:
+                description: NEXUS backup has failed
+                runbook_url: https://docs.nexusplatform.com/runbooks/backup-failed
+                summary: Backup failed
+              expr: nexus_backup_success == 0
+              for: 1h
+              labels:
+                service: nexus-backup
+                severity: critical
+            - alert: NexusBackupOld
+              annotations:
+                description: Last backup was {{ $value | humanizeDuration }} ago
+                runbook_url: https://docs.nexusplatform.com/runbooks/backup-old
+                summary: Backup is old
+              expr: time() - nexus_backup_timestamp > 86400 * 2
+              for: 1h
+              labels:
+                service: nexus-backup
+                severity: warning
+            - alert: NexusHighFailedLogins
+              annotations:
+                description: "{{ $value }} failed logins per second in the last 5 minutes"
+                runbook_url: https://docs.nexusplatform.com/runbooks/high-failed-logins
+                summary: High number of failed logins
+              expr: rate(nexus_auth_failed_logins_total[5m]) > 10
+              for: 5m
+              labels:
+                service: nexus-auth
+                severity: warning
+            - alert: NexusSuspiciousActivity
+              annotations:
+                description: "{{ $value }} failed logins per second in the last minute"
+                runbook_url: https://docs.nexusplatform.com/runbooks/suspicious-activity
+                summary: Suspicious activity detected
+              expr: rate(nexus_auth_failed_logins_total[1m]) > 50
+              for: 1m
+              labels:
+                service: nexus-auth
+                severity: critical
+            - alert: NexusHighNetworkTraffic
+              annotations:
+                description:
+                  Network traffic is {{ $value | humanize }} bytes/s for pod
+                  {{ $labels.pod }}
+                runbook_url: https://docs.nexusplatform.com/runbooks/high-network-traffic
+                summary: High network traffic detected
+              expr: rate(container_network_receive_bytes_total{pod=~"nexus-.*"}[5m]) > 100000000
+              for: 5m
+              labels:
+                service: nexus-platform
+                severity: warning
+            - alert: NexusTransactionVolumeHigh
+              annotations:
+                description: Transaction volume is {{ $value }} transactions per second
+                runbook_url: https://docs.nexusplatform.com/runbooks/high-transaction-volume
+                summary: High transaction volume
+              expr: rate(nexus_transactions_total[5m]) > 1000
+              for: 5m
+              labels:
+                service: nexus-platform
+                severity: info
+            - alert: NexusUserRegistrationSpike
+              annotations:
+                description: User registrations are {{ $value }} per second
+                runbook_url: https://docs.nexusplatform.com/runbooks/user-registration-spike
+                summary: User registration spike
+              expr: rate(nexus_user_registrations_total[5m]) > 100
+              for: 5m
+              labels:
+                service: nexus-platform
+                severity: info
+  - apiVersion: v1
+    data:
+      alertmanager.yml:
+        "global:\n  smtp_smarthost: 'smtp.gmail.com:587'\n  smtp_from:\
+        \ 'alerts@nexusplatform.com'\n  smtp_auth_username: 'alerts@nexusplatform.com'\n\
+        \  smtp_auth_password: 'your_smtp_password'\n  smtp_require_tls: true\n  \n\
+        \  # Slack configuration\n  slack_api_url: 'https://hooks.slack.com/services/your/slack/webhook'\n\
+        \  \n  # PagerDuty configuration\n  pagerduty_url: 'https://events.pagerduty.com/v2/enqueue'\n\
+        \  \n  # Webhook configuration\n  webhook_url: 'https://your-webhook-endpoint.com/alerts'\n\
+        \n# Alert routing\nroute:\n  group_by: ['alertname', 'cluster', 'service']\n\
+        \  group_wait: 10s\n  group_interval: 10s\n  repeat_interval: 1h\n  receiver:\
+        \ 'web.hook'\n  routes:\n    # Critical alerts - immediate notification\n  \
+        \  - match:\n        severity: critical\n      receiver: 'critical-alerts'\n\
+        \      group_wait: 5s\n      group_interval: 5s\n      repeat_interval: 5m\n\
+        \      \n    # Warning alerts - delayed notification\n    - match:\n       \
+        \ severity: warning\n      receiver: 'warning-alerts'\n      group_wait: 30s\n\
+        \      group_interval: 30s\n      repeat_interval: 1h\n      \n    # Database\
+        \ alerts\n    - match:\n        service: database\n      receiver: 'database-team'\n\
+        \      group_wait: 10s\n      group_interval: 10s\n      repeat_interval: 30m\n\
+        \      \n    # Security alerts\n    - match:\n        service: security\n  \
+        \    receiver: 'security-team'\n      group_wait: 5s\n      group_interval:\
+        \ 5s\n      repeat_interval: 10m\n      \n    # Infrastructure alerts\n    -\
+        \ match:\n        service: infrastructure\n      receiver: 'infrastructure-team'\n\
+        \      group_wait: 10s\n      group_interval: 10s\n      repeat_interval: 30m\n\
+        \n# Alert receivers\nreceivers:\n  # Critical alerts - multiple channels\n \
+        \ - name: 'critical-alerts'\n    email_configs:\n      - to: 'oncall@nexusplatform.com'\n\
+        \        subject: '\U0001F6A8 CRITICAL: {{ .GroupLabels.alertname }}'\n    \
+        \    body: |\n          {{ range .Alerts }}\n          Alert: {{ .Annotations.summary\
+        \ }}\n          Description: {{ .Annotations.description }}\n          Severity:\
+        \ {{ .Labels.severity }}\n          Service: {{ .Labels.service }}\n       \
+        \   Instance: {{ .Labels.instance }}\n          {{ end }}\n        headers:\n\
+        \          X-Priority: '1'\n    slack_configs:\n      - api_url: 'https://hooks.slack.com/services/your/slack/webhook'\n\
+        \        channel: '#alerts-critical'\n        title: '\U0001F6A8 CRITICAL Alert'\n\
+        \        text: |\n          {{ range .Alerts }}\n          *Alert:* {{ .Annotations.summary\
+        \ }}\n          *Description:* {{ .Annotations.description }}\n          *Severity:*\
+        \ {{ .Labels.severity }}\n          *Service:* {{ .Labels.service }}\n     \
+        \     *Instance:* {{ .Labels.instance }}\n          {{ end }}\n        color:\
+        \ 'danger'\n    pagerduty_configs:\n      - service_key: 'your_pagerduty_service_key'\n\
+        \        description: '{{ .GroupLabels.alertname }}'\n        details:\n   \
+        \       summary: '{{ .Annotations.summary }}'\n          description: '{{ .Annotations.description\
+        \ }}'\n          severity: '{{ .Labels.severity }}'\n          service: '{{\
+        \ .Labels.service }}'\n    webhook_configs:\n      - url: 'https://your-webhook-endpoint.com/critical'\n\
+        \        send_resolved: true\n        http_config:\n          basic_auth:\n\
+        \            username: 'webhook_user'\n            password: 'webhook_password'\n\
+        \n  # Warning alerts - email and Slack\n  - name: 'warning-alerts'\n    email_configs:\n\
+        \      - to: 'devops@nexusplatform.com'\n        subject: '\u26A0\uFE0F WARNING:\
+        \ {{ .GroupLabels.alertname }}'\n        body: |\n          {{ range .Alerts\
+        \ }}\n          Alert: {{ .Annotations.summary }}\n          Description: {{\
+        \ .Annotations.description }}\n          Severity: {{ .Labels.severity }}\n\
+        \          Service: {{ .Labels.service }}\n          Instance: {{ .Labels.instance\
+        \ }}\n          {{ end }}\n    slack_configs:\n      - api_url: 'https://hooks.slack.com/services/your/slack/webhook'\n\
+        \        channel: '#alerts-warning'\n        title: '\u26A0\uFE0F Warning Alert'\n\
+        \        text: |\n          {{ range .Alerts }}\n          *Alert:* {{ .Annotations.summary\
+        \ }}\n          *Description:* {{ .Annotations.description }}\n          *Severity:*\
+        \ {{ .Labels.severity }}\n          *Service:* {{ .Labels.service }}\n     \
+        \     *Instance:* {{ .Labels.instance }}\n          {{ end }}\n        color:\
+        \ 'warning'\n\n  # Database team alerts\n  - name: 'database-team'\n    email_configs:\n\
+        \      - to: 'database-team@nexusplatform.com'\n        subject: '\U0001F5C4\
+        \uFE0F Database Alert: {{ .GroupLabels.alertname }}'\n        body: |\n    \
+        \      {{ range .Alerts }}\n          Alert: {{ .Annotations.summary }}\n  \
+        \        Description: {{ .Annotations.description }}\n          Severity: {{\
+        \ .Labels.severity }}\n          Service: {{ .Labels.service }}\n          Instance:\
+        \ {{ .Labels.instance }}\n          {{ end }}\n    slack_configs:\n      - api_url:\
+        \ 'https://hooks.slack.com/services/your/slack/webhook'\n        channel: '#database-alerts'\n\
+        \        title: '\U0001F5C4\uFE0F Database Alert'\n        text: |\n       \
+        \   {{ range .Alerts }}\n          *Alert:* {{ .Annotations.summary }}\n   \
+        \       *Description:* {{ .Annotations.description }}\n          *Severity:*\
+        \ {{ .Labels.severity }}\n          *Service:* {{ .Labels.service }}\n     \
+        \     *Instance:* {{ .Labels.instance }}\n          {{ end }}\n        color:\
+        \ 'good'\n\n  # Security team alerts\n  - name: 'security-team'\n    email_configs:\n\
+        \      - to: 'security@nexusplatform.com'\n        subject: '\U0001F512 SECURITY\
+        \ Alert: {{ .GroupLabels.alertname }}'\n        body: |\n          {{ range\
+        \ .Alerts }}\n          Alert: {{ .Annotations.summary }}\n          Description:\
+        \ {{ .Annotations.description }}\n          Severity: {{ .Labels.severity }}\n\
+        \          Service: {{ .Labels.service }}\n          Instance: {{ .Labels.instance\
+        \ }}\n          {{ end }}\n    slack_configs:\n      - api_url: 'https://hooks.slack.com/services/your/slack/webhook'\n\
+        \        channel: '#security-alerts'\n        title: '\U0001F512 Security Alert'\n\
+        \        text: |\n          {{ range .Alerts }}\n          *Alert:* {{ .Annotations.summary\
+        \ }}\n          *Description:* {{ .Annotations.description }}\n          *Severity:*\
+        \ {{ .Labels.severity }}\n          *Service:* {{ .Labels.service }}\n     \
+        \     *Instance:* {{ .Labels.instance }}\n          {{ end }}\n        color:\
+        \ 'danger'\n    pagerduty_configs:\n      - service_key: 'your_pagerduty_security_key'\n\
+        \        description: '{{ .GroupLabels.alertname }}'\n        details:\n   \
+        \       summary: '{{ .Annotations.summary }}'\n          description: '{{ .Annotations.description\
+        \ }}'\n          severity: '{{ .Labels.severity }}'\n          service: '{{\
+        \ .Labels.service }}'\n\n  # Infrastructure team alerts\n  - name: 'infrastructure-team'\n\
+        \    email_configs:\n      - to: 'infrastructure@nexusplatform.com'\n      \
+        \  subject: '\U0001F3D7\uFE0F Infrastructure Alert: {{ .GroupLabels.alertname\
+        \ }}'\n        body: |\n          {{ range .Alerts }}\n          Alert: {{ .Annotations.summary\
+        \ }}\n          Description: {{ .Annotations.description }}\n          Severity:\
+        \ {{ .Labels.severity }}\n          Service: {{ .Labels.service }}\n       \
+        \   Instance: {{ .Labels.instance }}\n          {{ end }}\n    slack_configs:\n\
+        \      - api_url: 'https://hooks.slack.com/services/your/slack/webhook'\n  \
+        \      channel: '#infrastructure-alerts'\n        title: '\U0001F3D7\uFE0F Infrastructure\
+        \ Alert'\n        text: |\n          {{ range .Alerts }}\n          *Alert:*\
+        \ {{ .Annotations.summary }}\n          *Description:* {{ .Annotations.description\
+        \ }}\n          *Severity:* {{ .Labels.severity }}\n          *Service:* {{\
+        \ .Labels.service }}\n          *Instance:* {{ .Labels.instance }}\n       \
+        \   {{ end }}\n        color: 'warning'\n\n  # Default webhook receiver\n  -\
+        \ name: 'web.hook'\n    webhook_configs:\n      - url: 'https://your-webhook-endpoint.com/alerts'\n\
+        \        send_resolved: true\n        http_config:\n          basic_auth:\n\
+        \            username: 'webhook_user'\n            password: 'webhook_password'\n\
+        \n# Inhibition rules\ninhibit_rules:\n  # Inhibit warning alerts when critical\
+        \ alerts are firing\n  - source_match:\n      severity: 'critical'\n    target_match:\n\
+        \      severity: 'warning'\n    equal: ['alertname', 'cluster', 'service']\n\
+        \    \n  # Inhibit individual instance alerts when service is down\n  - source_match:\n\
+        \      alertname: 'ServiceDown'\n    target_match_re:\n      alertname: 'HighCPUUsage|HighMemoryUsage|DiskSpaceLow'\n\
+        \    equal: ['cluster', 'service']\n"
+    kind: ConfigMap
+    metadata:
+      labels:
+        app: nexus-platform
+        component: monitoring
+      name: alertmanager-config
+      namespace: nexus-platform
+grafana:
+  apiVersion: v1
+  data:
+    nexus-backend.json:
+      "{\n  \"dashboard\": {\n    \"id\": null,\n    \"title\":\
+      \ \"NEXUS Backend Metrics\",\n    \"tags\": [\"nexus\", \"backend\", \"api\"\
+      ],\n    \"style\": \"dark\",\n    \"timezone\": \"browser\",\n    \"panels\"\
+      : [\n      {\n        \"id\": 1,\n        \"title\": \"API Request Rate\",\n\
+      \        \"type\": \"graph\",\n        \"targets\": [\n          {\n       \
+      \     \"expr\": \"sum(rate(http_requests_total{job=\\\"nexus-backend\\\"}[5m]))\
+      \ by (method, endpoint)\",\n            \"legendFormat\": \"{{ method }} {{\
+      \ endpoint }}\"\n          }\n        ],\n        \"gridPos\": {\n         \
+      \ \"h\": 8,\n          \"w\": 24,\n          \"x\": 0,\n          \"y\": 0\n\
+      \        }\n      },\n      {\n        \"id\": 2,\n        \"title\": \"API\
+      \ Response Time\",\n        \"type\": \"graph\",\n        \"targets\": [\n \
+      \         {\n            \"expr\": \"histogram_quantile(0.50, rate(http_request_duration_seconds_bucket{job=\\\
+      \"nexus-backend\\\"}[5m]))\",\n            \"legendFormat\": \"50th percentile\"\
+      \n          },\n          {\n            \"expr\": \"histogram_quantile(0.95,\
+      \ rate(http_request_duration_seconds_bucket{job=\\\"nexus-backend\\\"}[5m]))\"\
+      ,\n            \"legendFormat\": \"95th percentile\"\n          },\n       \
+      \   {\n            \"expr\": \"histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job=\\\
+      \"nexus-backend\\\"}[5m]))\",\n            \"legendFormat\": \"99th percentile\"\
+      \n          }\n        ],\n        \"gridPos\": {\n          \"h\": 8,\n   \
+      \       \"w\": 24,\n          \"x\": 0,\n          \"y\": 8\n        }\n   \
+      \   },\n      {\n        \"id\": 3,\n        \"title\": \"API Error Rate\",\n\
+      \        \"type\": \"graph\",\n        \"targets\": [\n          {\n       \
+      \     \"expr\": \"sum(rate(http_requests_total{job=\\\"nexus-backend\\\",status=~\\\
+      \"5..\\\"}[5m])) by (status)\",\n            \"legendFormat\": \"{{ status }}\"\
+      \n          }\n        ],\n        \"gridPos\": {\n          \"h\": 8,\n   \
+      \       \"w\": 24,\n          \"x\": 0,\n          \"y\": 16\n        }\n  \
+      \    }\n    ],\n    \"time\": {\n      \"from\": \"now-1h\",\n      \"to\":\
+      \ \"now\"\n    },\n    \"refresh\": \"30s\"\n  }\n}\n"
+    nexus-infrastructure.json:
+      "{\n  \"dashboard\": {\n    \"id\": null,\n    \"title\"\
+      : \"NEXUS Infrastructure\",\n    \"tags\": [\"nexus\", \"infrastructure\", \"\
+      kubernetes\"],\n    \"style\": \"dark\",\n    \"timezone\": \"browser\",\n \
+      \   \"panels\": [\n      {\n        \"id\": 1,\n        \"title\": \"CPU Usage\"\
+      ,\n        \"type\": \"graph\",\n        \"targets\": [\n          {\n     \
+      \       \"expr\": \"100 - (avg by(instance) (rate(node_cpu_seconds_total{mode=\\\
+      \"idle\\\"}[5m])) * 100)\",\n            \"legendFormat\": \"{{ instance }}\"\
+      \n          }\n        ],\n        \"gridPos\": {\n          \"h\": 8,\n   \
+      \       \"w\": 12,\n          \"x\": 0,\n          \"y\": 0\n        }\n   \
+      \   },\n      {\n        \"id\": 2,\n        \"title\": \"Memory Usage\",\n\
+      \        \"type\": \"graph\",\n        \"targets\": [\n          {\n       \
+      \     \"expr\": \"(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes))\
+      \ * 100\",\n            \"legendFormat\": \"{{ instance }}\"\n          }\n\
+      \        ],\n        \"gridPos\": {\n          \"h\": 8,\n          \"w\": 12,\n\
+      \          \"x\": 12,\n          \"y\": 0\n        }\n      },\n      {\n  \
+      \      \"id\": 3,\n        \"title\": \"Disk Usage\",\n        \"type\": \"\
+      graph\",\n        \"targets\": [\n          {\n            \"expr\": \"(1 -\
+      \ (node_filesystem_avail_bytes / node_filesystem_size_bytes)) * 100\",\n   \
+      \         \"legendFormat\": \"{{ instance }} {{ mountpoint }}\"\n          }\n\
+      \        ],\n        \"gridPos\": {\n          \"h\": 8,\n          \"w\": 24,\n\
+      \          \"x\": 0,\n          \"y\": 8\n        }\n      }\n    ],\n    \"\
+      time\": {\n      \"from\": \"now-1h\",\n      \"to\": \"now\"\n    },\n    \"\
+      refresh\": \"30s\"\n  }\n}"
+    nexus-overview.json:
+      "{\n  \"dashboard\": {\n    \"id\": null,\n    \"title\"\
+      : \"NEXUS Platform Overview\",\n    \"tags\": [\"nexus\", \"platform\", \"overview\"\
+      ],\n    \"style\": \"dark\",\n    \"timezone\": \"browser\",\n    \"panels\"\
+      : [\n      {\n        \"id\": 1,\n        \"title\": \"Request Rate\",\n   \
+      \     \"type\": \"stat\",\n        \"targets\": [\n          {\n           \
+      \ \"expr\": \"sum(rate(http_requests_total[5m]))\",\n            \"legendFormat\"\
+      : \"Requests/sec\"\n          }\n        ],\n        \"fieldConfig\": {\n  \
+      \        \"defaults\": {\n            \"color\": {\n              \"mode\":\
+      \ \"palette-classic\"\n            },\n            \"custom\": {\n         \
+      \     \"hideFrom\": {\n                \"legend\": false,\n                \"\
+      tooltip\": false,\n                \"vis\": false\n              }\n       \
+      \     },\n            \"mappings\": [],\n            \"thresholds\": {\n   \
+      \           \"mode\": \"absolute\",\n              \"steps\": [\n          \
+      \      {\n                  \"color\": \"green\",\n                  \"value\"\
+      : null\n                },\n                {\n                  \"color\":\
+      \ \"red\",\n                  \"value\": 1000\n                }\n         \
+      \     ]\n            }\n          }\n        },\n        \"gridPos\": {\n  \
+      \        \"h\": 8,\n          \"w\": 12,\n          \"x\": 0,\n          \"\
+      y\": 0\n        }\n      },\n      {\n        \"id\": 2,\n        \"title\"\
+      : \"Error Rate\",\n        \"type\": \"stat\",\n        \"targets\": [\n   \
+      \       {\n            \"expr\": \"sum(rate(http_requests_total{status=~\\\"\
+      5..\\\"}[5m]))\",\n            \"legendFormat\": \"Errors/sec\"\n          }\n\
+      \        ],\n        \"fieldConfig\": {\n          \"defaults\": {\n       \
+      \     \"color\": {\n              \"mode\": \"palette-classic\"\n          \
+      \  },\n            \"custom\": {\n              \"hideFrom\": {\n          \
+      \      \"legend\": false,\n                \"tooltip\": false,\n           \
+      \     \"vis\": false\n              }\n            },\n            \"mappings\"\
+      : [],\n            \"thresholds\": {\n              \"mode\": \"absolute\",\n\
+      \              \"steps\": [\n                {\n                  \"color\"\
+      : \"green\",\n                  \"value\": null\n                },\n      \
+      \          {\n                  \"color\": \"red\",\n                  \"value\"\
+      : 0.1\n                }\n              ]\n            }\n          }\n    \
+      \    },\n        \"gridPos\": {\n          \"h\": 8,\n          \"w\": 12,\n\
+      \          \"x\": 12,\n          \"y\": 0\n        }\n      },\n      {\n  \
+      \      \"id\": 3,\n        \"title\": \"Response Time\",\n        \"type\":\
+      \ \"stat\",\n        \"targets\": [\n          {\n            \"expr\": \"histogram_quantile(0.95,\
+      \ rate(http_request_duration_seconds_bucket[5m]))\",\n            \"legendFormat\"\
+      : \"95th percentile\"\n          }\n        ],\n        \"fieldConfig\": {\n\
+      \          \"defaults\": {\n            \"color\": {\n              \"mode\"\
+      : \"palette-classic\"\n            },\n            \"custom\": {\n         \
+      \     \"hideFrom\": {\n                \"legend\": false,\n                \"\
+      tooltip\": false,\n                \"vis\": false\n              }\n       \
+      \     },\n            \"mappings\": [],\n            \"thresholds\": {\n   \
+      \           \"mode\": \"absolute\",\n              \"steps\": [\n          \
+      \      {\n                  \"color\": \"green\",\n                  \"value\"\
+      : null\n                },\n                {\n                  \"color\":\
+      \ \"red\",\n                  \"value\": 2\n                }\n            \
+      \  ]\n            }\n          }\n        },\n        \"gridPos\": {\n     \
+      \     \"h\": 8,\n          \"w\": 12,\n          \"x\": 0,\n          \"y\"\
+      : 8\n        }\n      },\n      {\n        \"id\": 4,\n        \"title\": \"\
+      Active Users\",\n        \"type\": \"stat\",\n        \"targets\": [\n     \
+      \     {\n            \"expr\": \"sum(active_users_total)\",\n            \"\
+      legendFormat\": \"Active Users\"\n          }\n        ],\n        \"fieldConfig\"\
+      : {\n          \"defaults\": {\n            \"color\": {\n              \"mode\"\
+      : \"palette-classic\"\n            },\n            \"custom\": {\n         \
+      \     \"hideFrom\": {\n                \"legend\": false,\n                \"\
+      tooltip\": false,\n                \"vis\": false\n              }\n       \
+      \     },\n            \"mappings\": [],\n            \"thresholds\": {\n   \
+      \           \"mode\": \"absolute\",\n              \"steps\": [\n          \
+      \      {\n                  \"color\": \"green\",\n                  \"value\"\
+      : null\n                }\n              ]\n            }\n          }\n   \
+      \     },\n        \"gridPos\": {\n          \"h\": 8,\n          \"w\": 12,\n\
+      \          \"x\": 12,\n          \"y\": 8\n        }\n      }\n    ],\n    \"\
+      time\": {\n      \"from\": \"now-1h\",\n      \"to\": \"now\"\n    },\n    \"\
+      refresh\": \"30s\"\n  }\n}\n"
+  kind: ConfigMap
+  metadata:
+    labels:
+      app: nexus-platform
+      component: monitoring
+    name: grafana-dashboards
+    namespace: nexus-platform
+prometheus:
+  alerting:
+    alertmanagers:
+      - static_configs:
+          - targets:
+              - alertmanager:9093
+  apiVersion: v1
+  data:
+    alert_rules.yml:
+      "groups:\n  - name: nexus-platform.rules\n    rules:\n      #\
+      \ High Error Rate\n      - alert: HighErrorRate\n        expr: rate(http_requests_total{status=~\"\
+      5..\"}[5m]) > 0.1\n        for: 2m\n        labels:\n          severity: critical\n\
+      \          service: \"{{ $labels.service }}\"\n        annotations:\n      \
+      \    summary: \"High error rate detected\"\n          description: \"Error rate\
+      \ is {{ $value }} errors per second for service {{ $labels.service }}\"\n\n\
+      \      # High Response Time\n      - alert: HighResponseTime\n        expr:\
+      \ histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) >\
+      \ 2\n        for: 5m\n        labels:\n          severity: warning\n       \
+      \   service: \"{{ $labels.service }}\"\n        annotations:\n          summary:\
+      \ \"High response time detected\"\n          description: \"95th percentile\
+      \ response time is {{ $value }}s for service {{ $labels.service }}\"\n\n   \
+      \   # Service Down\n      - alert: ServiceDown\n        expr: up == 0\n    \
+      \    for: 1m\n        labels:\n          severity: critical\n          service:\
+      \ \"{{ $labels.job }}\"\n        annotations:\n          summary: \"Service\
+      \ is down\"\n          description: \"Service {{ $labels.job }} has been down\
+      \ for more than 1 minute\"\n\n      # High CPU Usage\n      - alert: HighCPUUsage\n\
+      \        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode=\"\
+      idle\"}[5m])) * 100) > 80\n        for: 5m\n        labels:\n          severity:\
+      \ warning\n          service: \"{{ $labels.instance }}\"\n        annotations:\n\
+      \          summary: \"High CPU usage detected\"\n          description: \"CPU\
+      \ usage is {{ $value }}% on {{ $labels.instance }}\"\n\n      # High Memory\
+      \ Usage\n      - alert: HighMemoryUsage\n        expr: (1 - (node_memory_MemAvailable_bytes\
+      \ / node_memory_MemTotal_bytes)) * 100 > 85\n        for: 5m\n        labels:\n\
+      \          severity: warning\n          service: \"{{ $labels.instance }}\"\n\
+      \        annotations:\n          summary: \"High memory usage detected\"\n \
+      \         description: \"Memory usage is {{ $value }}% on {{ $labels.instance\
+      \ }}\"\n\n      # Disk Space Low\n      - alert: DiskSpaceLow\n        expr:\
+      \ (1 - (node_filesystem_avail_bytes / node_filesystem_size_bytes)) * 100 > 85\n\
+      \        for: 5m\n        labels:\n          severity: warning\n          service:\
+      \ \"{{ $labels.instance }}\"\n        annotations:\n          summary: \"Disk\
+      \ space low\"\n          description: \"Disk usage is {{ $value }}% on {{ $labels.instance\
+      \ }}\"\n\n      # Database Connection Issues\n      - alert: DatabaseConnectionIssues\n\
+      \        expr: rate(database_connection_errors_total[5m]) > 0.1\n        for:\
+      \ 2m\n        labels:\n          severity: critical\n          service: \"database\"\
+      \n        annotations:\n          summary: \"Database connection issues detected\"\
+      \n          description: \"Database connection error rate is {{ $value }} errors\
+      \ per second\"\n\n      # Redis Connection Issues\n      - alert: RedisConnectionIssues\n\
+      \        expr: rate(redis_connection_errors_total[5m]) > 0.1\n        for: 2m\n\
+      \        labels:\n          severity: critical\n          service: \"redis\"\
+      \n        annotations:\n          summary: \"Redis connection issues detected\"\
+      \n          description: \"Redis connection error rate is {{ $value }} errors\
+      \ per second\"\n\n      # SSL Certificate Expiry\n      - alert: SSLCertificateExpiry\n\
+      \        expr: (ssl_certificate_expiry_timestamp - time()) / 86400 < 30\n  \
+      \      for: 1m\n        labels:\n          severity: warning\n          service:\
+      \ \"ssl\"\n        annotations:\n          summary: \"SSL certificate expiring\
+      \ soon\"\n          description: \"SSL certificate for {{ $labels.instance }}\
+      \ expires in {{ $value }} days\"\n\n      # Backup Failure\n      - alert: BackupFailure\n\
+      \        expr: time() - backup_last_success_timestamp > 86400\n        for:\
+      \ 1m\n        labels:\n          severity: critical\n          service: \"backup\"\
+      \n        annotations:\n          summary: \"Backup has failed\"\n         \
+      \ description: \"Last successful backup was {{ $value }} seconds ago\"\n\n \
+      \     # High Request Rate\n      - alert: HighRequestRate\n        expr: rate(http_requests_total[5m])\
+      \ > 1000\n        for: 5m\n        labels:\n          severity: warning\n  \
+      \        service: \"{{ $labels.service }}\"\n        annotations:\n        \
+      \  summary: \"High request rate detected\"\n          description: \"Request\
+      \ rate is {{ $value }} requests per second for service {{ $labels.service }}\"\
+      \n\n      # Authentication Failures\n      - alert: HighAuthFailureRate\n  \
+      \      expr: rate(authentication_failures_total[5m]) > 10\n        for: 2m\n\
+      \        labels:\n          severity: warning\n          service: \"authentication\"\
+      \n        annotations:\n          summary: \"High authentication failure rate\"\
+      \n          description: \"Authentication failure rate is {{ $value }} failures\
+      \ per second\"\n\n      # Security Violations\n      - alert: SecurityViolations\n\
+      \        expr: rate(security_violations_total[5m]) > 0\n        for: 1m\n  \
+      \      labels:\n          severity: critical\n          service: \"security\"\
+      \n        annotations:\n          summary: \"Security violations detected\"\n\
+      \          description: \"Security violation rate is {{ $value }} violations\
+      \ per second\""
+    prometheus.yml:
+      "global:\n  scrape_interval: 15s\n  evaluation_interval: 15s\n\
+      \  external_labels:\n    cluster: 'nexus-platform'\n    environment: 'production'\n\
+      \nrule_files:\n  - \"alert_rules.yml\"\n\nalerting:\n  alertmanagers:\n    -\
+      \ static_configs:\n        - targets:\n          - alertmanager:9093\n\nscrape_configs:\n\
+      \  # Prometheus itself\n  - job_name: 'prometheus'\n    static_configs:\n  \
+      \    - targets: ['localhost:9090']\n\n  # NEXUS Backend API\n  - job_name: 'nexus-backend'\n\
+      \    kubernetes_sd_configs:\n      - role: endpoints\n        namespaces:\n\
+      \          names:\n            - nexus-platform\n    relabel_configs:\n    \
+      \  - source_labels: [__meta_kubernetes_service_name]\n        action: keep\n\
+      \        regex: nexus-backend\n      - source_labels: [__meta_kubernetes_endpoint_port_name]\n\
+      \        action: keep\n        regex: metrics\n    scrape_interval: 30s\n  \
+      \  scrape_timeout: 10s\n\n  # NEXUS Frontend\n  - job_name: 'nexus-frontend'\n\
+      \    kubernetes_sd_configs:\n      - role: endpoints\n        namespaces:\n\
+      \          names:\n            - nexus-platform\n    relabel_configs:\n    \
+      \  - source_labels: [__meta_kubernetes_service_name]\n        action: keep\n\
+      \        regex: nexus-frontend\n    scrape_interval: 30s\n    scrape_timeout:\
+      \ 10s\n\n  # Nginx Load Balancer\n  - job_name: 'nginx'\n    kubernetes_sd_configs:\n\
+      \      - role: endpoints\n        namespaces:\n          names:\n          \
+      \  - nexus-platform\n    relabel_configs:\n      - source_labels: [__meta_kubernetes_service_name]\n\
+      \        action: keep\n        regex: nexus-nginx\n    scrape_interval: 30s\n\
+      \    scrape_timeout: 10s\n\n  # PostgreSQL Database\n  - job_name: 'postgres'\n\
+      \    kubernetes_sd_configs:\n      - role: endpoints\n        namespaces:\n\
+      \          names:\n            - nexus-platform\n    relabel_configs:\n    \
+      \  - source_labels: [__meta_kubernetes_service_name]\n        action: keep\n\
+      \        regex: nexus-postgres\n    scrape_interval: 30s\n    scrape_timeout:\
+      \ 10s\n\n  # Redis Cache\n  - job_name: 'redis'\n    kubernetes_sd_configs:\n\
+      \      - role: endpoints\n        namespaces:\n          names:\n          \
+      \  - nexus-platform\n    relabel_configs:\n      - source_labels: [__meta_kubernetes_service_name]\n\
+      \        action: keep\n        regex: nexus-redis\n    scrape_interval: 30s\n\
+      \    scrape_timeout: 10s\n\n  # Node Exporter\n  - job_name: 'node-exporter'\n\
+      \    kubernetes_sd_configs:\n      - role: endpoints\n    relabel_configs:\n\
+      \      - source_labels: [__meta_kubernetes_service_name]\n        action: keep\n\
+      \        regex: node-exporter\n    scrape_interval: 30s\n    scrape_timeout:\
+      \ 10s\n\n  # cAdvisor\n  - job_name: 'cadvisor'\n    kubernetes_sd_configs:\n\
+      \      - role: endpoints\n    relabel_configs:\n      - source_labels: [__meta_kubernetes_service_name]\n\
+      \        action: keep\n        regex: cadvisor\n    scrape_interval: 30s\n \
+      \   scrape_timeout: 10s\n\n  # Istio Mixer\n  - job_name: 'istio-mixer'\n  \
+      \  kubernetes_sd_configs:\n      - role: endpoints\n        namespaces:\n  \
+      \        names:\n            - istio-system\n    relabel_configs:\n      - source_labels:\
+      \ [__meta_kubernetes_service_name]\n        action: keep\n        regex: istio-telemetry\n\
+      \    scrape_interval: 30s\n    scrape_timeout: 10s\n\n  # Istio Pilot\n  - job_name:\
+      \ 'istio-pilot'\n    kubernetes_sd_configs:\n      - role: endpoints\n     \
+      \   namespaces:\n          names:\n            - istio-system\n    relabel_configs:\n\
+      \      - source_labels: [__meta_kubernetes_service_name]\n        action: keep\n\
+      \        regex: istio-pilot\n    scrape_interval: 30s\n    scrape_timeout: 10s\n"
+  datasources:
+    - access: proxy
+      editable: true
+      isDefault: true
+      jsonData:
+        httpMethod: POST
+        queryTimeout: 60s
+        timeInterval: 15s
+      name: Prometheus
+      type: prometheus
+      url: http://prometheus:9090
+      version: 1
+    - access: proxy
+      editable: true
+      jsonData:
+        queryTimeout: 60s
+        timeInterval: 30s
+      name: Nexus Backend
+      type: prometheus
+      url: http://backend:8000
+      version: 1
+    - access: proxy
+      editable: true
+      jsonData:
+        queryTimeout: 60s
+        timeInterval: 60s
+      name: Theme Orchestration
+      type: prometheus
+      url: http://backend:8000/api/themes/performance
+      version: 1
+    - access: proxy
+      editable: true
+      jsonData:
+        queryTimeout: 60s
+        timeInterval: 60s
+      name: Agent Coordination
+      type: prometheus
+      url: http://backend:8000/api/agents/analytics
+      version: 1
+  global:
+    evaluation_interval: 15s
+    external_labels:
+      cluster: nexus-cluster
+      environment: production
+    scrape_interval: 15s
+  groups:
+    - name: nexus.rules
+      rules:
+        - alert: HighCPUUsage
+          annotations:
+            description:
+              CPU usage is above 80% for more than 5 minutes on {{ $labels.instance
+              }}
+            summary: High CPU usage detected
+          expr:
+            100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m]))
+            * 100) > 80
+          for: 5m
+          labels:
+            severity: warning
+        - alert: HighMemoryUsage
+          annotations:
+            description:
+              Memory usage is above 85% for more than 5 minutes on {{ $labels.instance
+              }}
+            summary: High memory usage detected
+          expr:
+            (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes
+            * 100 > 85
+          for: 5m
+          labels:
+            severity: warning
+        - alert: DiskSpaceLow
+          annotations:
+            description:
+              Disk space is below 10% on {{ $labels.instance }} mount {{ $labels.mountpoint
+              }}
+            summary: Disk space is low
+          expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 < 10
+          for: 5m
+          labels:
+            severity: critical
+        - alert: DatabaseConnectionsHigh
+          annotations:
+            description:
+              Database connections are above 80% of max on {{ $labels.instance
+              }}
+            summary: High database connections
+          expr: pg_stat_database_numbackends / pg_settings_max_connections * 100 > 80
+          for: 5m
+          labels:
+            severity: warning
+        - alert: RedisMemoryHigh
+          annotations:
+            description: Redis memory usage is above 85% on {{ $labels.instance }}
+            summary: High Redis memory usage
+          expr: redis_memory_used_bytes / redis_memory_max_bytes * 100 > 85
+          for: 5m
+          labels:
+            severity: warning
+        - alert: ApplicationDown
+          annotations:
+            description: NEXUS Backend has been down for more than 1 minute
+            summary: NEXUS Backend is down
+          expr: up{job="nexus-backend"} == 0
+          for: 1m
+          labels:
+            severity: critical
+        - alert: HighErrorRate
+          annotations:
+            description: Error rate is above 5% for more than 5 minutes
+            summary: High error rate detected
+          expr:
+            rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])
+            * 100 > 5
+          for: 5m
+          labels:
+            severity: warning
+        - alert: HighResponseTime
+          annotations:
+            description:
+              95th percentile response time is above 1 second for more than
+              5 minutes
+            summary: High response time detected
+          expr:
+            histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+            > 1
+          for: 5m
+          labels:
+            severity: warning
+        - alert: PodRestart
+          annotations:
+            description:
+              Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has
+              restarted
+            summary: Pod restart detected
+          expr: rate(kube_pod_container_status_restarts_total[15m]) > 0
+          for: 5m
+          labels:
+            severity: warning
+        - alert: ContainerOOMKilled
+          annotations:
+            description:
+              Container {{ $labels.container }} in pod {{ $labels.pod }} was
+              OOMKilled
+            summary: Container OOMKilled
+          expr: kube_pod_container_status_last_terminated_reason == "OOMKilled"
+          for: 0m
+          labels:
+            severity: critical
+        - alert: HighNetworkTraffic
+          annotations:
+            description:
+              Network receive traffic is above 100MB/s for more than 5 minutes
+              on {{ $labels.instance }}
+            summary: High network traffic detected
+          expr: rate(node_network_receive_bytes_total[5m]) > 100000000
+          for: 5m
+          labels:
+            severity: warning
+        - alert: DatabaseSlowQueries
+          annotations:
+            description: Database query efficiency is below 10% for more than 5 minutes
+            summary: Database slow queries detected
+          expr:
+            rate(pg_stat_database_tup_returned[5m]) / rate(pg_stat_database_tup_fetched[5m])
+            < 0.1
+          for: 5m
+          labels:
+            severity: warning
+        - alert: RedisSlowOperations
+          annotations:
+            description:
+              Redis average command duration is above 100ms for more than 5
+              minutes
+            summary: Redis slow operations detected
+          expr:
+            rate(redis_commands_duration_seconds_sum[5m]) / rate(redis_commands_duration_seconds_count[5m])
+            > 0.1
+          for: 5m
+          labels:
+            severity: warning
+  kind: ConfigMap
+  metadata:
+    labels:
+      app: nexus-platform
+      component: monitoring
+    name: prometheus-config
+    namespace: nexus-platform
+  recording_rules:
+    - name: nexus.rules
+      rules:
+        - expr: rate(http_requests_total[5m])
+          record: nexus:request_rate
+        - expr: rate(http_requests_total{status=~"5.."}[5m])
+          record: nexus:error_rate
+        - expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+          record: nexus:response_time_p95
+        - expr: postgres_stat_activity_count{state="active"}
+          record: nexus:database_connections_active
+        - expr: (redis_memory_used_bytes / redis_memory_max_bytes) * 100
+          record: nexus:redis_memory_usage_percent
+  remote_write:
+    - basic_auth:
+        password: secure-password
+        username: nexus-platform
+      url: https://prometheus-remote-write.example.com/api/v1/write
+  rule_files:
+    - rules/*.yml
+  scrape_configs:
+    - job_name: prometheus
+      static_configs:
+        - targets:
+            - localhost:9090
+    - job_name: nexus-backend
+      metrics_path: /api/monitoring/metrics
+      scrape_interval: 30s
+      scrape_timeout: 10s
+      static_configs:
+        - targets:
+            - backend:8000
+    - job_name: nexus-frontend
+      metrics_path: /metrics
+      scrape_interval: 30s
+      static_configs:
+        - targets:
+            - frontend:3000
+    - job_name: nexus-monitoring
+      scrape_interval: 30s
+      static_configs:
+        - targets:
+            - monitoring:9090
+    - job_name: theme-orchestration
+      metrics_path: /api/themes/performance
+      params:
+        format:
+          - prometheus
+      scrape_interval: 60s
+      static_configs:
+        - targets:
+            - backend:8000
+    - job_name: agent-coordination
+      metrics_path: /api/agents/analytics
+      params:
+        format:
+          - prometheus
+      scrape_interval: 60s
+      static_configs:
+        - targets:
+            - backend:8000
+    - job_name: node-exporter
+      scrape_interval: 30s
+      static_configs:
+        - targets:
+            - node-exporter:9100
+    - job_name: postgres
+      scrape_interval: 30s
+      static_configs:
+        - targets:
+            - postgres-exporter:9187
+    - job_name: redis
+      scrape_interval: 30s
+      static_configs:
+        - targets:
+            - redis-exporter:9121
+    - job_name: nginx
+      scrape_interval: 30s
+      static_configs:
+        - targets:
+            - nginx:9113
+  storage:
+    tsdb:
+      retention.size: 10GB
+      retention.time: 30d
+      wal-compression: true

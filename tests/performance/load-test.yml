@@ -1,0 +1,111 @@
+config:
+  target: 'http://localhost:8000'
+  phases:
+    # Warm-up phase
+    - duration: 30
+      arrivalRate: 5
+      name: "Warm-up"
+    
+    # Normal load phase
+    - duration: 60
+      arrivalRate: 10
+      name: "Normal load"
+    
+    # High load phase
+    - duration: 120
+      arrivalRate: 20
+      name: "High load"
+    
+    # Stress test phase
+    - duration: 60
+      arrivalRate: 50
+      name: "Stress test"
+    
+    # Cool-down phase
+    - duration: 30
+      arrivalRate: 5
+      name: "Cool-down"
+
+scenarios:
+  - name: "Health Check"
+    weight: 20
+    flow:
+      - get:
+          url: "/health"
+          expect:
+            - statusCode: 200
+            - hasProperty: "success"
+            - hasProperty: "data"
+    
+  - name: "System Stats"
+    weight: 15
+    flow:
+      - get:
+          url: "/stats"
+          expect:
+            - statusCode: 200
+            - hasProperty: "success"
+            - hasProperty: "data"
+    
+  - name: "Available Functions"
+    weight: 15
+    flow:
+      - get:
+          url: "/functions"
+          expect:
+            - statusCode: 200
+            - hasProperty: "success"
+            - hasProperty: "data"
+    
+  - name: "Create Task"
+    weight: 30
+    flow:
+      - post:
+          url: "/tasks"
+          json:
+            name: "Performance Test Task {{ $randomString() }}"
+            description: "Task created during performance testing"
+            priority: "medium"
+            function_name: "example_task"
+            args: ["perf-test", 0.5]
+            timeout: 10
+            max_retries: 1
+          expect:
+            - statusCode: 200
+            - hasProperty: "success"
+            - hasProperty: "data"
+            - hasProperty: "data.task_id"
+    
+  - name: "Get Task"
+    weight: 20
+    flow:
+      - post:
+          url: "/tasks"
+          json:
+            name: "Task for Get Test {{ $randomString() }}"
+            description: "Task created for get test"
+            priority: "low"
+            function_name: "example_task"
+            args: ["get-test", 0.1]
+            timeout: 5
+            max_retries: 1
+          capture:
+            - json: "$.data.task_id"
+              as: "taskId"
+      - get:
+          url: "/tasks/{{ taskId }}"
+          expect:
+            - statusCode: 200
+            - hasProperty: "success"
+            - hasProperty: "data"
+            - hasProperty: "data.id"
+
+plugins:
+  metrics-by-endpoint:
+    useOnlyRequestNames: true
+  publish-metrics:
+    - type: "datadog"
+      host: "localhost"
+      port: 8125
+    - type: "prometheus"
+      endpoint: "http://localhost:9090/metrics"

@@ -1,0 +1,8 @@
+{
+  "file_path": "backend/requirements.txt",
+  "category": "requirements",
+  "marked_at": "2025-09-29T00:33:49.077011",
+  "ssot_version": "2.1.0",
+  "description": "Single Source of Truth for requirements",
+  "checksum": "57738b852707e8c73d54982e04569dd85e3b592eaef3eeb24a10104b52ce7d3d"
+}

@@ -1,0 +1,22 @@
+🔍 Validating naming conventions...
+
+❌ Found 97569 errors:
+  archives_backup_phase4/archived_automation_files/complete_task_automation.py:78: Function name '__init__' should be snake_case
+  archives_backup_phase4/archived_automation_files/aio_automation_ssot.py:85: Function name '__lt__' should be snake_case
+  archives_backup_phase4/archived_automation_files/aio_automation_ssot.py:111: Function name '__eq__' should be snake_case
+  archives_backup_phase4/archived_automation_files/aio_automation_ssot.py:117: Function name '__hash__' should be snake_case
+  archives_backup_phase4/archived_automation_files/aio_automation_ssot.py:124: Function name '__init__' should be snake_case
+  archives_backup_phase4/archived_automation_files/aio_automation_ssot.py:484: Function name '__init__' should be snake_case
+  archives_backup_phase4/archived_automation_files/aio_automation_ssot.py:585: Function name '__init__' should be snake_case
+  archives_backup_phase4/archived_automation_files/aio_automation_ssot.py:825: Function name '__init__' should be snake_case
+  archives_backup_phase4/archived_automation_files/aio_automation_ssot.py:925: Function name '__init__' should be snake_case
+  archives_backup_phase4/archived_automation_files/nexus_ssot_file_manager.py:17: Function name '__init__' should be snake_case
+  ... and 97559 more
+
+⚠️  Found 2176 warnings:
+  Python file name '__main__.py' should be snake_case
+  Python file name '_native.py' should be snake_case
+  Python file name '_util.py' should be snake_case
+  Python file name '_util.py' should be snake_case
+  Python file name '_identifier.py' should be snake_case
+  ... and 2171 more

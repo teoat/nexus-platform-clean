@@ -1,0 +1,100 @@
+flowchart LR
+    %% SSOT Core Layer
+    subgraph "SSOT Core - Master Truth"
+        SSOT_MANIFEST[SSOT Manifest<br/>26 Anchors]
+        MODULES_INDEX[Modules Index<br/>Registry]
+        LOCKFILES[Lockfiles<br/>Version Control]
+        POLICIES[Policies<br/>Governance]
+    end
+
+    %% NUC Distribution Layer
+    subgraph "NUC - Registry & Distributor"
+        NUC_ORCHESTRATOR[NUC Orchestrator<br/>Distribution Service]
+        SNAPSHOT_SERVICE[Snapshot Service<br/>Version Management]
+        DISTRIBUTION_API[Distribution API<br/>REST/GraphQL]
+    end
+
+    %% Application Layer
+    subgraph "Application Layer"
+        FRONTEND[Frontend<br/>React/Next.js]
+        BACKEND[Backend Services<br/>Python/FastAPI]
+        DATABASE[Database<br/>PostgreSQL]
+        REDIS[Redis<br/>Cache Layer]
+        NGINX[Nginx<br/>Reverse Proxy]
+    end
+
+    %% Automation Layer
+    subgraph "Automation Layer"
+        CI_PIPELINE[CI Pipeline<br/>GitHub Actions]
+        CD_PIPELINE[CD Pipeline<br/>Deployment]
+        MONITORING[Monitoring<br/>Prometheus/Grafana]
+        BACKUP[Backup<br/>Automation]
+        SECURITY[Security<br/>Scanning]
+    end
+
+    %% Operator Layer
+    subgraph "Frenly AI - SSOT Operator"
+        QUERY_ENGINE[Query Engine<br/>SSOT Interface]
+        RESPONSE_GEN[Response Generator<br/>Intelligence]
+        ADAPTATION[Adaptation Engine<br/>Change Detection]
+    end
+
+    %% Observability Layer
+    subgraph "Observability & Audit"
+        TELEMETRY[Telemetry<br/>Collection]
+        AUDIT_LOGS[Audit Logs<br/>SSOT Operations]
+        ALERTING[Alerting<br/>System Health]
+        DASHBOARDS[Dashboards<br/>Monitoring]
+    end
+
+    %% Data Flows
+    SSOT_MANIFEST --> NUC_ORCHESTRATOR
+    MODULES_INDEX --> NUC_ORCHESTRATOR
+    LOCKFILES --> NUC_ORCHESTRATOR
+    POLICIES --> NUC_ORCHESTRATOR
+
+    NUC_ORCHESTRATOR --> SNAPSHOT_SERVICE
+    SNAPSHOT_SERVICE --> DISTRIBUTION_API
+
+    DISTRIBUTION_API --> FRONTEND
+    DISTRIBUTION_API --> BACKEND
+    DISTRIBUTION_API --> CI_PIPELINE
+    DISTRIBUTION_API --> CD_PIPELINE
+    DISTRIBUTION_API --> MONITORING
+
+    QUERY_ENGINE --> SSOT_MANIFEST
+    QUERY_ENGINE --> LOCKFILES
+    RESPONSE_GEN --> QUERY_ENGINE
+    ADAPTATION --> SSOT_MANIFEST
+
+    FRONTEND --> TELEMETRY
+    BACKEND --> TELEMETRY
+    CI_PIPELINE --> AUDIT_LOGS
+    CD_PIPELINE --> AUDIT_LOGS
+    MONITORING --> ALERTING
+    BACKUP --> AUDIT_LOGS
+    SECURITY --> AUDIT_LOGS
+
+    TELEMETRY --> DASHBOARDS
+    AUDIT_LOGS --> DASHBOARDS
+    ALERTING --> DASHBOARDS
+
+    %% Change Detection Flow
+    SSOT_MANIFEST -.->|Change Detection| ADAPTATION
+    ADAPTATION -.->|Adaptation| QUERY_ENGINE
+    ADAPTATION -.->|Adaptation| RESPONSE_GEN
+
+    %% Styling
+    classDef ssotCore fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px
+    classDef nucLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef appLayer fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef autoLayer fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef operatorLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef obsLayer fill:#f1f8e9,stroke:#388e3c,stroke-width:2px
+
+    class SSOT_MANIFEST,MODULES_INDEX,LOCKFILES,POLICIES ssotCore
+    class NUC_ORCHESTRATOR,SNAPSHOT_SERVICE,DISTRIBUTION_API nucLayer
+    class FRONTEND,BACKEND,DATABASE,REDIS,NGINX appLayer
+    class CI_PIPELINE,CD_PIPELINE,MONITORING,BACKUP,SECURITY autoLayer
+    class QUERY_ENGINE,RESPONSE_GEN,ADAPTATION operatorLayer
+    class TELEMETRY,AUDIT_LOGS,ALERTING,DASHBOARDS obsLayer

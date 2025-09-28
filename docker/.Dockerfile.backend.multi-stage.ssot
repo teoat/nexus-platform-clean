@@ -1,0 +1,8 @@
+{
+  "file_path": "docker/Dockerfile.backend.multi-stage",
+  "category": "dockerfiles",
+  "marked_at": "2025-09-29T00:33:49.074859",
+  "ssot_version": "2.1.0",
+  "description": "Single Source of Truth for dockerfiles",
+  "checksum": "376c8708facfc5aee5e0368f2088e54520ffca64ba46e3c7163d374fb7aec410"
+}

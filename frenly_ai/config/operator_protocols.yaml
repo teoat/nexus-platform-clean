@@ -1,0 +1,113 @@
+# Frenly AI SSOT Operator Protocols
+# Defines communication protocols, data formats, and expected behaviors for Frenly AI's interaction with the SSOT Operator.
+
+protocol_version: "1.0"
+
+# General settings for the operator
+operator_settings:
+  name: "FrenlyAISSOTOperator"
+  description: "Protocol for Frenly AI to interact with the SSOT Alias Manager."
+  api_endpoint_prefix: "/frenly-ai/ssot"
+  authentication_required: true
+  auth_method: "API_KEY"
+
+# Definitions for various operations
+operations:
+  create_alias:
+    endpoint: "/alias"
+    method: "POST"
+    description: "Creates a new alias in the SSOT system."
+    request_schema:
+      type: "object"
+      required: ["alias_name", "canonical_name", "context"]
+      properties:
+        alias_name:
+          { type: "string", description: "Unique name for the alias." }
+        canonical_name:
+          { type: "string", description: "The actual resource identifier." }
+        context:
+          {
+            type: "string",
+            description: "The operational context (e.g., 'frontend', 'backend', 'global').",
+          }
+        expires_at:
+          {
+            type: "string",
+            format: "date-time",
+            description: "Optional expiration timestamp for the alias.",
+          }
+    response_schema:
+      type: "object"
+      properties:
+        alias_name: { type: "string" }
+        canonical_name: { type: "string" }
+        context: { type: "string" }
+        created_at: { type: "string", format: "date-time" }
+        expires_at: { type: "string", format: "date-time" }
+        status: { type: "string" }
+
+  get_alias:
+    endpoint: "/alias/{alias_name}"
+    method: "GET"
+    description: "Retrieves details of an existing alias."
+    path_parameters:
+      alias_name:
+        { type: "string", description: "The name of the alias to retrieve." }
+    response_schema:
+      type: "object"
+      properties:
+        alias_name: { type: "string" }
+        canonical_name: { type: "string" }
+        context: { type: "string" }
+        created_at: { type: "string", format: "date-time" }
+        expires_at: { type: "string", format: "date-time" }
+        status: { type: "string" }
+
+  update_alias:
+    endpoint: "/alias/{alias_name}"
+    method: "PUT"
+    description: "Updates an existing alias."
+    path_parameters:
+      alias_name:
+        { type: "string", description: "The name of the alias to update." }
+    request_schema:
+      type: "object"
+      properties:
+        canonical_name: { type: "string", description: "New canonical name." }
+        context: { type: "string", description: "New context." }
+        expires_at:
+          {
+            type: "string",
+            format: "date-time",
+            description: "New expiration timestamp.",
+          }
+    response_schema:
+      type: "object"
+      properties:
+        alias_name: { type: "string" }
+        canonical_name: { type: "string" }
+        context: { type: "string" }
+        updated_at: { type: "string", format: "date-time" }
+
+  deactivate_alias:
+    endpoint: "/alias/{alias_name}"
+    method: "DELETE"
+    description: "Deactivates an alias."
+    path_parameters:
+      alias_name:
+        { type: "string", description: "The name of the alias to deactivate." }
+    response_schema:
+      type: "object"
+      properties:
+        message: { type: "string" }
+
+# Error handling standards
+error_handling:
+  default_error_code: 500
+  error_codes:
+    400: "Bad Request - Invalid input or validation failure."
+    401: "Unauthorized - Missing or invalid authentication."
+    403: "Forbidden - Insufficient permissions."
+    404: "Not Found - Alias or resource not found."
+    409: "Conflict - Alias already exists or conflict detected."
+    500: "Internal Server Error - Unexpected server issue."

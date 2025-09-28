@@ -1,0 +1,118 @@
+# NEXUS Platform - Base Configuration
+# This file contains the core configuration that applies to all environments
+
+# System Settings
+system:
+  name: "NEXUS Platform"
+  version: "1.0.0"
+  workspace_path: "/Users/Arief/Desktop/Nexus"
+
+# Database Configuration
+database:
+  connection_timeout: 30
+  pool_size_min: 5
+  pool_size_max: 20
+  retry_attempts: 3
+  retry_delay: 1.0
+
+# API Configuration
+api:
+  timeout: 30
+  rate_limit: 1000
+  max_requests_per_minute: 1000
+
+# Security Configuration
+security:
+  jwt_expiry_hours: 24
+  password_min_length: 12
+  enable_encryption: false
+  enable_authentication: false
+  rate_limiting: true
+
+# Performance Configuration
+performance:
+  enable_profiling: false
+  profile_interval: 60.0
+  memory_optimization: true
+  cpu_optimization: true
+
+# Monitoring Configuration
+monitoring:
+  interval: 3.0
+  metrics_history_size: 1000
+  alert_thresholds:
+    cpu_high: 90.0
+    memory_high: 85.0
+    error_rate_high: 20.0
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  max_size: "10MB"
+  backup_count: 5
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# File Management
+file_management:
+  batch_size: 100
+  update_interval: 1.0
+  backup_enabled: true
+  backup_interval: 300
+
+# Worker Configuration
+workers:
+  min_workers: 6
+  max_workers: 20
+  target_cpu: 75.0
+  scaling:
+    cpu_threshold_low: 60.0
+    cpu_threshold_high: 85.0
+    memory_threshold: 80.0
+    scale_up_delay: 5.0
+    scale_down_delay: 10.0
+
+# Worker Specializations
+worker_types:
+  database:
+    count: 3
+    priority: high
+    success_rate: 0.95
+  api:
+    count: 4
+    priority: high
+    success_rate: 0.90
+  frontend:
+    count: 3
+    priority: medium
+    success_rate: 0.92
+  testing:
+    count: 3
+    priority: medium
+    success_rate: 0.88
+  monitoring:
+    count: 2
+    priority: high
+    success_rate: 0.97
+  general:
+    count: 5
+    priority: low
+    success_rate: 0.90
+
+# Task Processing
+processing:
+  cycle_duration: 2.0
+  max_retries: 3
+  retry_delay: 1.0
+  complexity_analysis: true
+  subtask_breakdown: true
+
+# Features
+features:
+  intelligent_scaling: true
+  task_prioritization: true
+  error_recovery: true
+  health_monitoring: true
+  metrics_collection: true
+  alerting: true
+  web_interface: false
+  api_endpoints: false

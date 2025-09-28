@@ -1,0 +1,8 @@
+{
+  "file_path": "docker-compose.yml",
+  "category": "docker_compose",
+  "marked_at": "2025-09-29T00:33:49.067950",
+  "ssot_version": "2.1.0",
+  "description": "Single Source of Truth for docker_compose",
+  "checksum": "16dcba6264f6529b92204c261bad059973c1888319bff076992c6ce4377a2f9d"
+}

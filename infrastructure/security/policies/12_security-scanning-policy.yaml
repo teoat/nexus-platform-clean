@@ -1,0 +1,111 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: security-scanning-policy
+  namespace: nexus-platform
+data:
+  policy.yaml: |
+    security:
+      image_scanning:
+        enabled: true
+        schedule: "0 2 * * *"  # Daily at 2 AM
+        severity_threshold: "HIGH"
+        ignore_cves:
+          - "CVE-2021-1234"  # Example: known false positive
+
+      vulnerability_management:
+        auto_remediate: false
+        notification_channels:
+          - email: "security@nexus-platform.com"
+          - slack: "#security-alerts"
+
+        policies:
+          - name: "Critical Vulnerabilities"
+            severity: "CRITICAL"
+            action: "block_deployment"
+            notification: "immediate"
+
+          - name: "High Vulnerabilities"
+            severity: "HIGH"
+            action: "require_approval"
+            notification: "within_1_hour"
+
+          - name: "Medium Vulnerabilities"
+            severity: "MEDIUM"
+            action: "log_and_notify"
+            notification: "daily_summary"
+
+      compliance:
+        enabled: true
+        standards:
+          - "CIS_Kubernetes_Benchmark"
+          - "NIST_Cybersecurity_Framework"
+          - "SOC2_Type2"
+
+        audit_schedule: "0 1 * * 1"  # Weekly on Monday at 1 AM
+        retention_days: 365
+
+      secrets_management:
+        enabled: true
+        rotation_schedule: "0 0 1 * *"  # Monthly
+        encryption_at_rest: true
+        encryption_in_transit: true
+
+        policies:
+          - name: "Database Passwords"
+            rotation_frequency: "monthly"
+            complexity_requirements:
+              min_length: 16
+              require_uppercase: true
+              require_lowercase: true
+              require_numbers: true
+              require_special_chars: true
+
+          - name: "API Keys"
+            rotation_frequency: "quarterly"
+            complexity_requirements:
+              min_length: 32
+              require_uppercase: true
+              require_lowercase: true
+              require_numbers: true
+
+      network_security:
+        enabled: true
+        policies:
+          - name: "Default Deny"
+            action: "deny"
+            priority: 1000
+
+          - name: "Allow Internal Communication"
+            action: "allow"
+            priority: 100
+            source: "nexus-platform"
+            destination: "nexus-platform"
+
+          - name: "Allow External API Calls"
+            action: "allow"
+            priority: 200
+            source: "nexus-platform"
+            destination: "external"
+            ports: [80, 443]
+
+      monitoring:
+        enabled: true
+        log_retention_days: 90
+        alert_on_suspicious_activity: true
+
+        metrics:
+          - name: "failed_login_attempts"
+            threshold: 5
+            time_window: "5m"
+            action: "alert"
+
+          - name: "unusual_api_usage"
+            threshold: 1000
+            time_window: "1m"
+            action: "alert"
+
+          - name: "resource_usage_spike"
+            threshold: 80
+            time_window: "5m"
+            action: "alert"

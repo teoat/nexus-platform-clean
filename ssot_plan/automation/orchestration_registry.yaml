@@ -1,0 +1,522 @@
+# NEXUS Platform - Orchestration Registry
+# Generated: 2025-01-27T12:30:00Z
+# Version: 1.0
+
+metadata:
+  generated_at: "2025-01-27T12:30:00Z"
+  version: "1.0"
+  platform: "NEXUS"
+  type: "orchestration_registry"
+
+orchestration:
+  services:
+    frontend:
+      type: "web"
+      deployment_method: "kubernetes"
+      dependencies: ["backend", "nginx"]
+      health_check:
+        endpoint: "/health"
+        interval: "30s"
+        timeout: "10s"
+        retries: 3
+        success_threshold: 2
+        failure_threshold: 3
+      scaling:
+        min_replicas: 2
+        max_replicas: 10
+        target_cpu: 70
+        target_memory: 80
+        scale_up_threshold: 80
+        scale_down_threshold: 20
+        cooldown_period: "5m"
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+      environment:
+        NODE_ENV: "production"
+        REACT_APP_API_URL: "${BACKEND_URL}"
+        REACT_APP_WS_URL: "${WS_URL}"
+      ports:
+        - container_port: 3000
+          protocol: "TCP"
+          name: "http"
+      probes:
+        liveness:
+          http_get:
+            path: "/health"
+            port: 3000
+          initial_delay_seconds: 30
+          period_seconds: 10
+        readiness:
+          http_get:
+            path: "/ready"
+            port: 3000
+          initial_delay_seconds: 5
+          period_seconds: 5
+
+    backend:
+      type: "api"
+      deployment_method: "kubernetes"
+      dependencies: ["database", "redis"]
+      health_check:
+        endpoint: "/api/health"
+        interval: "30s"
+        timeout: "10s"
+        retries: 3
+        success_threshold: 2
+        failure_threshold: 3
+      scaling:
+        min_replicas: 3
+        max_replicas: 20
+        target_cpu: 80
+        target_memory: 85
+        scale_up_threshold: 80
+        scale_down_threshold: 20
+        cooldown_period: "5m"
+      resources:
+        requests:
+          cpu: "200m"
+          memory: "512Mi"
+        limits:
+          cpu: "1000m"
+          memory: "1Gi"
+      environment:
+        NEXUS_ENV: "production"
+        DATABASE_URL: "${DATABASE_URL}"
+        REDIS_URL: "${REDIS_URL}"
+        JWT_SECRET_KEY: "${JWT_SECRET_KEY}"
+        CORS_ORIGINS: "${CORS_ORIGINS}"
+      ports:
+        - container_port: 8000
+          protocol: "TCP"
+          name: "http"
+      probes:
+        liveness:
+          http_get:
+            path: "/api/health"
+            port: 8000
+          initial_delay_seconds: 60
+          period_seconds: 10
+        readiness:
+          http_get:
+            path: "/api/ready"
+            port: 8000
+          initial_delay_seconds: 10
+          period_seconds: 5
+
+    database:
+      type: "database"
+      deployment_method: "kubernetes"
+      dependencies: []
+      health_check:
+        command: "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"
+        interval: "60s"
+        timeout: "30s"
+        retries: 5
+        success_threshold: 1
+        failure_threshold: 3
+      scaling:
+        min_replicas: 1
+        max_replicas: 3
+        target_cpu: 90
+        target_memory: 90
+        scale_up_threshold: 90
+        scale_down_threshold: 30
+        cooldown_period: "10m"
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
+        limits:
+          cpu: "2000m"
+          memory: "4Gi"
+      environment:
+        POSTGRES_DB: "${POSTGRES_DB}"
+        POSTGRES_USER: "${POSTGRES_USER}"
+        POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+        POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+      ports:
+        - container_port: 5432
+          protocol: "TCP"
+          name: "postgres"
+      probes:
+        liveness:
+          exec:
+            command: ["pg_isready", "-U", "${POSTGRES_USER}"]
+          initial_delay_seconds: 30
+          period_seconds: 10
+        readiness:
+          exec:
+            command: ["pg_isready", "-U", "${POSTGRES_USER}"]
+          initial_delay_seconds: 5
+          period_seconds: 5
+      persistence:
+        enabled: true
+        size: "100Gi"
+        storage_class: "fast-ssd"
+        access_mode: "ReadWriteOnce"
+
+    redis:
+      type: "cache"
+      deployment_method: "kubernetes"
+      dependencies: []
+      health_check:
+        command: "redis-cli ping"
+        interval: "30s"
+        timeout: "10s"
+        retries: 3
+        success_threshold: 1
+        failure_threshold: 3
+      scaling:
+        min_replicas: 1
+        max_replicas: 3
+        target_cpu: 80
+        target_memory: 80
+        scale_up_threshold: 80
+        scale_down_threshold: 20
+        cooldown_period: "5m"
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+      environment:
+        REDIS_PASSWORD: "${REDIS_PASSWORD}"
+      ports:
+        - container_port: 6379
+          protocol: "TCP"
+          name: "redis"
+      probes:
+        liveness:
+          exec:
+            command: ["redis-cli", "ping"]
+          initial_delay_seconds: 30
+          period_seconds: 10
+        readiness:
+          exec:
+            command: ["redis-cli", "ping"]
+          initial_delay_seconds: 5
+          period_seconds: 5
+      persistence:
+        enabled: true
+        size: "10Gi"
+        storage_class: "fast-ssd"
+        access_mode: "ReadWriteOnce"
+
+    nginx:
+      type: "proxy"
+      deployment_method: "kubernetes"
+      dependencies: ["frontend", "backend"]
+      health_check:
+        endpoint: "/nginx-health"
+        interval: "30s"
+        timeout: "10s"
+        retries: 3
+        success_threshold: 2
+        failure_threshold: 3
+      scaling:
+        min_replicas: 2
+        max_replicas: 5
+        target_cpu: 70
+        target_memory: 80
+        scale_up_threshold: 80
+        scale_down_threshold: 20
+        cooldown_period: "5m"
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "128Mi"
+        limits:
+          cpu: "500m"
+          memory: "256Mi"
+      environment:
+        NGINX_ENVSUBST_TEMPLATE_SUFFIX: ".template"
+      ports:
+        - container_port: 80
+          protocol: "TCP"
+          name: "http"
+        - container_port: 443
+          protocol: "TCP"
+          name: "https"
+      probes:
+        liveness:
+          http_get:
+            path: "/nginx-health"
+            port: 80
+          initial_delay_seconds: 30
+          period_seconds: 10
+        readiness:
+          http_get:
+            path: "/nginx-health"
+            port: 80
+          initial_delay_seconds: 5
+          period_seconds: 5
+
+    frenly_ai:
+      type: "ai_service"
+      deployment_method: "kubernetes"
+      dependencies: ["backend"]
+      health_check:
+        endpoint: "/health"
+        interval: "30s"
+        timeout: "10s"
+        retries: 3
+        success_threshold: 2
+        failure_threshold: 3
+      scaling:
+        min_replicas: 1
+        max_replicas: 5
+        target_cpu: 80
+        target_memory: 85
+        scale_up_threshold: 80
+        scale_down_threshold: 20
+        cooldown_period: "5m"
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
+        limits:
+          cpu: "2000m"
+          memory: "2Gi"
+      environment:
+        NEXUS_ENV: "production"
+        BACKEND_URL: "${BACKEND_URL}"
+        OPENAI_API_KEY: "${OPENAI_API_KEY}"
+        ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY}"
+      ports:
+        - container_port: 8001
+          protocol: "TCP"
+          name: "http"
+      probes:
+        liveness:
+          http_get:
+            path: "/health"
+            port: 8001
+          initial_delay_seconds: 60
+          period_seconds: 10
+        readiness:
+          http_get:
+            path: "/ready"
+            port: 8001
+          initial_delay_seconds: 10
+          period_seconds: 5
+
+  coordination:
+    nuc_orchestrator:
+      enabled: true
+      type: "orchestrator"
+      deployment_method: "kubernetes"
+      port: 8002
+      health_check: "/orchestrator/health"
+      capabilities:
+        ["service_discovery", "load_balancing", "failover", "health_monitoring"]
+      resources:
+        requests:
+          cpu: "200m"
+          memory: "512Mi"
+        limits:
+          cpu: "1000m"
+          memory: "1Gi"
+      environment:
+        NEXUS_ENV: "production"
+        LOG_LEVEL: "INFO"
+        MONITORING_ENABLED: "true"
+      dependencies: ["database", "redis"]
+
+    coordination_hub:
+      enabled: true
+      type: "coordination"
+      deployment_method: "kubernetes"
+      port: 8003
+      health_check: "/hub/health"
+      capabilities:
+        [
+          "agent_management",
+          "task_scheduling",
+          "conflict_resolution",
+          "communication",
+        ]
+      resources:
+        requests:
+          cpu: "200m"
+          memory: "512Mi"
+        limits:
+          cpu: "1000m"
+          memory: "1Gi"
+      environment:
+        NEXUS_ENV: "production"
+        LOG_LEVEL: "INFO"
+        WEBSOCKET_ENABLED: "true"
+      dependencies: ["database", "redis"]
+
+  policies:
+    failover:
+      detection_time: "30s"
+      recovery_time: "60s"
+      max_failures: 3
+      escalation: ["alert", "auto_heal", "manual_intervention"]
+      auto_heal_actions:
+        - "restart_service"
+        - "scale_up"
+        - "clear_cache"
+        - "reset_connections"
+
+    scaling:
+      scale_up_threshold: 80
+      scale_down_threshold: 20
+      cooldown_period: "5m"
+      max_scale_rate: 2
+      scale_up_policy: "immediate"
+      scale_down_policy: "gradual"
+
+    resource_management:
+      cpu_threshold: 90
+      memory_threshold: 95
+      disk_threshold: 90
+      network_threshold: 80
+      alert_on_threshold: true
+      auto_scale_on_threshold: true
+
+    security:
+      network_policies: true
+      pod_security_policies: true
+      service_mesh: true
+      encryption_in_transit: true
+      encryption_at_rest: true
+      access_control: "rbac"
+
+    monitoring:
+      metrics_collection: true
+      log_aggregation: true
+      tracing: true
+      alerting: true
+      dashboard_refresh: "30s"
+      retention_period: "30d"
+
+  networks:
+    nexus_network:
+      type: "overlay"
+      driver: "bridge"
+      ipam:
+        driver: "default"
+        config:
+          - subnet: "172.20.0.0/16"
+      options:
+        encrypted: true
+        attachable: true
+
+    frontend_network:
+      type: "overlay"
+      driver: "bridge"
+      ipam:
+        driver: "default"
+        config:
+          - subnet: "172.21.0.0/16"
+      options:
+        encrypted: true
+
+    backend_network:
+      type: "overlay"
+      driver: "bridge"
+      ipam:
+        driver: "default"
+        config:
+          - subnet: "172.22.0.0/16"
+      options:
+        encrypted: true
+
+  volumes:
+    postgres_data:
+      type: "persistent"
+      driver: "local"
+      options:
+        type: "none"
+        o: "bind"
+        device: "/var/lib/postgresql/data"
+
+    redis_data:
+      type: "persistent"
+      driver: "local"
+      options:
+        type: "none"
+        o: "bind"
+        device: "/var/lib/redis/data"
+
+    nginx_logs:
+      type: "persistent"
+      driver: "local"
+      options:
+        type: "none"
+        o: "bind"
+        device: "/var/log/nginx"
+
+    prometheus_data:
+      type: "persistent"
+      driver: "local"
+      options:
+        type: "none"
+        o: "bind"
+        device: "/var/lib/prometheus"
+
+    grafana_data:
+      type: "persistent"
+      driver: "local"
+      options:
+        type: "none"
+        o: "bind"
+        device: "/var/lib/grafana"
+
+  secrets:
+    database_credentials:
+      type: "kubernetes_secret"
+      data:
+        username: "${POSTGRES_USER}"
+        password: "${POSTGRES_PASSWORD}"
+        database: "${POSTGRES_DB}"
+
+    redis_credentials:
+      type: "kubernetes_secret"
+      data:
+        password: "${REDIS_PASSWORD}"
+
+    jwt_secret:
+      type: "kubernetes_secret"
+      data:
+        secret_key: "${JWT_SECRET_KEY}"
+
+    api_keys:
+      type: "kubernetes_secret"
+      data:
+        openai_key: "${OPENAI_API_KEY}"
+        anthropic_key: "${ANTHROPIC_API_KEY}"
+
+    ssl_certificates:
+      type: "kubernetes_secret"
+      data:
+        tls_crt: "${SSL_CERTIFICATE}"
+        tls_key: "${SSL_PRIVATE_KEY}"
+
+  configmaps:
+    nginx_config:
+      type: "kubernetes_configmap"
+      data:
+        nginx.conf: "${NGINX_CONFIG}"
+        default.conf: "${NGINX_DEFAULT_CONFIG}"
+
+    prometheus_config:
+      type: "kubernetes_configmap"
+      data:
+        prometheus.yml: "${PROMETHEUS_CONFIG}"
+        alert_rules.yml: "${PROMETHEUS_ALERT_RULES}"
+
+    grafana_config:
+      type: "kubernetes_configmap"
+      data:
+        grafana.ini: "${GRAFANA_CONFIG}"
+        dashboards.yaml: "${GRAFANA_DASHBOARDS}"

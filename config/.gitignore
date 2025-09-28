@@ -1,0 +1,133 @@
+# Archives and backups
+archive_*/
+archived_*/
+backups/
+consolidated_archives/
+consolidated_automation/
+consolidated_docs/
+consolidated_multi_type/
+consolidated_other/
+consolidated_scripts/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+nexus_env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific hidden directories
+.nexus/
+.taskmaster/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+nexus_automation_ssot.log
+
+# Data and databases
+*.db
+*.sqlite
+*.sqlite3
+data/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Node modules (if any)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+build/
+dist/
+*.tgz
+*.tar.gz
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Certificates
+ca/
+*.pem
+*.key
+*.crt
+*.csr
+
+# Compressed files
+compressed_large_files/
+*.zip
+*.rar
+*.7z
+
+# Reports
+reports/
+*.json
+frontend_validation_report.json
+
+# Metrics
+metrics/

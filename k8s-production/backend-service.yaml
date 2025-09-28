@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-backend-service
+  namespace: nexus-platform
+  labels:
+    app: nexus-backend
+spec:
+  selector:
+    app: nexus-backend
+  ports:
+  - port: 8000
+    targetPort: 8000
+    protocol: TCP
+  type: ClusterIP

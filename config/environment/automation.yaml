@@ -1,0 +1,15 @@
+dependencies:
+  - monitoring
+metadata:
+  max_concurrent: 10
+  trigger_types:
+    - schedule
+    - event
+    - manual
+  workflow_engine: nexus-automation
+name: automation_config
+type: automation
+validation_rules:
+  - workflow_validation
+  - trigger_check
+version: 1.0.0

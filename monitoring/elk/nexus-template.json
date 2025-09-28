@@ -1,0 +1,109 @@
+{
+  "index_patterns": ["nexus-*"],
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "refresh_interval": "30s",
+    "index.codec": "best_compression",
+    "analysis": {
+      "analyzer": {
+        "nexus_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": ["lowercase", "stop", "porter_stem"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "@timestamp": {
+        "type": "date"
+      },
+      "timestamp": {
+        "type": "date"
+      },
+      "level": {
+        "type": "keyword"
+      },
+      "logger": {
+        "type": "keyword"
+      },
+      "message": {
+        "type": "text",
+        "analyzer": "nexus_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "service": {
+        "type": "keyword"
+      },
+      "environment": {
+        "type": "keyword"
+      },
+      "cluster": {
+        "type": "keyword"
+      },
+      "host": {
+        "type": "keyword"
+      },
+      "clientip": {
+        "type": "ip"
+      },
+      "request": {
+        "type": "text",
+        "analyzer": "nexus_analyzer"
+      },
+      "response": {
+        "type": "integer"
+      },
+      "bytes": {
+        "type": "integer"
+      },
+      "request_time": {
+        "type": "float"
+      },
+      "agent": {
+        "type": "text",
+        "analyzer": "nexus_analyzer"
+      },
+      "referrer": {
+        "type": "keyword"
+      },
+      "verb": {
+        "type": "keyword"
+      },
+      "httpversion": {
+        "type": "keyword"
+      },
+      "geoip": {
+        "properties": {
+          "country_name": { "type": "keyword" },
+          "city_name": { "type": "keyword" },
+          "region_name": { "type": "keyword" },
+          "location": { "type": "geo_point" }
+        }
+      },
+      "useragent": {
+        "properties": {
+          "name": { "type": "keyword" },
+          "os": { "type": "keyword" },
+          "device": { "type": "keyword" },
+          "major": { "type": "keyword" },
+          "minor": { "type": "keyword" }
+        }
+      },
+      "tags": {
+        "type": "keyword"
+      },
+      "parsed_json": {
+        "type": "object",
+        "dynamic": true
+      }
+    }
+  }
+}

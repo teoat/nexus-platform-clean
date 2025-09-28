@@ -1,0 +1,22 @@
+dependencies:
+  - automation
+metadata:
+  categories:
+    - security
+    - frontend
+    - backend
+    - infrastructure
+    - testing
+    - documentation
+  max_todos: 50000
+  priority_levels:
+    - critical
+    - high
+    - medium
+    - low
+name: todo_config
+type: todo
+validation_rules:
+  - todo_validation
+  - priority_check
+version: 1.0.0

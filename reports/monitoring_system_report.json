@@ -1,0 +1,241 @@
+{
+  "timestamp": "2025-09-24T17:21:55.886665",
+  "system_health": "healthy",
+  "uptime": 60.01688075065613,
+  "metrics": [
+    {
+      "name": "cpu_usage",
+      "value": 77.2,
+      "unit": "percent",
+      "timestamp": "2025-09-24T17:20:56.889495",
+      "tags": {
+        "type": "system"
+      }
+    },
+    {
+      "name": "memory_usage",
+      "value": 34.7,
+      "unit": "percent",
+      "timestamp": "2025-09-24T17:20:56.889527",
+      "tags": {
+        "type": "system"
+      }
+    },
+    {
+      "name": "memory_available",
+      "value": 41.8008918762207,
+      "unit": "GB",
+      "timestamp": "2025-09-24T17:20:56.889531",
+      "tags": {
+        "type": "system"
+      }
+    },
+    {
+      "name": "disk_usage",
+      "value": 1.098215028428726,
+      "unit": "percent",
+      "timestamp": "2025-09-24T17:20:56.889566",
+      "tags": {
+        "type": "system"
+      }
+    },
+    {
+      "name": "network_bytes_sent",
+      "value": 2347083776,
+      "unit": "bytes",
+      "timestamp": "2025-09-24T17:20:56.889760",
+      "tags": {
+        "type": "network"
+      }
+    },
+    {
+      "name": "network_bytes_recv",
+      "value": 2685587456,
+      "unit": "bytes",
+      "timestamp": "2025-09-24T17:20:56.889763",
+      "tags": {
+        "type": "network"
+      }
+    },
+    {
+      "name": "process_memory",
+      "value": 30.41015625,
+      "unit": "MB",
+      "timestamp": "2025-09-24T17:20:56.889877",
+      "tags": {
+        "type": "process"
+      }
+    },
+    {
+      "name": "cpu_usage",
+      "value": 77.7,
+      "unit": "percent",
+      "timestamp": "2025-09-24T17:21:32.826886",
+      "tags": {
+        "type": "system"
+      }
+    },
+    {
+      "name": "memory_usage",
+      "value": 33.2,
+      "unit": "percent",
+      "timestamp": "2025-09-24T17:21:32.826918",
+      "tags": {
+        "type": "system"
+      }
+    },
+    {
+      "name": "memory_available",
+      "value": 42.77738571166992,
+      "unit": "GB",
+      "timestamp": "2025-09-24T17:21:32.826922",
+      "tags": {
+        "type": "system"
+      }
+    },
+    {
+      "name": "disk_usage",
+      "value": 1.098215028428726,
+      "unit": "percent",
+      "timestamp": "2025-09-24T17:21:32.826957",
+      "tags": {
+        "type": "system"
+      }
+    },
+    {
+      "name": "network_bytes_sent",
+      "value": 2347597824,
+      "unit": "bytes",
+      "timestamp": "2025-09-24T17:21:32.827273",
+      "tags": {
+        "type": "network"
+      }
+    },
+    {
+      "name": "network_bytes_recv",
+      "value": 2690300928,
+      "unit": "bytes",
+      "timestamp": "2025-09-24T17:21:32.827279",
+      "tags": {
+        "type": "network"
+      }
+    },
+    {
+      "name": "process_memory",
+      "value": 57.359375,
+      "unit": "MB",
+      "timestamp": "2025-09-24T17:21:32.827413",
+      "tags": {
+        "type": "process"
+      }
+    }
+  ],
+  "alerts": [
+    {
+      "id": "system_1758702056",
+      "level": "critical",
+      "message": "High CPU usage: 100.0%",
+      "timestamp": "2025-09-24T17:20:56.891623",
+      "source": "system",
+      "resolved": false,
+      "metadata": {}
+    }
+  ],
+  "health_checks": [
+    {
+      "service": "database",
+      "status": "healthy",
+      "response_time": 3.5997610092163086,
+      "timestamp": "2025-09-24T17:21:00.494278",
+      "details": {
+        "databases": 12
+      }
+    },
+    {
+      "service": "api",
+      "status": "healthy",
+      "response_time": 1.3188080787658691,
+      "timestamp": "2025-09-24T17:21:01.813252",
+      "details": {
+        "dependencies": "available"
+      }
+    },
+    {
+      "service": "filesystem",
+      "status": "healthy",
+      "response_time": 7.82012939453125e-5,
+      "timestamp": "2025-09-24T17:21:01.813354",
+      "details": {
+        "directories": "all_present"
+      }
+    },
+    {
+      "service": "disk_space",
+      "status": "healthy",
+      "response_time": 3.218650817871094e-5,
+      "timestamp": "2025-09-24T17:21:01.813395",
+      "details": {
+        "usage_percent": 1.098215028428726,
+        "free_space_gb": 282.9138412475586
+      }
+    },
+    {
+      "service": "memory",
+      "status": "healthy",
+      "response_time": 2.9802322387695312e-5,
+      "timestamp": "2025-09-24T17:21:01.813432",
+      "details": {
+        "usage_percent": 34.6,
+        "available_gb": 41.83366775512695
+      }
+    },
+    {
+      "service": "database",
+      "status": "healthy",
+      "response_time": 9.772772789001465,
+      "timestamp": "2025-09-24T17:21:42.602387",
+      "details": {
+        "databases": 12
+      }
+    },
+    {
+      "service": "api",
+      "status": "healthy",
+      "response_time": 6.389617919921875e-5,
+      "timestamp": "2025-09-24T17:21:42.602652",
+      "details": {
+        "dependencies": "available"
+      }
+    },
+    {
+      "service": "filesystem",
+      "status": "healthy",
+      "response_time": 4.506111145019531e-5,
+      "timestamp": "2025-09-24T17:21:42.602709",
+      "details": {
+        "directories": "all_present"
+      }
+    },
+    {
+      "service": "disk_space",
+      "status": "healthy",
+      "response_time": 3.0040740966796875e-5,
+      "timestamp": "2025-09-24T17:21:42.602747",
+      "details": {
+        "usage_percent": 1.098215028428726,
+        "free_space_gb": 280.9059257507324
+      }
+    },
+    {
+      "service": "memory",
+      "status": "healthy",
+      "response_time": 2.9087066650390625e-5,
+      "timestamp": "2025-09-24T17:21:42.602782",
+      "details": {
+        "usage_percent": 33.3,
+        "available_gb": 42.701114654541016
+      }
+    }
+  ],
+  "recommendations": ["Address critical alerts immediately"]
+}

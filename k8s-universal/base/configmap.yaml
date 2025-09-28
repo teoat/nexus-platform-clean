@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nexus-config
+  namespace: nexus-platform
+  labels:
+    app: nexus-platform
+    component: config
+data:
+  # Database configuration
+  postgres-db: "nexus_platform"
+  postgres-user: "nexus_user"
+  
+  # Application configuration
+  environment: "production"
+  log-level: "INFO"
+  cors-origins: "*"
+  
+  # Frontend configuration
+  react-app-api-url: "http://nexus-nginx-service:80/api"
+  react-app-ws-url: "ws://nexus-nginx-service:80/ws"
+  node-env: "production"
+  
+  # Monitoring configuration
+  prometheus-scrape-interval: "15s"
+  grafana-admin-user: "admin"

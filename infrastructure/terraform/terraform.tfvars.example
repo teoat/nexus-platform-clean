@@ -1,0 +1,74 @@
+# NEXUS Platform - Terraform Variables Example
+# Copy this file to terraform.tfvars and update with your values
+
+# General Configuration
+project_name = "nexus-platform"
+environment = "production"
+aws_region = "us-east-1"
+domain_name = "nexusplatform.com"
+
+# VPC Configuration
+vpc_cidr = "10.0.0.0/16"
+private_subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+public_subnet_cidrs = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+
+# EKS Configuration
+kubernetes_version = "1.28"
+node_instance_types = ["t3.medium", "t3.large", "t3.xlarge"]
+node_min_size = 3
+node_max_size = 10
+node_desired_size = 5
+
+# Database Configuration
+postgres_version = "15.4"
+db_instance_class = "db.t3.medium"
+db_allocated_storage = 100
+database_name = "nexus_platform"
+database_username = "nexus_user"
+database_password = "your_secure_database_password_here"
+
+# Redis Configuration
+redis_node_type = "cache.t3.micro"
+redis_num_cache_nodes = 2
+redis_auth_token = "your_redis_auth_token_here"
+
+# Backup Configuration
+backup_retention_days = 30
+
+# Monitoring Configuration
+enable_monitoring = true
+enable_logging = true
+
+# Security Configuration
+enable_waf = true
+enable_cloudtrail = true
+enable_config = true
+
+# Cost Optimization
+enable_spot_instances = false
+enable_autoscaling = true
+
+# Tags
+tags = {
+  Environment = "production"
+  Project = "nexus-platform"
+  Owner = "devops-team"
+  CostCenter = "engineering"
+  Backup = "daily"
+  Monitoring = "enabled"
+}
+
+# Environment-specific overrides
+production_overrides = {
+  node_instance_types = "t3.large,t3.xlarge"
+  node_desired_size = "5"
+  db_instance_class = "db.t3.large"
+  db_allocated_storage = "200"
+}
+
+staging_overrides = {
+  node_instance_types = "t3.medium"
+  node_desired_size = "2"
+  db_instance_class = "db.t3.micro"
+  db_allocated_storage = "50"
+}

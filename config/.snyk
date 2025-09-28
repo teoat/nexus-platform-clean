@@ -1,0 +1,38 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+
+# Ignore specific vulnerabilities
+ignore:
+  # Python vulnerabilities
+  SNYK-PYTHON-REQUESTS-1068775:
+    - '*':
+        reason: 'Low severity, not exploitable in our use case'
+        expires: '2025-12-31T00:00:00.000Z'
+  
+  SNYK-PYTHON-URLLIB3-1730007:
+    - '*':
+        reason: 'False positive, not applicable to our implementation'
+        expires: '2025-12-31T00:00:00.000Z'
+
+  # Node.js vulnerabilities
+  SNYK-JS-LODASH-567746:
+    - '*':
+        reason: 'Low severity, not exploitable in our use case'
+        expires: '2025-12-31T00:00:00.000Z'
+
+# Patch specific vulnerabilities
+patch:
+  # Add patches here if needed
+  # Example:
+  # SNYK-PYTHON-DJANGO-1234567:
+  #   - 'django>=1.11.0':
+  #       patched: '2025-01-27T00:00:00.000Z'
+
+# Language settings
+language-settings:
+  python:
+    # Use specific Python version
+    version: '3.11'
+  node:
+    # Use specific Node.js version
+    version: '18'

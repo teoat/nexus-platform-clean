@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frenly-ai
+  namespace: nexus-local
+  labels:
+    app: frenly-ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frenly-ai
+  template:
+    metadata:
+      labels:
+        app: frenly-ai
+    spec:
+      containers:
+      - name: frenly-ai
+        image: nexus-frenly-ai:latest
+        ports:
+        - containerPort: 8001
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: nexus-config
+              key: DATABASE_URL
+        - name: REDIS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: nexus-config
+              key: REDIS_URL
+        - name: BACKEND_URL
+          value: "http://backend-service:8000"
+        - name: NEXUS_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: nexus-config
+              key: NEXUS_ENV
+        - name: DEBUG
+          valueFrom:
+            configMapKeyRef:
+              name: nexus-config
+              key: DEBUG
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: nexus-config
+              key: LOG_LEVEL
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nexus-secrets
+              key: OPENAI_API_KEY
+              optional: true
+        - name: ANTHROPIC_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nexus-secrets
+              key: ANTHROPIC_API_KEY
+              optional: true
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8001
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8001
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frenly-ai-service
+  namespace: nexus-local
+spec:
+  selector:
+    app: frenly-ai
+  ports:
+  - port: 8001
+    targetPort: 8001
+  type: ClusterIP

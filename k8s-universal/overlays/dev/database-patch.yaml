@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus-postgres
+  namespace: nexus-platform-dev
+spec:
+  template:
+    spec:
+      containers:
+      - name: postgres
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "250m"
+        livenessProbe:
+          initialDelaySeconds: 15
+          periodSeconds: 30
+        readinessProbe:
+          initialDelaySeconds: 5
+          periodSeconds: 10

@@ -1,0 +1,23 @@
+[
+  {
+    "prediction_type": "repository_growth",
+    "value": "15%",
+    "confidence": 0.8,
+    "horizon_days": 30,
+    "created_at": "2025-09-25T13:55:09.514544"
+  },
+  {
+    "prediction_type": "optimization_needs",
+    "value": "file_compression_needed",
+    "confidence": 0.75,
+    "horizon_days": 14,
+    "created_at": "2025-09-25T13:55:09.514550"
+  },
+  {
+    "prediction_type": "performance_trend",
+    "value": "stable",
+    "confidence": 0.9,
+    "horizon_days": 7,
+    "created_at": "2025-09-25T13:55:09.514552"
+  }
+]

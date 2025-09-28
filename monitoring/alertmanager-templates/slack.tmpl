@@ -1,0 +1,25 @@
+{{ define "slack.nexus.title" }}
+{{ if eq .Status "firing" }}
+🚨 NEXUS Alert: {{ .GroupLabels.alertname }}
+{{ else }}
+✅ NEXUS Alert Resolved: {{ .GroupLabels.alertname }}
+{{ end }}
+{{ end }}
+
+{{ define "slack.nexus.text" }}
+{{ range .Alerts }}
+*{{ .Annotations.summary }}*
+{{ .Annotations.description }}
+
+*Details:*
+• Severity: {{ .Labels.severity }}
+• Instance: {{ .Labels.instance }}
+• Started: {{ .StartsAt.Format "2006-01-02 15:04:05 UTC" }}
+{{ if .EndsAt }}• Resolved: {{ .EndsAt.Format "2006-01-02 15:04:05 UTC" }}{{ end }}
+
+{{ end }}
+
+{{ if .CommonLabels }}
+*Labels:* {{ range $key, $value := .CommonLabels }}{{ $key }}={{ $value }} {{ end }}
+{{ end }}
+{{ end }}

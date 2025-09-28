@@ -1,0 +1,57 @@
+schedules:
+  daily_cleanup:
+    enabled: true
+    interval: daily
+    last_run: null
+    next_run: null
+    time: 02:00
+  demo_schedule:
+    enabled: true
+    interval: daily
+    last_run: null
+    next_run: "2025-09-26T02:00:00"
+    time: 02:00
+  monthly_deep_clean:
+    enabled: true
+    interval: monthly
+    last_run: null
+    next_run: null
+    time: 04:00
+  weekly_optimization:
+    enabled: true
+    interval: weekly
+    last_run: null
+    next_run: null
+    time: 03:00
+tasks:
+  - enabled: true
+    function: clear_temp_files
+    module: repo_pruner
+    name: temp_file_cleanup
+    parameters: {}
+    priority: 1
+  - enabled: true
+    function: cleanup_build_artifacts
+    module: repo_pruner
+    name: build_artifact_cleanup
+    parameters: {}
+    priority: 2
+  - enabled: true
+    function: compress_assets
+    module: file_optimizer
+    name: asset_compression
+    parameters:
+      threshold_mb: 5
+    priority: 3
+  - enabled: true
+    function: prune_unused_libs
+    module: dependency_optimizer
+    name: dependency_optimization
+    parameters: {}
+    priority: 4
+  - enabled: true
+    function: minify_code
+    module: file_optimizer
+    name: code_minification
+    parameters: {}
+    priority: 5

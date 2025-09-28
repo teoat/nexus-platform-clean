@@ -1,0 +1,40 @@
+# NEXUS Platform - Production Environment Configuration
+# This file contains production-specific overrides
+
+# System Settings
+system:
+  workspace_path: "/opt/nexus"
+
+# Database Configuration
+database:
+  host: "nexus-db-prod"
+  port: 5432
+  name: "nexus_prod"
+  user: "nexus_user"
+  password: "${DB_PASSWORD_PROD}"
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+
+# Security Configuration
+security:
+  enable_encryption: true
+  enable_authentication: true
+  jwt_secret_key: "${JWT_SECRET_PROD}"
+
+# Performance Configuration
+performance:
+  enable_profiling: false
+
+# Logging Configuration
+logging:
+  level: "WARNING"
+  file: "nexus_prod.log"
+
+# Features
+features:
+  web_interface: false
+  api_endpoints: true

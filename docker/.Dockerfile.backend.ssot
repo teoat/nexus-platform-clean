@@ -1,0 +1,8 @@
+{
+  "file_path": "docker/Dockerfile.backend",
+  "category": "dockerfiles",
+  "marked_at": "2025-09-29T00:33:49.071892",
+  "ssot_version": "2.1.0",
+  "description": "Single Source of Truth for dockerfiles",
+  "checksum": "e0cc42d89f7991e778c0137c1ca5b023eeeb692ebd49897743774f2378683291"
+}

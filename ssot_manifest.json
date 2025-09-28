@@ -1,0 +1,603 @@
+{
+  "ssot_manifest": {
+    "version": "2.1.0",
+    "generated_at": "2025-09-29T00:33:49.092021",
+    "total_ssot_files": 16,
+    "total_locked_files": 9,
+    "categories": {}
+  },
+  "ssot_files": {
+    "docker-compose.dev.yml": {
+      "full_path": "/Users/Arief/Desktop/Nexus/docker-compose.dev.yml",
+      "checksum": "40049cc3cbc35e22e43972b44591ce43ce7a631dbb77d8ce6616e37971893226",
+      "size": 4390,
+      "modified": "2025-09-28T17:44:35.742807"
+    },
+    "ARCHITECTURE_OVERVIEW.md": {
+      "full_path": "/Users/Arief/Desktop/Nexus/ARCHITECTURE_OVERVIEW.md",
+      "checksum": "830d0505ae41538b3b2517187c7e84c706d0722f6fa2d291fc853c8fd9c5540c",
+      "size": 18999,
+      "modified": "2025-09-27T01:41:26.392840"
+    },
+    "docker/Dockerfile.frontend.multi-stage": {
+      "full_path": "/Users/Arief/Desktop/Nexus/docker/Dockerfile.frontend.multi-stage",
+      "checksum": "9c7ac201e95c9631356a6a85da2000495352d7e0b6767d2bbd4ae4b5fa6a77ff",
+      "size": 3715,
+      "modified": "2025-09-28T10:29:35.256877"
+    },
+    "docker-compose.staging.yml": {
+      "full_path": "/Users/Arief/Desktop/Nexus/docker-compose.staging.yml",
+      "checksum": "b028f263d95cee475d9ae03b40932a52175b836a579815a286642c5522903c62",
+      "size": 5858,
+      "modified": "2025-09-28T10:29:35.256833"
+    },
+    "scripts/health_check.py": {
+      "full_path": "/Users/Arief/Desktop/Nexus/scripts/health_check.py",
+      "checksum": "c2b0ed19a1de59ec593477e8e038938a3590fd2cce885b8c7f5a94e6f3950de7",
+      "size": 10051,
+      "modified": "2025-09-27T01:41:27.395705"
+    },
+    "README.md": {
+      "full_path": "/Users/Arief/Desktop/Nexus/README.md",
+      "checksum": "f66a66a8ac16c8664c4126c5efef9eb1468176a5f1728153f8a9115f6324be9d",
+      "size": 9535,
+      "modified": "2025-09-27T01:41:26.415421"
+    },
+    "docker-compose.yml": {
+      "full_path": "/Users/Arief/Desktop/Nexus/docker-compose.yml",
+      "checksum": "16dcba6264f6529b92204c261bad059973c1888319bff076992c6ce4377a2f9d",
+      "size": 6449,
+      "modified": "2025-09-27T23:02:51.220303"
+    },
+    "package.json": {
+      "full_path": "/Users/Arief/Desktop/Nexus/package.json",
+      "checksum": "c22a875a04893cf3f125e9fbc699e3f3092e4183642ef765b07e5ca26825d5d3",
+      "size": 1188,
+      "modified": "2025-09-27T02:36:27.049024"
+    },
+    "scripts/deploy-production.sh": {
+      "full_path": "/Users/Arief/Desktop/Nexus/scripts/deploy-production.sh",
+      "checksum": "c43456a1b6c1aee63ac298479c49a94beaf0714e06eb505eadda2495d7423119",
+      "size": 7057,
+      "modified": "2025-09-27T01:41:27.386656"
+    },
+    "scripts/start-local-dev.sh": {
+      "full_path": "/Users/Arief/Desktop/Nexus/scripts/start-local-dev.sh",
+      "checksum": "0868b58269d82a2a48943ba9f393752977e4c76ca680c9a6def9163d15848964",
+      "size": 8043,
+      "modified": "2025-09-27T01:41:27.403448"
+    },
+    "docker/Dockerfile.backend": {
+      "full_path": "/Users/Arief/Desktop/Nexus/docker/Dockerfile.backend",
+      "checksum": "e0cc42d89f7991e778c0137c1ca5b023eeeb692ebd49897743774f2378683291",
+      "size": 1218,
+      "modified": "2025-09-27T19:19:37.553945"
+    },
+    "docker/Dockerfile.frontend": {
+      "full_path": "/Users/Arief/Desktop/Nexus/docker/Dockerfile.frontend",
+      "checksum": "2a36ff8b58929101fb4f4208399e077bc65dba117b6d530670b8ba555d4552c9",
+      "size": 1599,
+      "modified": "2025-09-27T04:59:58.105160"
+    },
+    "NEXUS_PLATFORM_DOCUMENTATION.md": {
+      "full_path": "/Users/Arief/Desktop/Nexus/NEXUS_PLATFORM_DOCUMENTATION.md",
+      "checksum": "93f098863ec23ff69ebedfd4d1b082d73c02647f17c0b6d571315a483021dca7",
+      "size": 8607,
+      "modified": "2025-09-28T20:03:54.880018"
+    },
+    "backend/requirements.txt": {
+      "full_path": "/Users/Arief/Desktop/Nexus/backend/requirements.txt",
+      "checksum": "57738b852707e8c73d54982e04569dd85e3b592eaef3eeb24a10104b52ce7d3d",
+      "size": 897,
+      "modified": "2025-09-28T17:54:18.930418"
+    },
+    "docker/Dockerfile.backend.multi-stage": {
+      "full_path": "/Users/Arief/Desktop/Nexus/docker/Dockerfile.backend.multi-stage",
+      "checksum": "376c8708facfc5aee5e0368f2088e54520ffca64ba46e3c7163d374fb7aec410",
+      "size": 5458,
+      "modified": "2025-09-28T10:29:35.256897"
+    },
+    "frontend/web/package.json": {
+      "full_path": "/Users/Arief/Desktop/Nexus/frontend/web/package.json",
+      "checksum": "f38709d51ed9e9a1f600395df4e777ba8aae2db9fdd6a971a2340842bdb046c2",
+      "size": 3638,
+      "modified": "2025-09-27T04:29:59.086370"
+    }
+  },
+  "locked_files": {
+    "README.md": {
+      "full_path": "/Users/Arief/Desktop/Nexus/README.md",
+      "locked_at": "2025-09-29T00:33:49.094134",
+      "permissions": "444"
+    },
+    "docker-compose.yml": {
+      "full_path": "/Users/Arief/Desktop/Nexus/docker-compose.yml",
+      "locked_at": "2025-09-29T00:33:49.094174",
+      "permissions": "444"
+    },
+    "package.json": {
+      "full_path": "/Users/Arief/Desktop/Nexus/package.json",
+      "locked_at": "2025-09-29T00:33:49.094211",
+      "permissions": "444"
+    },
+    "docker/Dockerfile.backend": {
+      "full_path": "/Users/Arief/Desktop/Nexus/docker/Dockerfile.backend",
+      "locked_at": "2025-09-29T00:33:49.094251",
+      "permissions": "444"
+    },
+    "docker/Dockerfile.frontend": {
+      "full_path": "/Users/Arief/Desktop/Nexus/docker/Dockerfile.frontend",
+      "locked_at": "2025-09-29T00:33:49.094290",
+      "permissions": "444"
+    },
+    "backend/main_unified.py": {
+      "full_path": "/Users/Arief/Desktop/Nexus/backend/main_unified.py",
+      "locked_at": "2025-09-29T00:33:49.094329",
+      "permissions": "444"
+    },
+    "backend/requirements.txt": {
+      "full_path": "/Users/Arief/Desktop/Nexus/backend/requirements.txt",
+      "locked_at": "2025-09-29T00:33:49.094368",
+      "permissions": "444"
+    },
+    "frontend/web/src/App.tsx": {
+      "full_path": "/Users/Arief/Desktop/Nexus/frontend/web/src/App.tsx",
+      "locked_at": "2025-09-29T00:33:49.094415",
+      "permissions": "444"
+    },
+    "frontend/web/package.json": {
+      "full_path": "/Users/Arief/Desktop/Nexus/frontend/web/package.json",
+      "locked_at": "2025-09-29T00:33:49.094459",
+      "permissions": "444"
+    }
+  },
+  "consolidation_report": {
+    "docker-compose/variants/": [
+      {
+        "original": "/Users/Arief/Desktop/Nexus/docker-compose.prod.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/docker-compose/variants/docker-compose.prod.yml",
+        "timestamp": "2025-09-29T00:29:04.860000"
+      }
+    ],
+    "dockerfiles/backend/": [
+      {
+        "original": "/Users/Arief/Desktop/Nexus/docker/Dockerfile.backend.ultimate",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/dockerfiles/backend/Dockerfile.backend.ultimate",
+        "timestamp": "2025-09-29T00:30:09.400836"
+      }
+    ],
+    "dockerfiles/frontend/": [
+      {
+        "original": "/Users/Arief/Desktop/Nexus/docker/Dockerfile.frontend.ultimate",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/dockerfiles/frontend/Dockerfile.frontend.ultimate",
+        "timestamp": "2025-09-29T00:30:09.401584"
+      }
+    ],
+    "requirements/duplicates/": [
+      {
+        "original": "/Users/Arief/Desktop/Nexus/qwen-code/packages/test-utils/package.json",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/requirements/duplicates/package_3064.json",
+        "timestamp": "2025-09-29T00:32:12.069582"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/qwen-code/packages/core/package.json",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/requirements/duplicates/package_3065.json",
+        "timestamp": "2025-09-29T00:32:12.215843"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/qwen-code/packages/cli/package.json",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/requirements/duplicates/package_3067.json",
+        "timestamp": "2025-09-29T00:32:12.398110"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/qwen-code/packages/vscode-ide-companion/package.json",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/requirements/duplicates/package_3070.json",
+        "timestamp": "2025-09-29T00:32:12.52279: 
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/package-lock.json",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/requirements/duplicates/package-lock.json",
+        "timestamp": "2025-09-29T00:32:12.524576"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/package.json",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/requirements/duplicates/package_3071.json",
+        "timestamp": "2025-09-29T00:32:12.666547"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/monitoring/package.json",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/requirements/duplicates/package_3073.json",
+        "timestamp": "2025-09-29T00:32:12.867173"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/frontend/web/package.optimized.json",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/requirements/duplicates/package.optimized.json",
+        "timestamp": "2025-09-29T00:32:12.869871"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/frontend/web/package-lock.json",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/requirements/duplicates/package-lock_1.json",
+        "timestamp": "2025-09-29T00:32:12.870243"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/frontend/web/mobile/package-lock.json",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/requirements/duplicates/package-lock_2.json",
+        "timestamp": "2025-09-29T00:32:12.873993"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/frontend/web/mobile/package.json",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/requirements/duplicates/package_3076.json",
+        "timestamp": "2025-09-29T00:32:13.015296"
+      }
+    ],
+    "scripts/deployment/": [
+      {
+        "original": "/Users/Arief/Desktop/Nexus/deploy-production.sh",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/deployment/deploy-production.sh",
+        "timestamp": "2025-09-29T00:32:56.865360"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/deploy-development.sh",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/deployment/deploy-development.sh",
+        "timestamp": "2025-09-29T00:32:56.869366"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/deploy.sh",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/deployment/deploy.sh",
+        "timestamp": "2025-09-29T00:32:56.871580"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/infrastructure/scripts/deploy.sh",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/deployment/deploy_1.sh",
+        "timestamp": "2025-09-29T00:32:56.873810"
+      }
+    ],
+    "scripts/utilities/": [
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/utilities/quality-dashboard.py",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/utilities/quality-dashboard.py",
+        "timestamp": "2025-09-29T00:33:26.108672"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/utilities/setup_postgresql.py",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/utilities/setup_postgresql.py",
+        "timestamp": "2025-09-29T00:33:26.108928"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/utilities/generate_secrets.py",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/utilities/generate_secrets.py",
+        "timestamp": "2025-09-29T00:33:26.109166"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/utilities/launch_nexus_ssot.py",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/utilities/launch_nexus_ssot.py",
+        "timestamp": "2025-09-29T00:33:26.109401"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/utilities/automated_security_scan.py",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/utilities/automated_security_scan.py",
+        "timestamp": "2025-09-29T00:33:26.109634"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/utilities/security_audit.py",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/utilities/security_audit.py",
+        "timestamp": "2025-09-29T00:33:26.109867"
+      }
+    ],
+    "scripts/testing/": [
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/testing/run-tests.sh",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/testing/run-tests.sh",
+        "timestamp": "2025-09-29T00:33:49.019513"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/testing/run-uv-pytest.sh",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/testing/run-uv-pytest.sh",
+        "timestamp": "2025-09-29T00:33:49.023927"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/testing/setup-uv-pytest.sh",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/testing/setup-uv-pytest.sh",
+        "timestamp": "2025-09-29T00:33:49.024509"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/testing/run_performance_tests.sh",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/testing/run_performance_tests.sh",
+        "timestamp": "2025-09-29T00:33:49.025040"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/scripts/testing/solution.sh",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/scripts/testing/solution.sh",
+        "timestamp": "2025-09-29T00:33:49.025367"
+      }
+    ],
+    "docs/duplicates/": [
+      {
+        "original": "/Users/Arief/Desktop/Nexus/docs/developer/DEVELOPER_GUIDE.md",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/docs/duplicates/DEVELOPER_GUIDE.md",
+        "timestamp": "2025-09-29T00:33:49.026279"
+      }
+    ],
+    "config/environment/": [
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/test-pipeline.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/test-pipeline.yml",
+        "timestamp": "2025-09-29T00:33:49.031611"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/jaeger.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/jaeger.yml",
+        "timestamp": "2025-09-29T00:33:49.032970"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/gemini-self-assign-issue.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/gemini-self-assign-issue.yml",
+        "timestamp": "2025-09-29T00:33:49.033369"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/gemini-scheduled-issue-dedup.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/gemini-scheduled-issue-dedup.yml",
+        "timestamp": "2025-09-29T00:33:49.033661"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/release.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/release.yml",
+        "timestamp": "2025-09-29T00:33:49.034032"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/feature_request.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/feature_request.yml",
+        "timestamp": "2025-09-29T00:33:49.034318"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/bug_report.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/bug_report.yml",
+        "timestamp": "2025-09-29T00:33:49.034592"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/standardized_ports.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/standardized_ports.yml",
+        "timestamp": "2025-09-29T00:33:49.035022"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/enhanced_ports.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/enhanced_ports.yml",
+        "timestamp": "2025-09-29T00:33:49.035360"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/deploy-production.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/deploy-production.yml",
+        "timestamp": "2025-09-29T00:33:49.035638"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/ci-cd.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/ci-cd.yml",
+        "timestamp": "2025-09-29T00:33:49.035960"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/hub-integration.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/hub-integration.yml",
+        "timestamp": "2025-09-29T00:33:49.036272"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/.yamllint.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/.yamllint.yml",
+        "timestamp": "2025-09-29T00:33:49.036630"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/blue-green-deploy.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/blue-green-deploy.yml",
+        "timestamp": "2025-09-29T00:33:49.036914"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/gemini-automated-issue-dedup.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/gemini-automated-issue-dedup.yml",
+        "timestamp": "2025-09-29T00:33:49.038329"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/gemini-scheduled-pr-triage.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/gemini-scheduled-pr-triage.yml",
+        "timestamp": "2025-09-29T00:33:49.039407"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/redis-cluster.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/redis-cluster.yml",
+        "timestamp": "2025-09-29T00:33:49.040004"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/nexus-platform-cicd.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/nexus-platform-cicd.yml",
+        "timestamp": "2025-09-29T00:33:49.040357"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/stale.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/stale.yml",
+        "timestamp": "2025-09-29T00:33:49.040662"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/ci-cd-pipeline.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/ci-cd-pipeline.yml",
+        "timestamp": "2025-09-29T00:33:49.041418"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/build-and-publish-image.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/build-and-publish-image.yml",
+        "timestamp": "2025-09-29T00:33:49.041996"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/pre-commit.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/pre-commit.yml",
+        "timestamp": "2025-09-29T00:33:49.042356"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/advanced-ci-cd.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/advanced-ci-cd.yml",
+        "timestamp": "2025-09-29T00:33:49.042730"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/ports.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/ports.yml",
+        "timestamp": "2025-09-29T00:33:49.043247"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/code-quality.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/code-quality.yml",
+        "timestamp": "2025-09-29T00:33:49.043614"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/gemini-automated-issue-triage.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/gemini-automated-issue-triage.yml",
+        "timestamp": "2025-09-29T00:33:49.044102"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/postgres-optimized.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/postgres-optimized.yml",
+        "timestamp": "2025-09-29T00:33:49.044537"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/pr-validation.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/pr-validation.yml",
+        "timestamp": "2025-09-29T00:33:49.044891"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/no-response.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/no-response.yml",
+        "timestamp": "2025-09-29T00:33:49.045291"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/production-cicd.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/production-cicd.yml",
+        "timestamp": "2025-09-29T00:33:49.045770"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/sast.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/sast.yml",
+        "timestamp": "2025-09-29T00:33:49.046125"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/community-report.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/community-report.yml",
+        "timestamp": "2025-09-29T00:33:49.047032"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/production-deploy.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/production-deploy.yml",
+        "timestamp": "2025-09-29T00:33:49.047373"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/qwen-code-pr-review.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/qwen-code-pr-review.yml",
+        "timestamp": "2025-09-29T00:33:49.047852"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/docs-page-action.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/docs-page-action.yml",
+        "timestamp": "2025-09-29T00:33:49.048318"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/elasticsearch.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/elasticsearch.yml",
+        "timestamp": "2025-09-29T00:33:49.048737"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/orchestrated-deployment.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/orchestrated-deployment.yml",
+        "timestamp": "2025-09-29T00:33:49.049455"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/pr-title.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/pr-title.yml",
+        "timestamp": "2025-09-29T00:33:49.049906"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/e2e.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/e2e.yml",
+        "timestamp": "2025-09-29T00:33:49.050491"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/ci-cd-secure.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/ci-cd-secure.yml",
+        "timestamp": "2025-09-29T00:33:49.052130"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/dependency-updates.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/dependency-updates.yml",
+        "timestamp": "2025-09-29T00:33:49.053545"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/kong.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/kong.yml",
+        "timestamp": "2025-09-29T00:33:49.054157"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/ci.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/ci.yml",
+        "timestamp": "2025-09-29T00:33:49.054482"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/gemini-scheduled-issue-triage.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/gemini-scheduled-issue-triage.yml",
+        "timestamp": "2025-09-29T00:33:49.055353"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/terminal-bench.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/terminal-bench.yml",
+        "timestamp": "2025-09-29T00:33:49.056692"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/dependabot.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/dependabot.yml",
+        "timestamp": "2025-09-29T00:33:49.057486"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/eval.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/eval.yml",
+        "timestamp": "2025-09-29T00:33:49.058392"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/action.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/action.yml",
+        "timestamp": "2025-09-29T00:33:49.058824"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/environment/lock.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/environment/lock.yml",
+        "timestamp": "2025-09-29T00:33:49.059189"
+      }
+    ],
+    "config/docker/": [
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/docker/alert_rules.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/docker/alert_rules.yml",
+        "timestamp": "2025-09-29T00:33:49.060275"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/docker/release-docker.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/docker/release-docker.yml",
+        "timestamp": "2025-09-29T00:33:49.061463"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/docker/consolidated_docker.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/docker/consolidated_docker.yml",
+        "timestamp": "2025-09-29T00:33:49.061972"
+      }
+    ],
+    "config/security/": [
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/security/security_policies.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/security/security_policies.yml",
+        "timestamp": "2025-09-29T00:33:49.063944"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/security/security-pipeline.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/security/security-pipeline.yml",
+        "timestamp": "2025-09-29T00:33:49.064251"
+      },
+      {
+        "original": "/Users/Arief/Desktop/Nexus/config/security/security-scan.yml",
+        "archived": "/Users/Arief/Desktop/Nexus/archived_bin/config/security/security-scan.yml",
+        "timestamp": "2025-09-29T00:33:49.064658"
+      }
+    ]
+  }
+}

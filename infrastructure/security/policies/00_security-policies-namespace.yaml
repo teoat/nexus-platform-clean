@@ -1,0 +1,7 @@
+# Security Policies for NEXUS Platform
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: security-policies
+  labels:
+    name: security-policies

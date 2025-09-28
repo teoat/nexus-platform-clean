@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-frontend-modern
+  namespace: nexus-platform
+  labels:
+    app: nexus-frontend-modern
+    version: modern
+spec:
+  selector:
+    app: nexus-frontend-modern
+  ports:
+    - name: http
+      port: 2200
+      targetPort: 2200
+      protocol: TCP
+  type: ClusterIP

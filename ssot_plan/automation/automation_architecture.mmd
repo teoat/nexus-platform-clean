@@ -1,0 +1,112 @@
+graph TB
+    %% SSOT Layer
+    subgraph "SSOT Layer"
+        AUTO_REG[Automation Registry]
+        PIPE_REG[Pipeline Registry]
+        ORCH_REG[Orchestration Registry]
+        MON_REG[Monitoring Registry]
+        SEC_REG[Security Registry]
+    end
+
+    %% Core Orchestration
+    subgraph "Core Orchestration"
+        MASTER[Master Automation Orchestrator]
+        EXEC_RUNNER[Execution Runner]
+        SERVICE_ADAPTER[Service Adapter]
+    end
+
+    %% Execution Environments
+    subgraph "Execution Environments"
+        LOCAL[Local Runner]
+        DOCKER[Docker Runner]
+        K8S[Kubernetes Runner]
+        CLOUD[Cloud Runners]
+    end
+
+    %% Service Adapters
+    subgraph "Service Adapters"
+        WEB[Web Service Adapter]
+        DB[Database Adapter]
+        QUEUE[Queue Adapter]
+        STORAGE[Storage Adapter]
+    end
+
+    %% Monitoring Adapters
+    subgraph "Monitoring Adapters"
+        PROM[Prometheus Adapter]
+        GRAF[Grafana Adapter]
+        ELK[ELK Adapter]
+        CUSTOM[Custom Adapter]
+    end
+
+    %% Notification Adapters
+    subgraph "Notification Adapters"
+        EMAIL[Email Adapter]
+        SLACK[Slack Adapter]
+        PAGER[PagerDuty Adapter]
+        WEBHOOK[Webhook Adapter]
+    end
+
+    %% Services
+    subgraph "Target Services"
+        FRONTEND[Frontend Service]
+        BACKEND[Backend Service]
+        DATABASE[Database Service]
+        REDIS[Redis Service]
+        NGINX[Nginx Service]
+        FRENLY[Frenly AI Service]
+    end
+
+    %% Data Flows
+    AUTO_REG --> MASTER
+    PIPE_REG --> MASTER
+    ORCH_REG --> MASTER
+    MON_REG --> MASTER
+    SEC_REG --> MASTER
+
+    MASTER --> EXEC_RUNNER
+    MASTER --> SERVICE_ADAPTER
+
+    EXEC_RUNNER --> LOCAL
+    EXEC_RUNNER --> DOCKER
+    EXEC_RUNNER --> K8S
+    EXEC_RUNNER --> CLOUD
+
+    SERVICE_ADAPTER --> WEB
+    SERVICE_ADAPTER --> DB
+    SERVICE_ADAPTER --> QUEUE
+    SERVICE_ADAPTER --> STORAGE
+
+    MASTER --> PROM
+    MASTER --> GRAF
+    MASTER --> ELK
+    MASTER --> CUSTOM
+
+    MASTER --> EMAIL
+    MASTER --> SLACK
+    MASTER --> PAGER
+    MASTER --> WEBHOOK
+
+    %% Service Connections
+    WEB --> FRONTEND
+    WEB --> BACKEND
+    DB --> DATABASE
+    WEB --> NGINX
+    WEB --> FRENLY
+
+    %% Styling
+    classDef ssotAnchor fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef coreOrchestration fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef executionEnv fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef serviceAdapter fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef monitoring fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    classDef notification fill:#f1f8e9,stroke:#33691e,stroke-width:2px
+    classDef targetService fill:#fafafa,stroke:#424242,stroke-width:2px
+
+    class AUTO_REG,PIPE_REG,ORCH_REG,MON_REG,SEC_REG ssotAnchor
+    class MASTER,EXEC_RUNNER,SERVICE_ADAPTER coreOrchestration
+    class LOCAL,DOCKER,K8S,CLOUD executionEnv
+    class WEB,DB,QUEUE,STORAGE serviceAdapter
+    class PROM,GRAF,ELK,CUSTOM monitoring
+    class EMAIL,SLACK,PAGER,WEBHOOK notification
+    class FRONTEND,BACKEND,DATABASE,REDIS,NGINX,FRENLY targetService

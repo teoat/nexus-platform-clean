@@ -1,0 +1,169 @@
+{
+  "analysis_timestamp": "2025-01-27T12:00:00Z",
+  "runtime_manifests": {
+    "docker_compose": {
+      "file": "docker-compose.yml",
+      "version": "3.8",
+      "services": [
+        {
+          "name": "postgres",
+          "type": "database",
+          "image": "postgres:15-alpine",
+          "ports": ["5432:5432"],
+          "environment_vars": [
+            "POSTGRES_DB",
+            "POSTGRES_USER",
+            "POSTGRES_PASSWORD"
+          ],
+          "volumes": ["postgres_data", "init.sql"],
+          "healthcheck": true,
+          "dependencies": []
+        },
+        {
+          "name": "redis",
+          "type": "cache",
+          "image": "redis:7-alpine",
+          "ports": ["6379:6379"],
+          "environment_vars": ["REDIS_PASSWORD"],
+          "volumes": ["redis_data", "redis.conf"],
+          "healthcheck": true,
+          "dependencies": []
+        },
+        {
+          "name": "backend",
+          "type": "application",
+          "build": "Dockerfile.backend",
+          "ports": ["8000:8000"],
+          "environment_vars": [
+            "DATABASE_URL",
+            "REDIS_URL",
+            "JWT_SECRET_KEY",
+            "CORS_ORIGINS",
+            "OPENAI_API_KEY",
+            "ANTHROPIC_API_KEY"
+          ],
+          "volumes": ["./backend:/app", "./logs:/app/logs"],
+          "healthcheck": true,
+          "dependencies": ["postgres", "redis"]
+        },
+        {
+          "name": "frontend",
+          "type": "application",
+          "build": "Dockerfile.frontend",
+          "ports": ["3000:3000"],
+          "environment_vars": ["REACT_APP_API_URL", "REACT_APP_WS_URL"],
+          "volumes": ["./frontend:/app"],
+          "healthcheck": true,
+          "dependencies": ["backend"]
+        },
+        {
+          "name": "frenly-ai",
+          "type": "ai_service",
+          "build": "Dockerfile.frenly",
+          "ports": ["8001:8001"],
+          "environment_vars": ["OPENAI_API_KEY", "ANTHROPIC_API_KEY"],
+          "volumes": ["./frenly_ai:/app"],
+          "healthcheck": true,
+          "dependencies": ["backend"]
+        },
+        {
+          "name": "nginx",
+          "type": "proxy",
+          "image": "nginx:alpine",
+          "ports": ["80:80", "443:443"],
+          "volumes": [
+            "./nginx/nginx.conf:/etc/nginx/nginx.conf",
+            "./ssl:/etc/nginx/ssl"
+          ],
+          "healthcheck": true,
+          "dependencies": ["frontend", "backend"]
+        },
+        {
+          "name": "prometheus",
+          "type": "monitoring",
+          "image": "prom/prometheus:latest",
+          "ports": ["9090:9090"],
+          "volumes": [
+            "./config/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml"
+          ],
+          "healthcheck": true,
+          "dependencies": []
+        },
+        {
+          "name": "grafana",
+          "type": "monitoring",
+          "image": "grafana/grafana:latest",
+          "ports": ["3001:3000"],
+          "environment_vars": ["GF_SECURITY_ADMIN_PASSWORD"],
+          "volumes": ["./config/monitoring/grafana:/var/lib/grafana"],
+          "healthcheck": true,
+          "dependencies": ["prometheus"]
+        }
+      ]
+    },
+    "kubernetes": {
+      "manifests": [
+        {
+          "file": "k8s/nexus-platform.yaml",
+          "type": "namespace",
+          "services": ["nexus-platform"]
+        },
+        {
+          "file": "k8s/nexus-microservices.yaml",
+          "type": "deployment",
+          "services": [
+            "postgres",
+            "redis",
+            "backend",
+            "frontend",
+            "frenly-ai",
+            "nginx"
+          ]
+        },
+        {
+          "file": "k8s/monitoring.yaml",
+          "type": "monitoring",
+          "services": ["prometheus", "grafana"]
+        }
+      ]
+    }
+  },
+  "service_dependencies": {
+    "frontend": ["backend", "nginx"],
+    "backend": ["postgres", "redis"],
+    "frenly-ai": ["backend"],
+    "nginx": ["frontend", "backend"],
+    "grafana": ["prometheus"],
+    "postgres": [],
+    "redis": []
+  },
+  "environment_variables": {
+    "database": [
+      "POSTGRES_DB",
+      "POSTGRES_USER",
+      "POSTGRES_PASSWORD",
+      "POSTGRES_PORT"
+    ],
+    "cache": ["REDIS_PASSWORD", "REDIS_PORT"],
+    "backend": [
+      "DATABASE_URL",
+      "REDIS_URL",
+      "JWT_SECRET_KEY",
+      "CORS_ORIGINS",
+      "OPENAI_API_KEY",
+      "ANTHROPIC_API_KEY"
+    ],
+    "frontend": ["REACT_APP_API_URL", "REACT_APP_WS_URL"],
+    "monitoring": ["GF_SECURITY_ADMIN_PASSWORD"]
+  },
+  "ports": {
+    "postgres": 5432,
+    "redis": 6379,
+    "backend": 8000,
+    "frontend": 3000,
+    "frenly-ai": 8001,
+    "nginx": [80, 443],
+    "prometheus": 9090,
+    "grafana": 3001
+  }
+}

@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-api-gateway
+  namespace: nexus
+  labels:
+    app: nexus-api-gateway
+spec:
+  selector:
+    app: nexus-api-gateway
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 443
+      protocol: TCP
+  type: LoadBalancer

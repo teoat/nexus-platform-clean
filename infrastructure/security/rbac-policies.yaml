@@ -1,0 +1,366 @@
+# RBAC Policies for NEXUS Platform
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nexus-backend-sa
+  namespace: nexus-platform
+  labels:
+    app: backend
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nexus-frontend-sa
+  namespace: nexus-platform
+  labels:
+    app: frontend
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nexus-nginx-sa
+  namespace: nexus-platform
+  labels:
+    app: nginx
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nexus-monitoring-sa
+  namespace: monitoring
+  labels:
+    app: monitoring
+---
+# ClusterRole for backend application
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: nexus-backend-role
+rules:
+  # Allow reading pods, services, and endpoints for service discovery
+  - apiGroups: [""]
+    resources: ["pods", "services", "endpoints"]
+    verbs: ["get", "list", "watch"]
+  # Allow reading deployments and replicasets for health checks
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets"]
+    verbs: ["get", "list", "watch"]
+  # Allow reading metrics for monitoring
+  - apiGroups: ["metrics.k8s.io"]
+    resources: ["pods", "nodes"]
+    verbs: ["get", "list"]
+  # Allow reading events for debugging
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["get", "list", "watch"]
+---
+# ClusterRole for frontend application
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: nexus-frontend-role
+rules:
+  # Minimal permissions for frontend
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+---
+# ClusterRole for nginx
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: nexus-nginx-role
+rules:
+  # Allow reading services for load balancing
+  - apiGroups: [""]
+    resources: ["services", "endpoints"]
+    verbs: ["get", "list", "watch"]
+---
+# ClusterRole for monitoring
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: nexus-monitoring-role
+rules:
+  # Allow reading all resources for monitoring
+  - apiGroups: [""]
+    resources: ["*"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["extensions"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["metrics.k8s.io"]
+    resources: ["*"]
+    verbs: ["get", "list"]
+---
+# Role for backend in nexus-platform namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: nexus-backend-namespace-role
+  namespace: nexus-platform
+rules:
+  # Allow reading configmaps and secrets
+  - apiGroups: [""]
+    resources: ["configmaps", "secrets"]
+    verbs: ["get", "list", "watch"]
+  # Allow reading pods for health checks
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+---
+# Role for frontend in nexus-platform namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: nexus-frontend-namespace-role
+  namespace: nexus-platform
+rules:
+  # Allow reading configmaps
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "list", "watch"]
+---
+# Role for nginx in nexus-platform namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: nexus-nginx-namespace-role
+  namespace: nexus-platform
+rules:
+  # Allow reading services and endpoints for load balancing
+  - apiGroups: [""]
+    resources: ["services", "endpoints"]
+    verbs: ["get", "list", "watch"]
+---
+# Role for monitoring in monitoring namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: nexus-monitoring-namespace-role
+  namespace: monitoring
+rules:
+  # Allow reading all resources in monitoring namespace
+  - apiGroups: [""]
+    resources: ["*"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch"]
+---
+# ClusterRoleBinding for backend
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nexus-backend-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: nexus-backend-role
+subjects:
+  - kind: ServiceAccount
+    name: nexus-backend-sa
+    namespace: nexus-platform
+---
+# ClusterRoleBinding for frontend
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nexus-frontend-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: nexus-frontend-role
+subjects:
+  - kind: ServiceAccount
+    name: nexus-frontend-sa
+    namespace: nexus-platform
+---
+# ClusterRoleBinding for nginx
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nexus-nginx-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: nexus-nginx-role
+subjects:
+  - kind: ServiceAccount
+    name: nexus-nginx-sa
+    namespace: nexus-platform
+---
+# ClusterRoleBinding for monitoring
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nexus-monitoring-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: nexus-monitoring-role
+subjects:
+  - kind: ServiceAccount
+    name: nexus-monitoring-sa
+    namespace: monitoring
+---
+# RoleBinding for backend in nexus-platform namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: nexus-backend-namespace-binding
+  namespace: nexus-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: nexus-backend-namespace-role
+subjects:
+  - kind: ServiceAccount
+    name: nexus-backend-sa
+    namespace: nexus-platform
+---
+# RoleBinding for frontend in nexus-platform namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: nexus-frontend-namespace-binding
+  namespace: nexus-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: nexus-frontend-namespace-role
+subjects:
+  - kind: ServiceAccount
+    name: nexus-frontend-sa
+    namespace: nexus-platform
+---
+# RoleBinding for nginx in nexus-platform namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: nexus-nginx-namespace-binding
+  namespace: nexus-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: nexus-nginx-namespace-role
+subjects:
+  - kind: ServiceAccount
+    name: nexus-nginx-sa
+    namespace: nexus-platform
+---
+# RoleBinding for monitoring in monitoring namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: nexus-monitoring-namespace-binding
+  namespace: monitoring
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: nexus-monitoring-namespace-role
+subjects:
+  - kind: ServiceAccount
+    name: nexus-monitoring-sa
+    namespace: monitoring
+---
+# Admin role for platform administrators
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: nexus-admin-role
+rules:
+  # Full access to all resources
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]
+---
+# Admin role binding for platform administrators
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nexus-admin-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: nexus-admin-role
+subjects:
+  # Add specific users or groups here
+  - kind: User
+    name: "admin@nexus-platform.com"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "platform-admins"
+    apiGroup: rbac.authorization.k8s.io
+---
+# Developer role for application developers
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: nexus-developer-role
+rules:
+  # Allow reading most resources
+  - apiGroups: [""]
+    resources: ["pods", "services", "endpoints", "configmaps", "secrets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets", "daemonsets", "statefulsets"]
+    verbs: ["get", "list", "watch"]
+  # Allow creating and updating deployments
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["create", "update", "patch"]
+  # Allow reading events
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["get", "list", "watch"]
+---
+# Developer role binding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nexus-developer-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: nexus-developer-role
+subjects:
+  # Add specific users or groups here
+  - kind: User
+    name: "developer@nexus-platform.com"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "platform-developers"
+    apiGroup: rbac.authorization.k8s.io
+---
+# Read-only role for monitoring and observability
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: nexus-readonly-role
+rules:
+  # Allow reading all resources
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch"]
+---
+# Read-only role binding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nexus-readonly-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: nexus-readonly-role
+subjects:
+  # Add specific users or groups here
+  - kind: User
+    name: "monitor@nexus-platform.com"
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: "platform-monitors"
+    apiGroup: rbac.authorization.k8s.io

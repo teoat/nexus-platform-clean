@@ -1,0 +1,15 @@
+# Caching Configuration
+redis:
+  host: localhost
+  port: 6379
+  db: 0
+  ttl: 3600
+
+memory:
+  max_size: 100
+  ttl: 1800
+
+cdn:
+  enabled: true
+  base_url: "https://cdn.nexus.com"
+  ttl: 86400

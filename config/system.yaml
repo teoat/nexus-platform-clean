@@ -1,0 +1,39 @@
+# NEXUS System Configuration
+version: "1.0.0"
+environment: "production"
+
+components:
+  frontend:
+    - PerformanceMetrics
+    - SystemHealth
+    - FrenlyInsights
+    - InsightCard
+    - FeatureManager
+    - FeatureConfig
+    - PerformanceOptimizer
+    - OptimizationSettings
+    - SecurityManager
+    - SecurityDashboard
+
+  backend:
+    - monitoring
+    - ai_insights
+    - feature_management
+    - websocket
+    - configuration
+
+  security:
+    - security_scanning_engine
+    - threat_detection_system
+    - security_policy_engine
+    - security_analytics
+
+integrations:
+  enabled: true
+  auto_load: true
+  monitoring: true
+
+performance:
+  optimization: true
+  caching: true
+  monitoring: true

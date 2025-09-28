@@ -1,0 +1,128 @@
+{
+  "analysis_timestamp": "2025-01-27T12:00:00Z",
+  "total_files": 3116,
+  "total_directories": 819,
+  "root_path": "/Users/Arief/Desktop/Nexus",
+  "directory_structure": {
+    "config": {
+      "file_count": 156,
+      "subdirs": [
+        "database",
+        "docker",
+        "kubernetes",
+        "monitoring",
+        "security",
+        "environment",
+        "nginx"
+      ],
+      "key_files": [
+        "database/database_schema.yml",
+        "policies.yaml",
+        "unified.env",
+        "docker/docker-compose.yaml",
+        "kubernetes/consolidated_k8s.yaml"
+      ]
+    },
+    "frontend": {
+      "file_count": 1247,
+      "subdirs": ["web", "shared", "mobile"],
+      "key_files": [
+        "web/package.json",
+        "web/src/config/api.ts",
+        "web/tsconfig.json",
+        "web/webpack.config.js"
+      ]
+    },
+    "backend": {
+      "file_count": 89,
+      "subdirs": ["services", "database", "routes", "schemas"],
+      "key_files": [
+        "main_unified.py",
+        "config.yaml",
+        "requirements.txt",
+        "services/nuc_orchestrator.py"
+      ]
+    },
+    "frenly_ai": {
+      "file_count": 45,
+      "subdirs": ["backend", "frontend"],
+      "key_files": [
+        "frenly_ai_rules.json",
+        "backend/frenly_brain_orchestrator.py",
+        "backend/ssot_data.json"
+      ]
+    },
+    "docs": {
+      "file_count": 234,
+      "subdirs": ["api", "architecture", "security", "developer", "user"],
+      "key_files": [
+        "MASTER_DOCUMENTATION_INDEX.md",
+        "AGENT_DOCUMENTATION_MAP.md",
+        "01_Architecture_V3.md"
+      ]
+    },
+    "scripts": {
+      "file_count": 67,
+      "key_files": [
+        "ssot_documentation_cli.py",
+        "autonomous_optimizer.py",
+        "validate_system.py"
+      ]
+    },
+    "ssot": {
+      "file_count": 26737,
+      "subdirs": ["snapshots"],
+      "key_files": ["manifest.yaml", "candidates.csv"]
+    },
+    "docker": {
+      "file_count": 23,
+      "key_files": [
+        "docker-compose.yml",
+        "docker-compose.optimized.yml",
+        "Dockerfile"
+      ]
+    },
+    "k8s": {
+      "file_count": 45,
+      "subdirs": ["k8s-optimized"],
+      "key_files": ["nexus-platform.yaml", "nexus-microservices.yaml"]
+    },
+    "monitoring": {
+      "file_count": 34,
+      "key_files": ["prometheus.yml", "grafana/dashboards.json"]
+    },
+    "security": {
+      "file_count": 28,
+      "key_files": ["security_policies.yml", "auth.json"]
+    }
+  },
+  "file_type_distribution": {
+    "python": 456,
+    "typescript": 234,
+    "javascript": 189,
+    "yaml": 156,
+    "json": 234,
+    "markdown": 567,
+    "sql": 23,
+    "dockerfile": 12,
+    "shell": 45,
+    "other": 1200
+  },
+  "large_directories": [
+    {
+      "path": "ssot/snapshots",
+      "file_count": 26734,
+      "size_mb": 1024
+    },
+    {
+      "path": "frontend/web/node_modules",
+      "file_count": 0,
+      "size_mb": 512
+    },
+    {
+      "path": "docs",
+      "file_count": 234,
+      "size_mb": 45
+    }
+  ]
+}

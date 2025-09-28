@@ -1,0 +1,76 @@
+{
+  "analysis_timestamp": "2025-01-27T12:00:00Z",
+  "large_files": [
+    {
+      "file": "ssot/manifest.yaml",
+      "size_bytes": 2787648,
+      "size_mb": 2.66,
+      "type": "compressed_yaml",
+      "status": "compressed",
+      "recommendation": "keep_compressed",
+      "rationale": "SSOT manifest, contains module registry"
+    },
+    {
+      "file": "config/kubernetes/consolidated_k8s.yaml",
+      "size_bytes": 313171,
+      "size_mb": 0.3,
+      "type": "kubernetes_manifest",
+      "status": "active",
+      "recommendation": "split_into_modules",
+      "rationale": "Large consolidated K8s manifest, should be split"
+    },
+    {
+      "file": "monitoring/unified-config.yaml",
+      "size_bytes": 64904,
+      "size_mb": 0.06,
+      "type": "monitoring_config",
+      "status": "active",
+      "recommendation": "consolidate_with_ssot",
+      "rationale": "Monitoring configuration, should be in SSOT"
+    },
+    {
+      "file": "k8s/unified-manifests.yaml",
+      "size_bytes": 50114,
+      "size_mb": 0.05,
+      "type": "kubernetes_manifest",
+      "status": "active",
+      "recommendation": "split_into_services",
+      "rationale": "Unified K8s manifests, should be split by service"
+    },
+    {
+      "file": "config/environment/openapi.yaml",
+      "size_bytes": 41658,
+      "size_mb": 0.04,
+      "type": "api_spec",
+      "status": "active",
+      "recommendation": "move_to_api_ssot",
+      "rationale": "OpenAPI specification, should be in API SSOT"
+    }
+  ],
+  "file_size_distribution": {
+    "0_1_mb": 3100,
+    "1_10_mb": 15,
+    "10_100_mb": 1,
+    "100_mb_plus": 0
+  },
+  "optimization_recommendations": [
+    {
+      "file_pattern": "*.yaml",
+      "total_size_mb": 3.5,
+      "recommendation": "compress_inactive_files",
+      "priority": "medium"
+    },
+    {
+      "file_pattern": "consolidated_*.yaml",
+      "total_size_mb": 0.8,
+      "recommendation": "split_into_modules",
+      "priority": "high"
+    },
+    {
+      "file_pattern": "ssot/manifest.yaml",
+      "total_size_mb": 2.66,
+      "recommendation": "keep_compressed",
+      "priority": "low"
+    }
+  ]
+}

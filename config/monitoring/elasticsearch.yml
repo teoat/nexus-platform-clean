@@ -1,0 +1,32 @@
+cluster.name: nexus-platform
+node.name: nexus-elasticsearch
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+network.host: 0.0.0.0
+http.port: 9200
+discovery.type: single-node
+xpack.security.enabled: false
+xpack.monitoring.enabled: true
+xpack.graph.enabled: false
+xpack.watcher.enabled: false
+xpack.ml.enabled: true
+
+# JVM settings
+-Xms1g
+-Xmx1g
+
+# Security (disable for development)
+xpack.security.enabled: false
+
+# Monitoring
+xpack.monitoring.collection.enabled: true
+
+# Machine Learning
+xpack.ml.enabled: true
+
+# Indices
+indices.query.bool.max_clause_count: 10000
+
+# Logging
+logger.level: INFO
+logger.org.elasticsearch.discovery: WARN

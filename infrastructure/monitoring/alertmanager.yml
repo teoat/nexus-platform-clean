@@ -1,0 +1,254 @@
+# Alertmanager Configuration for NEXUS Platform
+global:
+  smtp_smarthost: "localhost:587"
+  smtp_from: "alerts@nexus-platform.com"
+  smtp_auth_username: "alerts@nexus-platform.com"
+  smtp_auth_password: "your-smtp-password"
+  smtp_require_tls: true
+
+# Templates for alert formatting
+templates:
+  - "/etc/alertmanager/templates/*.tmpl"
+
+# Route configuration
+route:
+  group_by: ["alertname", "cluster", "service"]
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: "web.hook"
+  routes:
+    # Critical alerts - immediate notification
+    - match:
+        severity: critical
+      receiver: "critical-alerts"
+      group_wait: 5s
+      repeat_interval: 5m
+
+    # Warning alerts - grouped notification
+    - match:
+        severity: warning
+      receiver: "warning-alerts"
+      group_wait: 30s
+      repeat_interval: 1h
+
+    # Database alerts
+    - match:
+        service: database
+      receiver: "database-team"
+      group_wait: 10s
+      repeat_interval: 30m
+
+    # Frontend alerts
+    - match:
+        service: frontend
+      receiver: "frontend-team"
+      group_wait: 10s
+      repeat_interval: 30m
+
+    # Backend API alerts
+    - match:
+        service: backend
+      receiver: "backend-team"
+      group_wait: 10s
+      repeat_interval: 30m
+
+# Inhibition rules to prevent alert spam
+inhibit_rules:
+  # Inhibit warning alerts when critical alerts are firing
+  - source_match:
+      severity: "critical"
+    target_match:
+      severity: "warning"
+    equal: ["alertname", "cluster", "service"]
+
+  # Inhibit pod alerts when node alerts are firing
+  - source_match:
+      alertname: "NodeDown"
+    target_match_re:
+      alertname: "Pod.*"
+    equal: ["node"]
+
+# Receiver configurations
+receivers:
+  # Webhook receiver for general alerts
+  - name: "web.hook"
+    webhook_configs:
+      - url: "http://webhook:5001/"
+        send_resolved: true
+        http_config:
+          basic_auth:
+            username: "webhook"
+            password: "webhook-password"
+
+  # Critical alerts - immediate notification via multiple channels
+  - name: "critical-alerts"
+    email_configs:
+      - to: "oncall@nexus-platform.com"
+        subject: "🚨 CRITICAL: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Severity:** {{ .Labels.severity }}
+          **Service:** {{ .Labels.service }}
+          **Instance:** {{ .Labels.instance }}
+          **Time:** {{ .StartsAt }}
+          {{ end }}
+        html: |
+          <h2>🚨 Critical Alert: {{ .GroupLabels.alertname }}</h2>
+          {{ range .Alerts }}
+          <p><strong>Summary:</strong> {{ .Annotations.summary }}</p>
+          <p><strong>Description:</strong> {{ .Annotations.description }}</p>
+          <p><strong>Severity:</strong> {{ .Labels.severity }}</p>
+          <p><strong>Service:</strong> {{ .Labels.service }}</p>
+          <p><strong>Instance:</strong> {{ .Labels.instance }}</p>
+          <p><strong>Time:</strong> {{ .StartsAt }}</p>
+          <hr>
+          {{ end }}
+    slack_configs:
+      - api_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+        channel: "#alerts-critical"
+        title: "🚨 Critical Alert: {{ .GroupLabels.alertname }}"
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Severity:* {{ .Labels.severity }}
+          *Service:* {{ .Labels.service }}
+          *Instance:* {{ .Labels.instance }}
+          *Time:* {{ .StartsAt }}
+          {{ end }}
+        send_resolved: true
+    pagerduty_configs:
+      - service_key: "your-pagerduty-service-key"
+        description: "{{ .GroupLabels.alertname }}: {{ .Annotations.summary }}"
+        details:
+          summary: "{{ .Annotations.summary }}"
+          description: "{{ .Annotations.description }}"
+          severity: "{{ .Labels.severity }}"
+          service: "{{ .Labels.service }}"
+          instance: "{{ .Labels.instance }}"
+
+  # Warning alerts - less urgent notification
+  - name: "warning-alerts"
+    email_configs:
+      - to: "dev-team@nexus-platform.com"
+        subject: "⚠️ WARNING: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Severity:** {{ .Labels.severity }}
+          **Service:** {{ .Labels.service }}
+          **Instance:** {{ .Labels.instance }}
+          **Time:** {{ .StartsAt }}
+          {{ end }}
+    slack_configs:
+      - api_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+        channel: "#alerts-warning"
+        title: "⚠️ Warning: {{ .GroupLabels.alertname }}"
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Severity:* {{ .Labels.severity }}
+          *Service:* {{ .Labels.service }}
+          *Instance:* {{ .Labels.instance }}
+          *Time:* {{ .StartsAt }}
+          {{ end }}
+        send_resolved: true
+
+  # Database team alerts
+  - name: "database-team"
+    email_configs:
+      - to: "dba@nexus-platform.com"
+        subject: "🗄️ Database Alert: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Database:** {{ .Labels.database }}
+          **Instance:** {{ .Labels.instance }}
+          **Time:** {{ .StartsAt }}
+          {{ end }}
+    slack_configs:
+      - api_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+        channel: "#database-alerts"
+        title: "🗄️ Database Alert: {{ .GroupLabels.alertname }}"
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Database:* {{ .Labels.database }}
+          *Instance:* {{ .Labels.instance }}
+          *Time:* {{ .StartsAt }}
+          {{ end }}
+
+  # Frontend team alerts
+  - name: "frontend-team"
+    email_configs:
+      - to: "frontend@nexus-platform.com"
+        subject: "🎨 Frontend Alert: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Service:** {{ .Labels.service }}
+          **Instance:** {{ .Labels.instance }}
+          **Time:** {{ .StartsAt }}
+          {{ end }}
+    slack_configs:
+      - api_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+        channel: "#frontend-alerts"
+        title: "🎨 Frontend Alert: {{ .GroupLabels.alertname }}"
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Service:* {{ .Labels.service }}
+          *Instance:* {{ .Labels.instance }}
+          *Time:* {{ .StartsAt }}
+          {{ end }}
+
+  # Backend team alerts
+  - name: "backend-team"
+    email_configs:
+      - to: "backend@nexus-platform.com"
+        subject: "⚙️ Backend Alert: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Service:** {{ .Labels.service }}
+          **Instance:** {{ .Labels.instance }}
+          **Time:** {{ .StartsAt }}
+          {{ end }}
+    slack_configs:
+      - api_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+        channel: "#backend-alerts"
+        title: "⚙️ Backend Alert: {{ .GroupLabels.alertname }}"
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Service:* {{ .Labels.service }}
+          *Instance:* {{ .Labels.instance }}
+          *Time:* {{ .StartsAt }}
+          {{ end }}
+
+# Time intervals for silencing
+time_intervals:
+  - name: "maintenance-window"
+    time_intervals:
+      - times:
+          - start_time: "02:00"
+            end_time: "04:00"
+        weekdays: ["saturday", "sunday"]
+
+  - name: "business-hours"
+    time_intervals:
+      - times:
+          - start_time: "09:00"
+            end_time: "17:00"
+        weekdays: ["monday:friday"]

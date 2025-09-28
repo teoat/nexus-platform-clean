@@ -1,0 +1,437 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "SSOT Health & Performance Dashboard",
+    "tags": ["ssot", "nexus", "health", "performance"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "SSOT System Overview",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "up{job=\"ssot-service\"}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "0": {
+                    "text": "DOWN",
+                    "color": "red"
+                  },
+                  "1": {
+                    "text": "UP",
+                    "color": "green"
+                  }
+                },
+                "type": "value"
+              }
+            ]
+          }
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "id": 2,
+        "title": "Active SSOT Aliases",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(ssot_active_aliases_count)",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 1000
+                },
+                {
+                  "color": "red",
+                  "value": 5000
+                }
+              ]
+            }
+          }
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "id": 3,
+        "title": "SSOT Consistency Score",
+        "type": "gauge",
+        "targets": [
+          {
+            "expr": "ssot_consistency_score{component=\"ssot\"}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "min": 0,
+            "max": 1,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 0.7
+                },
+                {
+                  "color": "green",
+                  "value": 0.9
+                }
+              ]
+            }
+          }
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 12,
+          "y": 0
+        }
+      },
+      {
+        "id": 4,
+        "title": "Expired Aliases",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(ssot_expired_aliases_count)",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 10
+                },
+                {
+                  "color": "red",
+                  "value": 50
+                }
+              ]
+            }
+          }
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 18,
+          "y": 0
+        }
+      },
+      {
+        "id": 5,
+        "title": "Alias Resolution Performance",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(ssot_alias_resolution_duration_seconds_bucket[5m])) by (le, context))",
+            "legendFormat": "95th percentile - {{context}}",
+            "refId": "A"
+          },
+          {
+            "expr": "histogram_quantile(0.50, sum(rate(ssot_alias_resolution_duration_seconds_bucket[5m])) by (le, context))",
+            "legendFormat": "50th percentile - {{context}}",
+            "refId": "B"
+          }
+        ],
+        "yAxes": [
+          {
+            "format": "s",
+            "label": "Response Time"
+          },
+          {
+            "format": "short"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 4
+        }
+      },
+      {
+        "id": 6,
+        "title": "Alias Resolution Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "sum(rate(ssot_alias_resolutions_total[5m])) by (status, context)",
+            "legendFormat": "{{status}} - {{context}}",
+            "refId": "A"
+          }
+        ],
+        "yAxes": [
+          {
+            "format": "ops",
+            "label": "Resolutions/sec"
+          },
+          {
+            "format": "short"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 4
+        }
+      },
+      {
+        "id": 7,
+        "title": "Alias Operations by Context",
+        "type": "bargauge",
+        "targets": [
+          {
+            "expr": "sum(ssot_alias_creations_total) by (context)",
+            "legendFormat": "{{context}}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 0,
+          "y": 12
+        }
+      },
+      {
+        "id": 8,
+        "title": "Validation Failures",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "sum(ssot_validation_failures_total) by (rule, operation)",
+            "format": "table",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "left",
+              "displayMode": "color-text"
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Value"
+              },
+              "properties": [
+                {
+                  "id": "custom.displayMode",
+                  "value": "color-background"
+                },
+                {
+                  "id": "thresholds",
+                  "value": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      },
+                      {
+                        "color": "orange",
+                        "value": 10
+                      },
+                      {
+                        "color": "red",
+                        "value": 50
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 8,
+          "y": 12
+        }
+      },
+      {
+        "id": 9,
+        "title": "Cache Performance",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "sum(rate(ssot_alias_resolutions_total{status=\"cache_hit\"}[5m])) / sum(rate(ssot_alias_resolutions_total[5m])) * 100",
+            "legendFormat": "Cache Hit Rate %",
+            "refId": "A"
+          }
+        ],
+        "yAxes": [
+          {
+            "format": "percent",
+            "label": "Cache Hit Rate",
+            "max": 100,
+            "min": 0
+          },
+          {
+            "format": "short"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 16,
+          "y": 12
+        }
+      },
+      {
+        "id": 10,
+        "title": "SSOT Anchors Status",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "ssot_anchors_total",
+            "format": "table",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 20
+        }
+      },
+      {
+        "id": 11,
+        "title": "Audit Log Activity",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "sum(rate(ssot_audit_log_entries_total[5m])) by (action)",
+            "legendFormat": "{{action}}",
+            "refId": "A"
+          }
+        ],
+        "yAxes": [
+          {
+            "format": "ops",
+            "label": "Audit Events/sec"
+          },
+          {
+            "format": "short"
+          }
+        ],
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 12,
+          "y": 20
+        }
+      },
+      {
+        "id": 12,
+        "title": "SSOT Health Alerts",
+        "type": "alertlist",
+        "options": {
+          "alertName": "SSOT",
+          "dashboardAlerts": false,
+          "maxItems": 10,
+          "showOptions": "current",
+          "sortOrder": 1,
+          "stateFilter": {
+            "alerting": true,
+            "execution_error": true,
+            "no_data": false,
+            "no_value": false,
+            "ok": false,
+            "paused": false,
+            "pending": true
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 26
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "templating": {
+      "list": []
+    },
+    "annotations": {
+      "list": []
+    },
+    "refresh": "30s",
+    "schemaVersion": 27,
+    "version": 0,
+    "links": []
+  }
+}

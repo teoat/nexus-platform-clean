@@ -1,0 +1,155 @@
+# Advanced Alert Rules for NEXUS Platform
+groups:
+  - name: nexus-backend-alerts
+    rules:
+      - alert: NexusBackendDown
+        expr: up{job="nexus-backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "NEXUS Backend is down"
+          description: "NEXUS Backend has been down for more than 1 minute"
+
+      - alert: NexusBackendHighErrorRate
+        expr: rate(http_requests_total{job="nexus-backend",status=~"5.."}[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High error rate in NEXUS Backend"
+          description: "Error rate is {{ $value }} errors per second"
+
+      - alert: NexusBackendHighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="nexus-backend"}[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High response time in NEXUS Backend"
+          description: "95th percentile response time is {{ $value }} seconds"
+
+      - alert: NexusBackendHighCPUUsage
+        expr: rate(process_cpu_seconds_total{job="nexus-backend"}[5m]) > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage in NEXUS Backend"
+          description: "CPU usage is {{ $value }} cores"
+
+      - alert: NexusBackendHighMemoryUsage
+        expr: process_resident_memory_bytes{job="nexus-backend"} > 1e9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage in NEXUS Backend"
+          description: "Memory usage is {{ $value }} bytes"
+
+  - name: nexus-database-alerts
+    rules:
+      - alert: PostgreSQLDown
+        expr: up{job="postgres"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "PostgreSQL is down"
+          description: "PostgreSQL has been down for more than 1 minute"
+
+      - alert: PostgreSQLHighConnections
+        expr: pg_stat_database_numbackends{job="postgres"} > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High number of PostgreSQL connections"
+          description: "PostgreSQL has {{ $value }} active connections"
+
+      - alert: PostgreSQLSlowQueries
+        expr: rate(pg_stat_database_tup_returned{job="postgres"}[5m]) < 100
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Slow PostgreSQL queries detected"
+          description: "Query rate is {{ $value }} queries per second"
+
+  - name: nexus-redis-alerts
+    rules:
+      - alert: RedisDown
+        expr: up{job="redis"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis is down"
+          description: "Redis has been down for more than 1 minute"
+
+      - alert: RedisHighMemoryUsage
+        expr: redis_memory_used_bytes{job="redis"} / redis_memory_max_bytes{job="redis"} > 0.9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Redis memory usage"
+          description: "Redis memory usage is {{ $value }}%"
+
+  - name: nexus-system-alerts
+    rules:
+      - alert: HighDiskUsage
+        expr: (node_filesystem_size_bytes - node_filesystem_free_bytes) / node_filesystem_size_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High disk usage"
+          description: "Disk usage is {{ $value }}% on {{ $labels.instance }}"
+
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is {{ $value }}% on {{ $labels.instance }}"
+
+      - alert: HighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is {{ $value }}% on {{ $labels.instance }}"
+
+  - name: nexus-application-alerts
+    rules:
+      - alert: NexusAPIHighLatency
+        expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job="nexus-backend"}[5m])) > 5
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High API latency"
+          description: "99th percentile latency is {{ $value }} seconds"
+
+      - alert: NexusAPIHighThroughput
+        expr: rate(http_requests_total{job="nexus-backend"}[5m]) > 1000
+        for: 5m
+        labels:
+          severity: info
+        annotations:
+          summary: "High API throughput"
+          description: "API is handling {{ $value }} requests per second"
+
+      - alert: NexusDatabaseSlowQueries
+        expr: rate(pg_stat_database_tup_returned{job="postgres"}[5m]) < 50
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Slow database queries"
+          description: "Database query rate is {{ $value }} queries per second"

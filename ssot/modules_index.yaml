@@ -1,0 +1,78 @@
+# NEXUS Platform - SSOT Manifest (Phase 2 Test)
+# Generated: 2025-01-27T12:30:00Z
+# Version: 1.0
+
+metadata:
+  generated_at: "2025-01-27T12:30:00Z"
+  version: "1.0"
+  platform: "NEXUS"
+  total_phases: 6
+
+anchors:
+  # API Anchors
+  - id: api_contracts
+    family: api
+    description: "Canonical API contracts for public service surfaces"
+    format: yaml
+    owner: "@nexus-api-team"
+    version: "v1.0.0"
+    path: "backend/routes/api_schema.yaml"
+
+  - id: backend_api_contracts
+    family: api
+    description: "Backend internal API contracts and service interfaces"
+    format: yaml
+    owner: "@nexus-backend-team"
+    version: "v1.0.0"
+    path: "backend/services/internal_api.yaml"
+
+  # Data Schema Anchors
+  - id: database_schema
+    family: data
+    description: "Canonical PostgreSQL database schema"
+    format: sql
+    owner: "@nexus-database-team"
+    version: "v1.0.0"
+    path: "backend/database/schema.sql"
+
+  - id: redis_schema
+    family: data
+    description: "Redis data structures and cache schemas"
+    format: json
+    owner: "@nexus-backend-team"
+    version: "v1.0.0"
+    path: "backend/cache/redis_schema.json"
+
+  # Deployment Anchors
+  - id: kubernetes_manifests
+    family: deployment
+    description: "Kubernetes deployment manifests and configurations"
+    format: yaml
+    owner: "@nexus-devops-team"
+    version: "v1.0.0"
+    path: "k8s/unified-manifests.yaml"
+
+  - id: docker_configurations
+    family: deployment
+    description: "Docker configurations and container definitions"
+    format: yaml
+    owner: "@nexus-devops-team"
+    version: "v1.0.0"
+    path: "docker-compose.unified.yml"
+
+  # Build Anchors
+  - id: frontend_build_config
+    family: build
+    description: "Frontend build configuration and dependencies"
+    format: json
+    owner: "@nexus-frontend-team"
+    version: "v1.0.0"
+    path: "frontend/package.json"
+
+  - id: backend_build_config
+    family: build
+    description: "Backend build configuration and dependencies"
+    format: toml
+    owner: "@nexus-backend-team"
+    version: "v1.0.0"
+    path: "pyproject.toml"

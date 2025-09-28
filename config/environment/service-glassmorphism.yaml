@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-frontend-glassmorphism
+  namespace: nexus-platform
+  labels:
+    app: nexus-frontend-glassmorphism
+    version: glassmorphism
+spec:
+  selector:
+    app: nexus-frontend-glassmorphism
+  ports:
+    - name: http
+      port: 2400
+      targetPort: 2400
+      protocol: TCP
+  type: ClusterIP

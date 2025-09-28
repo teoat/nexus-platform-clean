@@ -1,0 +1,62 @@
+{
+  "rules": [
+    {
+      "condition": "duplicate_files_detected",
+      "description": "When duplicate files are found in the workspace",
+      "actions": [
+        "merge_duplicates",
+        "lock_file",
+        "update_readme",
+        "log_changes"
+      ],
+      "priority": 1
+    },
+    {
+      "condition": "chaotic_file_structure",
+      "description": "When file organization is chaotic or inconsistent",
+      "actions": ["organize_files", "update_readme", "log_changes"],
+      "priority": 2
+    },
+    {
+      "condition": "test_required_after_change",
+      "description": "When code changes require testing validation",
+      "actions": [
+        "run_unit_tests",
+        "run_integration_tests",
+        "validate_dependencies"
+      ],
+      "priority": 3
+    },
+    {
+      "condition": "ready_to_push",
+      "description": "When changes are ready to be pushed to GitHub",
+      "preconditions": ["tests_passed", "ssot_verified", "locks_applied"],
+      "actions": ["push_to_github", "auto_create_pr"],
+      "priority": 4
+    },
+    {
+      "condition": "ready_for_deployment",
+      "description": "When system is ready for deployment",
+      "preconditions": ["tests_passed", "docs_updated", "github_synced"],
+      "actions": [
+        "validate_docker_compose",
+        "verify_k8s_manifests",
+        "deploy_to_staging",
+        "run_health_checks"
+      ],
+      "priority": 5
+    },
+    {
+      "condition": "security_or_performance_check",
+      "description": "When security or performance validation is needed",
+      "actions": ["auto_security_check", "auto_lint", "auto_format"],
+      "priority": 6
+    },
+    {
+      "condition": "stale_files_detected",
+      "description": "When stale or redundant files are detected",
+      "actions": ["auto_cleanup", "archive_or_delete", "log_changes"],
+      "priority": 7
+    }
+  ]
+}

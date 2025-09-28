@@ -1,0 +1,466 @@
+# Frenly AI SSOT Operator Protocols
+# Generated: 2025-01-27T12:30:00Z
+# Version: 1.0
+
+metadata:
+  generated_at: "2025-01-27T12:30:00Z"
+  version: "1.0"
+  platform: "NEXUS"
+  type: "operator_protocols"
+
+operator_protocols:
+  interaction_schemas:
+    query_processing:
+      natural_language_input:
+        description: "Process natural language queries into SSOT operations"
+        schema:
+          type: "object"
+          properties:
+            query:
+              type: "string"
+              description: "Natural language query"
+              examples:
+                - "What is the current system status?"
+                - "Show me all running services"
+                - "What workflows are available for deployment?"
+            context:
+              type: "object"
+              description: "Additional context for the query"
+              properties:
+                user_id: { type: "string" }
+                session_id: { type: "string" }
+                priority: { type: "integer", minimum: 1, maximum: 5 }
+                filters: { type: "object" }
+            options:
+              type: "object"
+              description: "Query processing options"
+              properties:
+                include_sources: { type: "boolean", default: true }
+                include_confidence: { type: "boolean", default: true }
+                max_results: { type: "integer", default: 100 }
+                timeout: { type: "integer", default: 30 }
+
+      structured_query_output:
+        description: "Structured query result from SSOT system"
+        schema:
+          type: "object"
+          properties:
+            query_id: { type: "string" }
+            data: { type: "object" }
+            interpretation: { type: "string" }
+            confidence: { type: "number", minimum: 0, maximum: 1 }
+            sources: { type: "array", items: { type: "string" } }
+            timestamp: { type: "string", format: "date-time" }
+            expires_at: { type: "string", format: "date-time" }
+
+    response_generation:
+      response_request:
+        description: "Request for response generation"
+        schema:
+          type: "object"
+          properties:
+            query_response:
+              {
+                "$ref": "#/operator_protocols/interaction_schemas/query_processing/structured_query_output",
+              }
+            context:
+              type: "object"
+              properties:
+                user_intent: { type: "string" }
+                system_state: { type: "object" }
+                agent_capabilities: { type: "array", items: { type: "string" } }
+                recent_actions: { type: "array", items: { type: "object" } }
+                priority_level: { type: "integer", minimum: 1, maximum: 5 }
+            response_type:
+              {
+                type: "string",
+                enum:
+                  [
+                    "informational",
+                    "actionable",
+                    "warning",
+                    "error",
+                    "confirmation",
+                  ],
+              }
+
+      response_output:
+        description: "Generated response with recommendations"
+        schema:
+          type: "object"
+          properties:
+            response_type: { type: "string" }
+            content: { type: "string" }
+            data: { type: "object" }
+            interpretation: { type: "string" }
+            confidence: { type: "number" }
+            sources: { type: "array", items: { type: "string" } }
+            action_recommendations: { type: "array", items: { type: "object" } }
+            follow_up_suggestions: { type: "array", items: { type: "string" } }
+            timestamp: { type: "string", format: "date-time" }
+            context: { type: "object" }
+
+    adaptation_handling:
+      change_detection:
+        description: "SSOT change detection and processing"
+        schema:
+          type: "object"
+          properties:
+            change_id: { type: "string" }
+            change_type:
+              {
+                type: "string",
+                enum:
+                  [
+                    "configuration",
+                    "workflow",
+                    "policy",
+                    "service",
+                    "dependency",
+                  ],
+              }
+            anchor: { type: "string" }
+            old_value: { type: "object" }
+            new_value: { type: "object" }
+            timestamp: { type: "string", format: "date-time" }
+            impact_level:
+              { type: "string", enum: ["low", "medium", "high", "critical"] }
+            affected_components: { type: "array", items: { type: "string" } }
+
+      adaptation_response:
+        description: "Response to SSOT changes"
+        schema:
+          type: "object"
+          properties:
+            change_id: { type: "string" }
+            adaptation_actions: { type: "array", items: { type: "object" } }
+            success: { type: "boolean" }
+            error_message: { type: "string" }
+            timestamp: { type: "string", format: "date-time" }
+            rollback_available: { type: "boolean" }
+
+  query_templates:
+    system_status:
+      description: "Query templates for system status information"
+      templates:
+        - pattern: "What is the current system status?"
+          ssot_anchors: ["orchestration_registry", "monitoring_registry"]
+          operations: ["get_service_status", "get_health_metrics"]
+          aggregations: ["count_active_services", "calculate_health_score"]
+
+        - pattern: "Show me all running services"
+          ssot_anchors: ["orchestration_registry"]
+          operations: ["get_service_list", "get_service_status"]
+          filters: { status: "running" }
+
+        - pattern: "What services are unhealthy?"
+          ssot_anchors: ["orchestration_registry", "monitoring_registry"]
+          operations: ["get_service_status", "get_health_metrics"]
+          filters: { health: "unhealthy" }
+
+    configuration:
+      description: "Query templates for configuration information"
+      templates:
+        - pattern: "What workflows are available?"
+          ssot_anchors: ["automation_registry"]
+          operations: ["get_workflow_list", "get_workflow_configs"]
+
+        - pattern: "Show me the deployment configuration"
+          ssot_anchors: ["pipeline_registry"]
+          operations: ["get_pipeline_configs"]
+          filters: { type: "deployment" }
+
+        - pattern: "What are the security policies?"
+          ssot_anchors: ["security_registry"]
+          operations: ["get_security_policies"]
+
+    workflows:
+      description: "Query templates for workflow information"
+      templates:
+        - pattern: "What workflows are currently running?"
+          ssot_anchors: ["automation_registry"]
+          operations: ["get_active_workflows"]
+          filters: { status: "running" }
+
+        - pattern: "Show me failed workflows"
+          ssot_anchors: ["automation_registry"]
+          operations: ["get_workflow_status"]
+          filters: { status: "failed" }
+
+        - pattern: "What workflows are available for {task}?"
+          ssot_anchors: ["automation_registry"]
+          operations: ["get_workflow_list", "get_workflow_capabilities"]
+          filters: { task_type: "{task}" }
+
+  response_logic:
+    intent_classification:
+      description: "Logic for classifying user intents"
+      rules:
+        - pattern: "what|show|list|display"
+          intent: "informational"
+          response_type: "informational"
+
+        - pattern: "how|execute|run|perform|start"
+          intent: "actionable"
+          response_type: "actionable"
+
+        - pattern: "why|explain|describe"
+          intent: "explanatory"
+          response_type: "informational"
+
+        - pattern: "when|schedule|plan"
+          intent: "temporal"
+          response_type: "informational"
+
+        - pattern: "where|find|locate"
+          intent: "locational"
+          response_type: "informational"
+
+    confidence_calculation:
+      description: "Logic for calculating response confidence"
+      factors:
+        - name: "data_completeness"
+          weight: 0.3
+          description: "How complete is the SSOT data"
+          calculation: "percentage of required fields present"
+
+        - name: "query_clarity"
+          weight: 0.2
+          description: "How clear is the user query"
+          calculation: "based on query parsing success"
+
+        - name: "ssot_freshness"
+          weight: 0.2
+          description: "How fresh is the SSOT data"
+          calculation: "time since last SSOT update"
+
+        - name: "context_relevance"
+          weight: 0.3
+          description: "How relevant is the context"
+          calculation: "based on context matching"
+
+    action_recommendation:
+      description: "Logic for generating action recommendations"
+      rules:
+        - condition: "service_health == 'unhealthy'"
+          action: "restart_service"
+          priority: "high"
+          parameters: { service_name: "{service_name}" }
+
+        - condition: "workflow_status == 'failed'"
+          action: "restart_workflow"
+          priority: "medium"
+          parameters: { workflow_id: "{workflow_id}" }
+
+        - condition: "cpu_usage > 90"
+          action: "scale_service"
+          priority: "high"
+          parameters: { service_name: "{service_name}", replicas: "increased" }
+
+        - condition: "memory_usage > 95"
+          action: "scale_service"
+          priority: "critical"
+          parameters: { service_name: "{service_name}", replicas: "increased" }
+
+  adaptation_rules:
+    change_handling:
+      description: "Rules for handling different types of SSOT changes"
+      rules:
+        - change_type: "configuration"
+          actions:
+            - "update_internal_state"
+            - "notify_affected_components"
+            - "regenerate_relevant_responses"
+          priority: "medium"
+          timeout: 60
+
+        - change_type: "workflow"
+          actions:
+            - "update_workflow_registry"
+            - "notify_agents"
+            - "update_execution_plans"
+          priority: "high"
+          timeout: 120
+
+        - change_type: "policy"
+          actions:
+            - "update_policy_enforcement"
+            - "notify_security_components"
+            - "update_access_controls"
+          priority: "critical"
+          timeout: 30
+
+        - change_type: "service"
+          actions:
+            - "update_service_registry"
+            - "notify_load_balancers"
+            - "update_health_checks"
+          priority: "high"
+          timeout: 90
+
+        - change_type: "dependency"
+          actions:
+            - "update_dependency_graph"
+            - "notify_dependent_services"
+            - "update_deployment_plans"
+          priority: "medium"
+          timeout: 180
+
+    impact_assessment:
+      description: "Rules for assessing the impact of SSOT changes"
+      rules:
+        - condition: "anchor contains 'security' or 'policy'"
+          impact_level: "critical"
+          affected_components: ["all"]
+
+        - condition: "anchor contains 'service' or 'orchestration'"
+          impact_level: "high"
+          affected_components: ["load_balancers", "monitoring", "agents"]
+
+        - condition: "anchor contains 'workflow' or 'pipeline'"
+          impact_level: "medium"
+          affected_components: ["agents", "automation"]
+
+        - condition: "anchor contains 'config' or 'registry'"
+          impact_level: "low"
+          affected_components: ["query_engine", "response_generator"]
+
+  error_handling:
+    query_errors:
+      description: "Error handling for query processing"
+      error_types:
+        - type: "ssot_unavailable"
+          response: "SSOT system is temporarily unavailable. Please try again later."
+          fallback: "use_cached_data"
+          retry: true
+
+        - type: "query_timeout"
+          response: "Query timed out. Please try a simpler query."
+          fallback: "return_partial_results"
+          retry: false
+
+        - type: "invalid_query"
+          response: "I didn't understand your query. Please rephrase it."
+          fallback: "suggest_alternatives"
+          retry: false
+
+        - type: "no_data_found"
+          response: "No relevant data found for your query."
+          fallback: "suggest_related_queries"
+          retry: false
+
+    adaptation_errors:
+      description: "Error handling for adaptation processing"
+      error_types:
+        - type: "adaptation_failed"
+          response: "Failed to adapt to SSOT changes. Manual intervention may be required."
+          fallback: "rollback_changes"
+          retry: true
+
+        - type: "change_conflict"
+          response: "Conflicting changes detected. Resolving automatically."
+          fallback: "merge_changes"
+          retry: true
+
+        - type: "rollback_failed"
+          response: "Failed to rollback changes. System may be in inconsistent state."
+          fallback: "alert_administrators"
+          retry: false
+
+  performance_optimization:
+    caching:
+      description: "Caching strategies for performance optimization"
+      strategies:
+        - type: "query_cache"
+          ttl: 300 # 5 minutes
+          max_size: 1000
+          eviction: "lru"
+
+        - type: "response_cache"
+          ttl: 600 # 10 minutes
+          max_size: 500
+          eviction: "lru"
+
+        - type: "ssot_cache"
+          ttl: 60 # 1 minute
+          max_size: 100
+          eviction: "lru"
+
+    query_optimization:
+      description: "Query optimization strategies"
+      strategies:
+        - type: "query_batching"
+          max_batch_size: 10
+          batch_timeout: 100 # milliseconds
+
+        - type: "query_parallelization"
+          max_parallel_queries: 5
+          timeout: 30 # seconds
+
+        - type: "query_caching"
+          cache_hit_threshold: 0.8
+          cache_miss_penalty: 2.0
+
+  monitoring:
+    metrics:
+      description: "Metrics for monitoring operator performance"
+      query_metrics:
+        - name: "query_response_time"
+          type: "histogram"
+          description: "Time taken to process queries"
+          buckets: [0.1, 0.5, 1.0, 2.0, 5.0]
+
+        - name: "query_success_rate"
+          type: "counter"
+          description: "Percentage of successful queries"
+
+        - name: "query_cache_hit_rate"
+          type: "gauge"
+          description: "Percentage of cache hits"
+
+      response_metrics:
+        - name: "response_generation_time"
+          type: "histogram"
+          description: "Time taken to generate responses"
+          buckets: [0.1, 0.2, 0.5, 1.0, 2.0]
+
+        - name: "response_quality_score"
+          type: "gauge"
+          description: "Quality score of generated responses"
+
+        - name: "action_recommendation_accuracy"
+          type: "gauge"
+          description: "Accuracy of action recommendations"
+
+      adaptation_metrics:
+        - name: "change_detection_time"
+          type: "histogram"
+          description: "Time taken to detect changes"
+          buckets: [1, 5, 10, 30, 60]
+
+        - name: "adaptation_success_rate"
+          type: "counter"
+          description: "Percentage of successful adaptations"
+
+        - name: "rollback_frequency"
+          type: "counter"
+          description: "Frequency of rollbacks"
+
+    alerts:
+      description: "Alerting rules for operator monitoring"
+      rules:
+        - condition: "query_response_time > 5.0"
+          severity: "warning"
+          message: "Query response time is high"
+
+        - condition: "query_success_rate < 0.95"
+          severity: "critical"
+          message: "Query success rate is low"
+
+        - condition: "adaptation_success_rate < 0.90"
+          severity: "warning"
+          message: "Adaptation success rate is low"
+
+        - condition: "rollback_frequency > 5 per hour"
+          severity: "critical"
+          message: "Frequent rollbacks detected"

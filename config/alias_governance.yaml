@@ -1,0 +1,34 @@
+alias_governance:
+  version: "1.0"
+  rules:
+    uniqueness:
+      within_context: true
+      across_contexts: false
+    naming:
+      pattern: "^[a-z0-9-]+$"
+      min_length: 3
+      max_length: 50
+    expiration:
+      temporary_aliases: true
+      default_ttl: "90d"
+      max_ttl: "1y"
+  
+  contexts:
+    system:
+      permissions: ["ssot_maintainers"]
+      approval_required: true
+    application:
+      permissions: ["team_approval"]
+      approval_required: true
+    frenly_ai:
+      permissions: ["ai_team"]
+      approval_required: true
+    migration:
+      permissions: ["temporary_only"]
+      approval_required: false
+      auto_expire: true
+  
+  audit:
+    log_all_changes: true
+    retention_period: "7y"
+    external_storage: "s3://nexus-audit-logs"

@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus-agents
+  namespace: nexus
+  labels:
+    app: nexus-agents
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nexus-agents
+  template:
+    metadata:
+      labels:
+        app: nexus-agents
+    spec:
+      containers:
+        - name: agents
+          image: nexus-agents:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PHASE_SYSTEM_URI
+              value: "ws://nexus-phase-system:8766"
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: nexus-config
+                  key: REDIS_URL
+            - name: REDIS_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: nexus-config
+                  key: REDIS_PASSWORD
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
+          volumeMounts:
+            - name: logs
+              mountPath: /app/logs
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "ps aux | grep -E '(agent_|python)' | grep -v grep"
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "ps aux | grep -E '(agent_|python)' | grep -v grep"
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+      volumes:
+        - name: logs
+          persistentVolumeClaim:
+            claimName: logs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-agents
+  namespace: nexus
+  labels:
+    app: nexus-agents
+spec:
+  selector:
+    app: nexus-agents
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: ClusterIP

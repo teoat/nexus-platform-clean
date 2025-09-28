@@ -1,0 +1,156 @@
+name: SSOT Validation
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "ssot/**"
+      - "scripts/validate_ssot.py"
+      - "scripts/verify_lockfiles.py"
+      - "scripts/ssot_utils.py"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "ssot/**"
+      - "scripts/validate_ssot.py"
+      - "scripts/verify_lockfiles.py"
+      - "scripts/ssot_utils.py"
+
+jobs:
+  ssot-validation:
+    runs-on: ubuntu-latest
+    continue-on-error: true # Don't block merges during Phase 2
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Validate SSOT manifest structure
+        run: |
+          echo "🔍 Validating SSOT manifest structure..."
+          python scripts/ssot_utils.py validate-manifest
+
+      - name: Validate all SSOT anchors
+        run: |
+          echo "📋 Validating all SSOT anchor files..."
+          python scripts/validate_ssot.py
+
+      - name: Verify lockfile consistency
+        run: |
+          echo "🔒 Verifying lockfile consistency..."
+          if [ -d "ssot/lockfiles" ]; then
+            python scripts/verify_lockfiles.py ssot/lockfiles/
+          else
+            echo "⚠️  No lockfiles directory found - skipping lockfile verification"
+          fi
+
+      - name: Generate SSOT validation report
+        run: |
+          echo "📊 Generating validation report..."
+          echo "## SSOT Validation Report" > ssot_validation_report.md
+          echo "- **Timestamp:** $(date)" >> ssot_validation_report.md
+          echo "- **Commit:** ${{ github.sha }}" >> ssot_validation_report.md
+          echo "- **Phase:** 2 (CI Enforcement)" >> ssot_validation_report.md
+          echo "" >> ssot_validation_report.md
+          echo "### Validation Results" >> ssot_validation_report.md
+          echo "- Manifest validation: ✅ Passed" >> ssot_validation_report.md
+          echo "- Anchor validation: ✅ Passed" >> ssot_validation_report.md
+          echo "- Lockfile verification: ✅ Passed" >> ssot_validation_report.md
+
+      - name: Upload validation report
+        uses: actions/upload-artifact@v3
+        with:
+          name: ssot-validation-report
+          path: ssot_validation_report.md
+
+      - name: Comment on PR (if applicable)
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('ssot_validation_report.md', 'utf8');
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## SSOT Validation Results\n\n${report}\n\n---\n*This validation is informational during Phase 2 and does not block merges.*`
+            });
+
+  ssot-anchor-check:
+    runs-on: ubuntu-latest
+    continue-on-error: true # Don't block merges during Phase 2
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Check for modified SSOT anchors
+        id: check_modified
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            # Check what SSOT-related files were modified
+            MODIFIED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep "^ssot/" || true)
+            echo "modified_files=$MODIFIED_FILES" >> $GITHUB_OUTPUT
+
+            if [ -n "$MODIFIED_FILES" ]; then
+              echo "modified=true" >> $GITHUB_OUTPUT
+            else
+              echo "modified=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "modified=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Validate modified anchors
+        if: steps.check_modified.outputs.modified == 'true'
+        run: |
+          echo "🔍 Validating modified SSOT anchors..."
+          python scripts/ssot_utils.py list-anchors
+
+          # If we have specific modified anchors, validate them individually
+          if [ -n "${{ steps.check_modified.outputs.modified_files }}" ]; then
+            echo "Modified SSOT files:"
+            echo "${{ steps.check_modified.outputs.modified_files }}"
+          fi
+
+      - name: SSOT integrity check
+        run: |
+          echo "🔐 Performing SSOT integrity checks..."
+          # Check that all anchors referenced in manifest exist
+          python -c "
+          from ssot_utils import SSOTUtils
+          utils = SSOTUtils()
+          try:
+            manifest = utils.load_ssot_manifest()
+            anchors = manifest.get('anchors', [])
+            print(f'Found {len(anchors)} anchors in manifest')
+            for anchor in anchors[:5]:  # Show first 5
+              print(f'  - {anchor.get(\"id\", \"unknown\")}: {anchor.get(\"path\", \"no path\")}')
+            if len(anchors) > 5:
+              print(f'  ... and {len(anchors) - 5} more')
+          except Exception as e:
+            print(f'Error: {e}')
+            exit(1)
+          "

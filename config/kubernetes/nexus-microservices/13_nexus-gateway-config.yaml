@@ -1,0 +1,99 @@
+---
+# ConfigMap for Gateway Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nexus-gateway-config
+  namespace: nexus
+data:
+  nexus_gateway.json: |
+    {
+      "service_endpoints": [
+        {
+          "name": "user-service",
+          "url": "http://user-service:8081",
+          "weight": 1,
+          "health_check_interval": 30,
+          "timeout": 30,
+          "retry_count": 3,
+          "circuit_breaker_threshold": 5,
+          "circuit_breaker_timeout": 60
+        },
+        {
+          "name": "transaction-service",
+          "url": "http://transaction-service:8082",
+          "weight": 1,
+          "health_check_interval": 30,
+          "timeout": 30,
+          "retry_count": 3,
+          "circuit_breaker_threshold": 5,
+          "circuit_breaker_timeout": 60
+        },
+        {
+          "name": "analytics-service",
+          "url": "http://analytics-service:8083",
+          "weight": 1,
+          "health_check_interval": 30,
+          "timeout": 30,
+          "retry_count": 3,
+          "circuit_breaker_threshold": 5,
+          "circuit_breaker_timeout": 60
+        }
+      ],
+      "routes": [
+        {
+          "path": "/api/auth",
+          "methods": ["POST"],
+          "service_endpoints": ["user-service"],
+          "load_balancing_strategy": "round_robin",
+          "authentication_required": false,
+          "rate_limit": 100,
+          "timeout": 30,
+          "retry_count": 3,
+          "cors_enabled": true
+        },
+        {
+          "path": "/api/users",
+          "methods": ["GET", "POST", "PUT", "DELETE"],
+          "service_endpoints": ["user-service"],
+          "load_balancing_strategy": "round_robin",
+          "authentication_required": true,
+          "rate_limit": 500,
+          "timeout": 30,
+          "retry_count": 3,
+          "cors_enabled": true
+        },
+        {
+          "path": "/api/transactions",
+          "methods": ["GET", "POST"],
+          "service_endpoints": ["transaction-service"],
+          "load_balancing_strategy": "round_robin",
+          "authentication_required": true,
+          "rate_limit": 200,
+          "timeout": 30,
+          "retry_count": 3,
+          "cors_enabled": true
+        },
+        {
+          "path": "/api/analytics",
+          "methods": ["GET"],
+          "service_endpoints": ["analytics-service"],
+          "load_balancing_strategy": "round_robin",
+          "authentication_required": true,
+          "rate_limit": 100,
+          "timeout": 30,
+          "retry_count": 3,
+          "cors_enabled": true,
+          "cache_ttl": 600
+        }
+      ],
+      "api_keys": [
+        {
+          "key": "nexus-microservices-key",
+          "name": "Microservices API Key",
+          "permissions": ["read", "write", "admin"],
+          "rate_limit": 10000,
+          "expires_at": null
+        }
+      ]
+    }

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tools/utilities/tools/utilities/nexus-platform
+  labels:
+    name: tools/utilities/tools/utilities/nexus-platform
+    app: tools/utilities/tools/utilities/nexus

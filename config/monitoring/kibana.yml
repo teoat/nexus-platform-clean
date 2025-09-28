@@ -1,0 +1,47 @@
+server.name: nexus-kibana
+server.host: "0.0.0.0"
+server.port: 5601
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+elasticsearch.username: "kibana_system"
+elasticsearch.password: "changeme"
+kibana.index: ".kibana"
+kibana.defaultAppId: "home"
+
+# Security
+xpack.security.enabled: false
+
+# Monitoring
+xpack.monitoring.enabled: true
+xpack.monitoring.ui.container.elasticsearch.enabled: true
+
+# Reporting
+xpack.reporting.enabled: true
+xpack.reporting.encryptionKey: "something_at_least_32_characters"
+
+# Machine Learning
+xpack.ml.enabled: true
+
+# Graph
+xpack.graph.enabled: false
+
+# Watcher
+xpack.watcher.enabled: false
+
+# Logging
+logging.root.level: info
+logging.appenders.file.type: file
+logging.appenders.file.fileName: /var/log/kibana/kibana.log
+logging.appenders.file.layout.type: json
+
+# APM
+xpack.apm.enabled: true
+xpack.apm.ui.enabled: true
+
+# Spaces
+xpack.spaces.enabled: true
+
+# Fleet
+xpack.fleet.enabled: true
+
+# Security (disable for development)
+xpack.security.enabled: false

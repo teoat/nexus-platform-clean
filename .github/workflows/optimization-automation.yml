@@ -1,0 +1,293 @@
+name: Optimization Automation Pipeline
+
+on:
+  push:
+    branches: [main, staging, develop]
+  pull_request:
+    branches: [main, staging]
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+    inputs:
+      optimization_type:
+        description: "Type of optimization to run"
+        required: true
+        default: "full"
+        type: choice
+        options:
+          - full
+          - quick
+          - assets
+          - dependencies
+          - cleanup
+
+jobs:
+  optimization-check:
+    runs-on: ubuntu-latest
+    name: Optimization Check
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for optimization analysis
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml asyncio schedule
+
+      - name: Run optimization analysis
+        run: |
+          python -c "
+          import asyncio
+          from modules.optimization_orchestrator import OptimizationOrchestrator
+
+          async def main():
+              orchestrator = OptimizationOrchestrator()
+              
+              # Check current repo size
+              import os
+              repo_size = sum(os.path.getsize(os.path.join(dirpath, filename))
+                             for dirpath, dirnames, filenames in os.walk('.')
+                             for filename in filenames) / (1024 * 1024)  # MB
+              
+              print(f'Repository size: {repo_size:.1f} MB')
+              
+              # Trigger optimization if needed
+              if repo_size > 500:  # 500MB threshold
+                  result = await orchestrator.execute_function('handle_event', 
+                      event_type='repo_growth',
+                      payload={'size': repo_size * 1024 * 1024})
+                  print(f'Optimization triggered: {result.success}')
+                  if result.data:
+                      print(f'Actions triggered: {result.data.get(\"actions_triggered\", 0)}')
+
+          asyncio.run(main())
+          "
+
+      - name: Generate optimization report
+        run: |
+          python -c "
+          import asyncio
+          from modules.optimization_orchestrator import OptimizationOrchestrator
+
+          async def main():
+              orchestrator = OptimizationOrchestrator()
+              result = await orchestrator.execute_function('generate_optimization_report')
+              print(f'Report generated: {result.success}')
+              if result.data:
+                  print(f'Report path: {result.data.get(\"report_path\")}')
+
+          asyncio.run(main())
+          "
+
+      - name: Upload optimization reports
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: optimization-reports
+          path: |
+            reports/
+            config/optimization_thresholds.yaml
+          retention-days: 30
+
+  file-size-check:
+    runs-on: ubuntu-latest
+    name: File Size Check
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml asyncio
+
+      - name: Check for large files
+        run: |
+          python -c "
+          import os
+          from pathlib import Path
+
+          large_files = []
+          for file_path in Path('.').rglob('*'):
+              if file_path.is_file():
+                  size_mb = file_path.stat().st_size / (1024 * 1024)
+                  if size_mb > 50:  # 50MB threshold
+                      large_files.append((str(file_path), size_mb))
+
+          if large_files:
+              print('Large files found:')
+              for file_path, size_mb in sorted(large_files, key=lambda x: x[1], reverse=True):
+                  print(f'  {file_path}: {size_mb:.1f} MB')
+          else:
+              print('No large files found')
+          "
+
+      - name: Check repository size
+        run: |
+          du -sh . | awk '{print "Repository size: " $1}'
+
+      - name: Check node_modules size
+        run: |
+          if [ -d "node_modules" ]; then
+            du -sh node_modules | awk '{print "node_modules size: " $1}'
+          else
+            echo "No node_modules directory found"
+          fi
+
+  dependency-analysis:
+    runs-on: ubuntu-latest
+    name: Dependency Analysis
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml asyncio
+
+      - name: Analyze dependencies
+        run: |
+          python -c "
+          import asyncio
+          from modules.dependency_optimizer import DependencyOptimizer
+
+          async def main():
+              optimizer = DependencyOptimizer()
+              
+              # Analyze dependency graph
+              result = await optimizer.execute_function('analyze_dependency_graph')
+              print(f'Dependency analysis: {result.success}')
+              if result.data:
+                  print(f'Total dependencies: {result.data.get(\"total_dependencies\", 0)}')
+                  print(f'Dependency files: {result.data.get(\"dependency_files\", 0)}')
+                  print(f'Recommendations: {result.data.get(\"recommendations_count\", 0)}')
+
+          asyncio.run(main())
+          "
+
+      - name: Check for duplicate dependencies
+        run: |
+          if [ -f "package-lock.json" ]; then
+            echo "Checking for duplicate dependencies in package-lock.json..."
+            # Simple check for duplicate package names
+            grep -o '"name": "[^"]*"' package-lock.json | sort | uniq -c | sort -nr | head -10
+          else
+            echo "No package-lock.json found"
+          fi
+
+  optimization-execution:
+    runs-on: ubuntu-latest
+    name: Optimization Execution
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml asyncio schedule
+
+      - name: Run optimization
+        run: |
+          python -c "
+          import asyncio
+          from modules.optimization_orchestrator import OptimizationOrchestrator
+
+          async def main():
+              orchestrator = OptimizationOrchestrator()
+              
+              optimization_type = '${{ github.event.inputs.optimization_type || \"full\" }}'
+              
+              if optimization_type == 'full':
+                  result = await orchestrator.execute_function('run_optimization_flow', flow_type='full')
+              elif optimization_type == 'quick':
+                  result = await orchestrator.execute_function('run_optimization_flow', flow_type='quick')
+              else:
+                  # Run specific optimization type
+                  result = await orchestrator.execute_function('handle_event', 
+                      event_type=f'{optimization_type}_optimization',
+                      payload={})
+              
+              print(f'Optimization completed: {result.success}')
+              if result.data:
+                  print(f'Modules executed: {result.data.get(\"modules_executed\", 0)}')
+                  print(f'Successful: {result.data.get(\"successful_modules\", 0)}')
+
+          asyncio.run(main())
+          "
+
+      - name: Commit optimization results
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git add reports/ config/optimization_thresholds.yaml
+            git commit -m "🤖 Automated optimization: $(date)"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
+  notification:
+    runs-on: ubuntu-latest
+    name: Send Notifications
+    if: always()
+    needs: [optimization-check, file-size-check, dependency-analysis]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download optimization reports
+        uses: actions/download-artifact@v3
+        with:
+          name: optimization-reports
+          path: reports/
+
+      - name: Send Slack notification
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          channel: "#optimization-alerts"
+          text: |
+            Optimization Pipeline Status: ${{ job.status }}
+
+            Jobs completed:
+            - Optimization Check: ${{ needs.optimization-check.result }}
+            - File Size Check: ${{ needs.file-size-check.result }}
+            - Dependency Analysis: ${{ needs.dependency-analysis.result }}
+
+            Check the workflow run for details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

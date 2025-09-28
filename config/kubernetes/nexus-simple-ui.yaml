@@ -1,0 +1,120 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus-simple-ui
+  namespace: nexus
+  labels:
+    app: nexus-simple-ui
+    component: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nexus-simple-ui
+  template:
+    metadata:
+      labels:
+        app: nexus-simple-ui
+        component: frontend
+    spec:
+      containers:
+        - name: nexus-simple-ui
+          image: nexus-ssot:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: NEXUS_MODE
+              valueFrom:
+                configMapKeyRef:
+                  name: nexus-config
+                  key: NEXUS_MODE
+            - name: PYTHONPATH
+              valueFrom:
+                configMapKeyRef:
+                  name: nexus-config
+                  key: PYTHONPATH
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: nexus-config
+                  key: REDIS_URL
+          command: ["python3", "launch_consolidated_ssot.py", "start-simple"]
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          volumeMounts:
+            - name: data-volume
+              mountPath: /nexus_backend/data
+            - name: logs-volume
+              mountPath: /nexus_backend/logs
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: nexus-data-pvc
+        - name: logs-volume
+          persistentVolumeClaim:
+            claimName: nexus-logs-pvc
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-simple-ui
+  namespace: nexus
+  labels:
+    app: nexus-simple-ui
+spec:
+  selector:
+    app: nexus-simple-ui
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nexus-simple-ui-ingress
+  namespace: nexus
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: nexus.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nexus-simple-ui
+                port:
+                  number: 8080

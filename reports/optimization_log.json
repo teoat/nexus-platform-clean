@@ -1,0 +1,63 @@
+[
+  {
+    "timestamp": "2025-09-25T12:22:14.160974",
+    "optimizations": [
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/dependency_graph.json",
+        "original_size": 6371600,
+        "optimized_size": 6373585,
+        "compression_ratio": -0.00031153870299453827,
+        "optimization_type": "gzip_compression"
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/qwen-code/node_modules/tiktoken/encoders/o200k_base.json",
+        "original_size": 1135093,
+        "optimized_size": 1135477,
+        "compression_ratio": -0.0003382982715953671,
+        "optimization_type": "gzip_compression"
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/docs/archived_aggressive_cleanup_20250921_101152/miscellaneous_files/master-todo.md",
+        "original_size": 665031,
+        "optimized_size": 654120,
+        "compression_ratio": 0.016406753970867525,
+        "optimization_type": "gzip_compression"
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/docs/archived_aggressive_cleanup_20250921_101152/implementation_files/MISCELLANEOUS_ARCHITECTURE.md",
+        "original_size": 1469287,
+        "optimized_size": 1413127,
+        "compression_ratio": 0.03822262090388059,
+        "optimization_type": "gzip_compression"
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/ssot/manifest.yaml",
+        "original_size": 2522031,
+        "optimized_size": 330732,
+        "compression_ratio": 0.8688628331689817,
+        "optimization_type": "gzip_compression"
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/.git/objects/pack/pack-e2c2c6e8703f3097caaf21a5a675f8e466d8b53f.pack",
+        "original_size": 109401348,
+        "optimized_size": 109434659,
+        "compression_ratio": -0.0003044843652200702,
+        "optimization_type": "gzip_compression"
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/.git/objects/b8/51f6dc76445abc96e55f66eb6783819ae18597",
+        "original_size": 94730742,
+        "optimized_size": 94759631,
+        "compression_ratio": -0.00030495908075965454,
+        "optimization_type": "gzip_compression"
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/.git/objects/b0/11db0bc2224350bbd220ac720becf1645ba390",
+        "original_size": 60082437,
+        "optimized_size": 60100777,
+        "compression_ratio": -0.000305247272177059,
+        "optimization_type": "gzip_compression"
+      }
+    ]
+  }
+]

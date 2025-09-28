@@ -1,0 +1,48 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: nexus-platform-prod
+
+namespace: nexus-platform
+
+resources:
+  - ../../base
+  - backend-hpa.yaml
+  - nginx-hpa.yaml
+
+commonLabels:
+  environment: production
+  tier: production
+
+patchesStrategicMerge:
+  - backend-patch.yaml
+  - nginx-patch.yaml
+  - database-patch.yaml
+
+configMapGenerator:
+  - name: nexus-config
+    behavior: merge
+    literals:
+      - environment=production
+      - log-level=INFO
+      - postgres-db=nexus_platform
+      - react-app-api-url=https://your-domain.com/api
+      - react-app-ws-url=wss://your-domain.com/ws
+      - node-env=production
+
+replicas:
+  - name: nexus-backend
+    count: 3
+  - name: nexus-nginx
+    count: 2
+  - name: nexus-postgres
+    count: 1
+  - name: nexus-redis
+    count: 1
+
+images:
+  - name: nexus-backend
+    newTag: latest
+  - name: nexus-frontend
+    newTag: latest

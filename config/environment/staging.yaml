@@ -1,0 +1,40 @@
+# NEXUS Platform - Staging Environment Configuration
+# This file contains staging-specific overrides
+
+# System Settings
+system:
+  workspace_path: "/opt/nexus"
+
+# Database Configuration
+database:
+  host: "nexus-db-staging"
+  port: 5432
+  name: "nexus_staging"
+  user: "nexus_user"
+  password: "${DB_PASSWORD_STAGING}"
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+
+# Security Configuration
+security:
+  enable_encryption: true
+  enable_authentication: true
+  jwt_secret_key: "${JWT_SECRET_STAGING}"
+
+# Performance Configuration
+performance:
+  enable_profiling: false
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file: "nexus_staging.log"
+
+# Features
+features:
+  web_interface: true
+  api_endpoints: true

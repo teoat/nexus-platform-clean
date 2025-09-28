@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nexus-config
+  namespace: nexus
+data:
+  # Phase System Configuration
+  PHASE_SYSTEM_HOST: "0.0.0.0"
+  PHASE_SYSTEM_PORT: "8766"
+
+  # Redis Configuration
+  REDIS_URL: "redis://nexus-redis:6379"
+  REDIS_PASSWORD: "nexus123"
+
+  # Monitoring Configuration
+  MONITORING_INTERVAL: "10"
+  QUALITY_CHECK_INTERVAL: "30"
+
+  # Environment
+  NEXUS_ENV: "production"
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+
+  # Logging
+  LOG_LEVEL: "INFO"
+
+  # Health Check Configuration
+  HEALTH_CHECK_INTERVAL: "30s"
+  HEALTH_CHECK_TIMEOUT: "10s"
+  HEALTH_CHECK_RETRIES: "3"

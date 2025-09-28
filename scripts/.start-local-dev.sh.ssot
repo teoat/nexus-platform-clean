@@ -1,0 +1,8 @@
+{
+  "file_path": "scripts/start-local-dev.sh",
+  "category": "scripts",
+  "marked_at": "2025-09-29T00:33:49.081265",
+  "ssot_version": "2.1.0",
+  "description": "Single Source of Truth for scripts",
+  "checksum": "0868b58269d82a2a48943ba9f393752977e4c76ca680c9a6def9163d15848964"
+}

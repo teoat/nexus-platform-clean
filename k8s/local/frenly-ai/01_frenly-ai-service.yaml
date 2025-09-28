@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frenly-ai-service
+  namespace: nexus-local
+spec:
+  selector:
+    app: frenly-ai
+  ports:
+    - port: 8001
+      targetPort: 8001
+  type: ClusterIP

@@ -1,0 +1,90 @@
+# NEXUS Phase 3 AlertManager Configuration
+# Comprehensive alerting for production monitoring
+
+global:
+  smtp_smarthost: "localhost:587"
+  smtp_from: "nexus-alerts@company.com"
+  smtp_auth_username: "nexus-alerts@company.com"
+  smtp_auth_password: "password"
+
+route:
+  group_by: ["alertname", "service"]
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: "web.hook"
+  routes:
+    - match:
+        severity: critical
+      receiver: "critical-alerts"
+      group_wait: 5s
+      repeat_interval: 30m
+    - match:
+        severity: warning
+      receiver: "warning-alerts"
+      group_wait: 30s
+      repeat_interval: 2h
+    - match:
+        severity: info
+      receiver: "info-alerts"
+      group_wait: 1m
+      repeat_interval: 4h
+
+receivers:
+  - name: "web.hook"
+    webhook_configs:
+      - url: "http://localhost:5001/webhook"
+        send_resolved: true
+
+  - name: "critical-alerts"
+    email_configs:
+      - to: "devops-team@company.com"
+        subject: "[CRITICAL] NEXUS Alert: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Severity: {{ .Labels.severity }}
+          Service: {{ .Labels.service }}
+          Instance: {{ .Labels.instance }}
+          {{ end }}
+    slack_configs:
+      - api_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+        channel: "#nexus-critical"
+        title: "NEXUS Critical Alert"
+        text: "{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}"
+    webhook_configs:
+      - url: "http://localhost:5001/critical"
+        send_resolved: true
+
+  - name: "warning-alerts"
+    email_configs:
+      - to: "devops-team@company.com"
+        subject: "[WARNING] NEXUS Alert: {{ .GroupLabels.alertname }}"
+        body: |
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Severity: {{ .Labels.severity }}
+          Service: {{ .Labels.service }}
+          Instance: {{ .Labels.instance }}
+          {{ end }}
+    slack_configs:
+      - api_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+        channel: "#nexus-warnings"
+        title: "NEXUS Warning Alert"
+        text: "{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}"
+
+  - name: "info-alerts"
+    slack_configs:
+      - api_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+        channel: "#nexus-info"
+        title: "NEXUS Info Alert"
+        text: "{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}"
+
+inhibit_rules:
+  - source_match:
+      severity: "critical"
+    target_match:
+      severity: "warning"
+    equal: ["alertname", "instance"]

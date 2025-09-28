@@ -1,0 +1,290 @@
+# Ultimate Frenly AI Orchestration - Master Policies
+# Version: 1.0
+# Generated: 2025-01-24T00:00:00Z
+
+version: 1
+generated_at: "2025-01-24T00:00:00Z"
+
+# Global conventions
+global:
+  audit_log_path: "audit/logs"
+  ssot_manifest_path: "ssot/manifest.yaml"
+  lock_manifest_path: "locks/lock_manifest.json"
+  snapshots_path: "ssot/snapshots"
+  reports_path: "reports"
+  branch_prefix: "feature"
+  protected_branches: ["main", "master", "production"]
+  backup_required: true
+  hash_algorithm: "sha256"
+
+# File size thresholds
+file_size_thresholds:
+  general: 52428800 # 50MB
+  images: 2097152 # 2MB
+  text_files: 512000 # 500KB
+  docker_images: 524288000 # 500MB
+  docker_heavy: 1073741824 # 1GB (with approval)
+
+# Test coverage requirements
+coverage_thresholds:
+  core_modules: 80
+  other_modules: 60
+  integration_tests: 70
+
+# Security thresholds
+security_thresholds:
+  critical_cvss: 9
+  high_cvss: 7
+  medium_cvss: 5
+  low_cvss: 3
+
+# Retention policies
+retention_policies:
+  logs_days: 90
+  snapshots_days: 365
+  reports_days: 180
+  audit_logs_days: 2555 # 7 years
+
+# Human approval gates
+approval_gates:
+  production_deploy:
+    required_approvers: 2
+    emergency_override: true
+    sre_approval_required: true
+
+  ssot_overwrite:
+    codeowner_required: true
+    security_approval_required: true
+    justification_required: true
+
+  license_violations:
+    legal_approval_required: true
+    security_approval_required: true
+
+  large_infra_changes:
+    architecture_approval_required: true
+    cost_approval_required: true
+
+# Notification channels
+notifications:
+  critical_failures: "#oncall"
+  security_alerts: "#security"
+  production_issues: "pagerduty"
+  optimization_suggestions: "#dev-ops"
+  pr_created: "#dev-team"
+
+# Rollback rules
+rollback_rules:
+  test_failure_after_ssot:
+    auto_rollback: true
+    create_ticket: true
+    notify_oncall: true
+    notify_engineer: true
+
+  staging_health_failure:
+    timeout_minutes: 15
+    auto_rollback: true
+    create_incident_ticket: true
+
+  lock_conflict:
+    revert_second_attempt: true
+    create_conflict_pr: true
+    require_human_merge: true
+
+  security_critical_dependency:
+    block_staging_prs: true
+    create_hotfix_branch: true
+    notify_security: true
+
+# Agent responsibilities
+agents:
+  RepoScanner:
+    responsibilities:
+      ["discovery", "dependency_graph", "duplicates", "large_file_report"]
+    output_files: ["ssot/candidates.csv", "dependency_graph.json"]
+    success_criteria: ["no_missing_imports", "candidates_produced"]
+
+  SSOTJudge:
+    responsibilities:
+      ["choose_canonical_files", "create_manifest", "merge_duplicates"]
+    output_files: ["ssot/manifest.yaml"]
+    success_criteria: ["every_module_has_canonical_path", "duplicates_resolved"]
+
+  Locker:
+    responsibilities: ["snapshot_files", "apply_locks", "register_locks"]
+    output_files: ["locks/lock_manifest.json"]
+    success_criteria: ["all_locked_files_registered", "snapshots_created"]
+
+  Optimizer:
+    responsibilities:
+      ["file_size_optimization", "code_optimization", "asset_compression"]
+    output_files: ["reports/size_report.json", "reports/optimization_log.json"]
+    success_criteria: ["file_size_reduced", "no_test_regressions"]
+
+  TestRunner:
+    responsibilities:
+      ["unit_tests", "integration_tests", "contract_tests", "e2e_tests"]
+    output_files: ["reports/test_results.json"]
+    success_criteria: ["coverage_thresholds_met", "all_tests_pass"]
+
+  Orchestrator:
+    responsibilities:
+      ["frontend_backend_linking", "build_artifacts", "create_pr"]
+    output_files: ["reports/orchestration_report.json"]
+    success_criteria: ["api_contracts_pass", "build_successful"]
+
+  Deployer:
+    responsibilities: ["staging_deploy", "health_checks", "deploy_report"]
+    output_files: ["reports/deploy_report.json"]
+    success_criteria: ["health_checks_pass", "no_5xx_spikes"]
+
+  Predictor:
+    responsibilities:
+      ["trend_analysis", "archive_suggestions", "scale_recommendations"]
+    output_files: ["reports/predictive_analysis.json"]
+    success_criteria: ["retention_forecast_exists", "growth_analysis_complete"]
+
+  CompliGuard:
+    responsibilities:
+      [
+        "retention_verification",
+        "license_compliance",
+        "pii_scanning",
+        "encryption_check",
+      ]
+    output_files: ["reports/compliance_report.json"]
+    success_criteria: ["no_pii_in_repo", "license_compliance_verified"]
+
+# Condition rules mapping
+condition_rules:
+  duplicate_files_detected:
+    actions:
+      [
+        "SSOTJudge.merge_duplicates",
+        "Locker.lock_file",
+        "Optimizer.run_cleanup",
+        "Docs.update_readme",
+        "Audit.log",
+      ]
+    priority: 1
+
+  file_size_exceeds_threshold:
+    actions: ["Optimizer.compress_asset", "Locker.snapshot", "Audit.log"]
+    priority: 2
+    thresholds: "file_size_thresholds"
+
+  ssot_candidate_change:
+    actions:
+      [
+        "Locker.snapshot_pre",
+        "TestRunner.run_unit",
+        "TestRunner.run_integration",
+        "Orchestrator.create_pr",
+      ]
+    priority: 3
+
+  ready_to_push:
+    preconditions: ["tests_passed", "ssot_verified", "locks_applied"]
+    actions: ["GitHub.push_to_branch", "Orchestrator.auto_create_pr"]
+    priority: 4
+
+  staging_green:
+    actions: ["Deployer.promote_production_request"]
+    priority: 5
+    human_approval_required: true
+
+  security_critical_found:
+    actions:
+      ["CompliGuard.create_hotfix_pr", "Locker.lock_affected", "notify_oncall"]
+    priority: 6
+    immediate_action: true
+
+# Module definitions
+modules:
+  file_management:
+    functions: ["scan_files", "enforce_ssot", "lock_files", "archive_unused"]
+    version: "1.0"
+    dependencies: ["audit_system"]
+
+  optimization:
+    functions:
+      [
+        "compress_large_files",
+        "deduplicate",
+        "split_heavy_files",
+        "repo_size_report",
+      ]
+    version: "1.0"
+    dependencies: ["file_management"]
+
+  orchestration:
+    functions:
+      [
+        "route_to_frontend",
+        "route_to_backend",
+        "validate_dependencies",
+        "run_test_suite",
+      ]
+    version: "1.0"
+    dependencies: ["file_management", "optimization"]
+
+  documentation:
+    functions:
+      [
+        "update_readme",
+        "regenerate_flow_diagrams",
+        "publish_to_github_wiki",
+        "propose_new_tools",
+      ]
+    version: "1.0"
+    dependencies: ["audit_system"]
+
+  security:
+    functions:
+      [
+        "scan_secrets",
+        "check_licenses",
+        "validate_encryption",
+        "audit_permissions",
+      ]
+    version: "1.0"
+    dependencies: ["file_management", "audit_system"]
+
+  deployment:
+    functions:
+      [
+        "build_images",
+        "deploy_staging",
+        "run_health_checks",
+        "promote_production",
+      ]
+    version: "1.0"
+    dependencies: ["orchestration", "security"]
+
+# Execution pipeline steps
+pipeline_steps:
+  1: "Discovery (Scan)"
+  2: "Classification & Manifesting (SSOT candidates)"
+  3: "SSOT Decision & Canonicalization"
+  4: "Locking & Snapshotting"
+  5: "Static Validation (lint, dependency, size checks)"
+  6: "Optimization (code, assets, file-size)"
+  7: "Testing (unit → integration → contract → e2e)"
+  8: "Orchestration & integration validation (frontend↔backend)"
+  9: "CI/CD + GitHub sync (auto PR to staging)"
+  10: "Staging deploy + smoke + health checks"
+  11: "Predictive analysis & self-heal checks"
+  12: "Compliance, audit finalization, promote to production"
+
+# Audit log schema
+audit_schema:
+  event_id: "uuid-v4"
+  timestamp: "ISO-8601"
+  actor: "string"
+  action: "string"
+  inputs: "object"
+  outputs: "object"
+  ssot_state: "object"
+  status: "success|failure|warning"
+  trace_id: "string"
+  notes: "string"

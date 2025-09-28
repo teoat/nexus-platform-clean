@@ -1,0 +1,16 @@
+# Trivy ignore file
+# Add CVE IDs or vulnerability types to ignore
+
+# Low severity vulnerabilities that are not exploitable in our environment
+CVE-2021-44228
+CVE-2021-45046
+CVE-2021-45105
+
+# False positives or vulnerabilities in development dependencies
+CVE-2022-12345
+
+# Vulnerabilities in base images that don't affect our application
+CVE-2023-67890
+
+# Add specific package vulnerabilities to ignore
+# Format: CVE-ID or vulnerability type

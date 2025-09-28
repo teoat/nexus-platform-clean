@@ -1,0 +1,47 @@
+module.exports = {
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
+  moduleNameMapping: {
+    "^@/(.*)$": "<rootDir>/src/$1",
+    "^@components/(.*)$": "<rootDir>/src/components/$1",
+    "^@services/(.*)$": "<rootDir>/src/services/$1",
+    "^@store/(.*)$": "<rootDir>/src/store/$1",
+    "^@utils/(.*)$": "<rootDir>/src/utils/$1",
+    "^@hooks/(.*)$": "<rootDir>/src/hooks/$1",
+    "^@types/(.*)$": "<rootDir>/src/types/$1",
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+      "jest-transform-stub",
+  },
+  transform: { "^.+\\.(ts|tsx)$": "ts-jest", "^.+\\.(js|jsx)$": "babel-jest" },
+  testMatch: [
+    "<rootDir>/src/**/__tests__/**/*.(ts|tsx|js|jsx)",
+    "<rootDir>/src/**/*.(test|spec).(ts|tsx|js|jsx)",
+  ],
+  collectCoverage: true,
+  collectCoverageFrom: [
+    "src/**/*.{ts,tsx}",
+    "!src/**/*.d.ts",
+    "!src/index.tsx",
+    "!src/setupTests.ts",
+    "!src/**/*.stories.{ts,tsx}",
+    "!src/**/__tests__/**",
+    "!src/**/__mocks__/**",
+  ],
+  coverageThreshold: {
+    global: { branches: 80, functions: 80, lines: 80, statements: 80 },
+  },
+  coverageReporters: ["text", "text-summary", "html", "lcov", "json"],
+  coverageDirectory: "coverage",
+  testTimeout: 10000,
+  clearMocks: true,
+  restoreMocks: true,
+  verbose: true,
+  errorOnDeprecated: true,
+  globals: { "ts-jest": { tsconfig: "tsconfig.json" } },
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  testPathIgnorePatterns: ["/node_modules/", "/build/", "/dist/"],
+  transformIgnorePatterns: [
+    "/node_modules/(?!(axios|@mui|@emotion|@tanstack)/)",
+  ],
+};

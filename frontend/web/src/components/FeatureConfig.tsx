@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Card, CardContent, CardHeader, Typography } from '@mui/material';
-import { usePerformanceOptimization } from '../hooks/usePerformanceOptimization';
-import { useOnDemand } from '../hooks/useOnDemand';
-
+import React, { useState, useEffect, useCallback } from "react";
+import { Card, CardContent, Typography } from "@mui/material";
+import { useOnDemand } from "../hooks/useOnDemand";
 
 interface FeatureConfigProps {
   // Add props here
@@ -13,32 +11,36 @@ interface FeatureConfiguration {
   settings: Record<string, any>;
 }
 
-const FeatureConfig: React.FC<FeatureConfigProps> = ({}) => {
-  const [config, setConfig] = useState<FeatureConfiguration>({ enabled: false, settings: {} });
-  const { loadFeature, saveFeature } = useOnDemand();
+const FeatureConfig: React.FC<FeatureConfigProps> = () => {
+  const [config] = useState<FeatureConfiguration>({
+    enabled: false,
+    settings: {},
+  });
+  const { loadFeature, saveFeature } = useOnDemand(async () => {
+    // Mock feature loading
+    return { enabled: false, settings: {} };
+  });
+
+  const loadFeatureConfig = useCallback(async () => {
+    try {
+      console.log("Loading feature configuration...");
+      await loadFeature("featureConfig");
+      // Configuration will be available in the data property from useOnDemand
+    } catch (error) {
+      console.error("Failed to load feature config:", error);
+    }
+  }, [loadFeature]);
 
   useEffect(() => {
     loadFeatureConfig();
-  }, []);
-
-  const loadFeatureConfig = async () => {
-    try {
-      console.log('Loading feature configuration...');
-      const loadedConfig = await loadFeature('featureConfig');
-      if (loadedConfig) {
-        setConfig(loadedConfig);
-      }
-    } catch (error) {
-      console.error('Failed to load feature config:', error);
-    }
-  };
+  }, [loadFeatureConfig]);
 
   const saveFeatureConfig = async () => {
     try {
-      console.log('Saving feature configuration...');
-      await saveFeature('featureConfig', config);
+      console.log("Saving feature configuration...");
+      await saveFeature("featureConfig", config);
     } catch (error) {
-      console.error('Failed to save feature config:', error);
+      console.error("Failed to save feature config:", error);
     }
   };
 

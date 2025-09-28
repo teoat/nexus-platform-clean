@@ -1,0 +1,54 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: nexus-alerts
+  namespace: nexus-platform
+spec:
+  groups:
+    - name: nexus_alerts
+      rules:
+        - alert: HighCPUUsage
+          expr: cpu_usage > 80
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High CPU usage detected"
+            description: "CPU usage is above 80% for more than 5 minutes"
+
+        - alert: HighMemoryUsage
+          expr: memory_usage > 85
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High memory usage detected"
+            description: "Memory usage is above 85% for more than 5 minutes"
+
+        - alert: HighErrorRate
+          expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) * 100
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "High error rate detected"
+            description: "Error rate is above 5% for more than 5 minutes"
+
+        - alert: SlowResponseTime
+          expr: rate(http_request_duration_seconds_sum[5m]) / rate(http_request_duration_seconds_count[5m]) > 2
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Slow response time detected"
+            description: "Average response time is above 2 seconds for more than 5 minutes"
+
+        - alert: ServiceDown
+          expr: up == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Service is down"
+            description: "Service {{ $labels.job }} is down for more than 1 minute"
+

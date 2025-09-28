@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nexus-config
+  namespace: nexus
+data:
+  NEXUS_MODE: "production"
+  PYTHONPATH: "/app"
+  LOG_LEVEL: "INFO"
+  REDIS_URL: "redis://nexus-redis:6379"
+  POSTGRES_URL: "postgresql://nexus:nexus_password@nexus-postgres:5432/nexus"
+
+  # Port configurations
+  SSOT_MAIN_PORT: "4000"
+  SIMPLE_UI_PORT: "8080"
+  FRENLY_AI_PORT: "8081"
+  API_GATEWAY_PORT: "80"
+
+  # Health check configurations
+  HEALTH_CHECK_INTERVAL: "30"
+  HEALTH_CHECK_TIMEOUT: "10"
+  HEALTH_CHECK_RETRIES: "3"

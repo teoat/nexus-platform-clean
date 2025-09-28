@@ -1,0 +1,15 @@
+# NEXUS Platform - Ultimate Namespace Configuration
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nexus-platform
+  labels:
+    name: nexus-platform
+    environment: production
+    tier: ultimate
+    version: "1.0.0"
+  annotations:
+    description: "NEXUS Platform Ultimate Namespace"
+    created-by: "ultimate-docker-k8s-healer"
+    last-updated: "2025-09-27"
+spec: {}

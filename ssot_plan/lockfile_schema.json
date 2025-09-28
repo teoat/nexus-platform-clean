@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SSOT Lockfile Schema",
+  "description": "Schema for validating SSOT lockfiles",
+  "type": "object",
+  "required": ["lock_version", "workflow", "generated_at", "anchors", "notes"],
+  "properties": {
+    "lock_version": {
+      "type": "integer",
+      "description": "Version of the lockfile format",
+      "minimum": 1,
+      "maximum": 1
+    },
+    "workflow": {
+      "type": "string",
+      "description": "Name of the workflow this lockfile applies to",
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "generated_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp when lockfile was generated",
+      "format": "date-time"
+    },
+    "anchors": {
+      "type": "object",
+      "description": "SSOT anchors referenced by this workflow",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]+$": {
+          "type": "object",
+          "required": ["version", "sha256"],
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "Version of the anchor",
+              "pattern": "^v?[0-9]+\\.[0-9]+\\.[0-9]+(-[a-zA-Z0-9.-]+)?$"
+            },
+            "sha256": {
+              "type": "string",
+              "description": "SHA256 hash of the anchor content",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "source": {
+              "type": "string",
+              "description": "Source path of the anchor",
+              "pattern": "^[a-zA-Z0-9/._-]+$"
+            },
+            "last_modified": {
+              "type": "string",
+              "description": "ISO 8601 timestamp when anchor was last modified",
+              "format": "date-time"
+            },
+            "dependencies": {
+              "type": "array",
+              "description": "List of dependent anchors",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_-]+$"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notes about the lockfile",
+      "maxLength": 1000
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata about the lockfile",
+      "properties": {
+        "generator": {
+          "type": "string",
+          "description": "Tool that generated this lockfile"
+        },
+        "environment": {
+          "type": "string",
+          "description": "Environment this lockfile applies to"
+        },
+        "team": {
+          "type": "string",
+          "description": "Team responsible for this workflow"
+        },
+        "reviewers": {
+          "type": "array",
+          "description": "List of reviewers for this lockfile",
+          "items": {
+            "type": "string",
+            "pattern": "^@[a-zA-Z0-9_-]+$"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

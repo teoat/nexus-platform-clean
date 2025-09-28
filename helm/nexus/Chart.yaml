@@ -1,0 +1,47 @@
+apiVersion: v2
+name: nexus
+description: NEXUS Platform - Unified Financial Management System
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - nexus
+  - financial
+  - management
+  - platform
+  - fintech
+home: https://nexus.local
+sources:
+  - https://github.com/your-org/nexus-platform
+maintainers:
+  - name: NEXUS Team
+    email: team@nexus.local
+dependencies:
+  - name: postgresql
+    version: 12.1.2
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+  - name: redis
+    version: 17.3.7
+    repository: https://charts.bitnami.com/bitnami
+    condition: redis.enabled
+  - name: prometheus
+    version: 19.6.1
+    repository: https://prometheus-community.github.io/helm-charts
+    condition: prometheus.enabled
+  - name: grafana
+    version: 6.43.5
+    repository: https://grafana.github.io/helm-charts
+    condition: grafana.enabled
+  - name: elasticsearch
+    version: 19.4.0
+    repository: https://helm.elastic.co
+    condition: elasticsearch.enabled
+  - name: kibana
+    version: 19.4.0
+    repository: https://helm.elastic.co
+    condition: kibana.enabled
+  - name: jaeger
+    version: 0.60.0
+    repository: https://jaegertracing.github.io/helm-charts
+    condition: jaeger.enabled

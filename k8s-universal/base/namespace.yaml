@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nexus-platform
+  labels:
+    name: nexus-platform
+    environment: base
+    version: "1.0.0"
+    managed-by: nexus-platform

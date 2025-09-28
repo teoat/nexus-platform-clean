@@ -1,0 +1,59 @@
+{
+  "redis_schema": {
+    "version": "1.0",
+    "generated_at": "2025-01-27T12:30:00Z",
+    "key_patterns": {
+      "user_sessions": "session:{user_id}:{session_id}",
+      "api_cache": "api:cache:{endpoint}:{params_hash}",
+      "rate_limits": "rate_limit:{user_id}:{endpoint}",
+      "ssot_cache": "ssot:cache:{anchor_id}:{version}",
+      "alias_cache": "alias:cache:{alias}:{context}",
+      "audit_logs": "audit:logs:{date}:{hour}"
+    },
+    "data_types": {
+      "user_sessions": {
+        "type": "hash",
+        "ttl": "24h",
+        "fields": {
+          "user_id": "string",
+          "session_data": "json",
+          "created_at": "timestamp",
+          "last_activity": "timestamp"
+        }
+      },
+      "api_cache": {
+        "type": "string",
+        "ttl": "1h",
+        "compression": "gzip",
+        "format": "json"
+      },
+      "rate_limits": {
+        "type": "string",
+        "ttl": "1h",
+        "value": "integer"
+      },
+      "ssot_cache": {
+        "type": "hash",
+        "ttl": "30m",
+        "fields": {
+          "content": "json",
+          "version": "string",
+          "checksum": "string",
+          "cached_at": "timestamp"
+        }
+      }
+    },
+    "policies": {
+      "eviction": "allkeys-lru",
+      "maxmemory": "2gb",
+      "persistence": "aof",
+      "compression": true
+    },
+    "monitoring": {
+      "slowlog": true,
+      "latency_tracking": true,
+      "memory_usage": true,
+      "hit_ratio": true
+    }
+  }
+}

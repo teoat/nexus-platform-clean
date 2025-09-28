@@ -1,0 +1,326 @@
+# NEXUS Platform Database Schema - Single Source of Truth
+# Last Updated: 2025-01-15 23:25:00
+# Version: 1.0.0
+
+database:
+  name: tools/utilities/tools/utilities/nexus_platform
+  version: "15"
+  encoding: "UTF8"
+  collation: "en_US.UTF-8"
+
+tables:
+  users:
+    description: "User accounts and authentication"
+    columns:
+      id:
+        type: "UUID"
+        primary_key: true
+        default: "gen_random_uuid()"
+      username:
+        type: "VARCHAR(50)"
+        unique: true
+        not_null: true
+      email:
+        type: "VARCHAR(255)"
+        unique: true
+        not_null: true
+      password_hash:
+        type: "VARCHAR(255)"
+        not_null: true
+      role:
+        type: "VARCHAR(50)"
+        not_null: true
+        default: "user"
+        check: "role IN ('admin', 'user', 'auditor', 'investigator')"
+      is_active:
+        type: "BOOLEAN"
+        not_null: true
+        default: true
+      created_at:
+        type: "TIMESTAMP WITH TIME ZONE"
+        not_null: true
+        default: "CURRENT_TIMESTAMP"
+      updated_at:
+        type: "TIMESTAMP WITH TIME ZONE"
+        not_null: true
+        default: "CURRENT_TIMESTAMP"
+    indexes:
+      - name: "idx_users_username"
+        columns: ["username"]
+      - name: "idx_users_email"
+        columns: ["email"]
+      - name: "idx_users_role"
+        columns: ["role"]
+
+  agents:
+    description: "AI agents and automation systems"
+    columns:
+      id:
+        type: "UUID"
+        primary_key: true
+        default: "gen_random_uuid()"
+      agent_id:
+        type: "VARCHAR(100)"
+        unique: true
+        not_null: true
+      name:
+        type: "VARCHAR(255)"
+        not_null: true
+      agent_type:
+        type: "VARCHAR(100)"
+        not_null: true
+      status:
+        type: "VARCHAR(50)"
+        not_null: true
+        default: "inactive"
+        check: "status IN ('active', 'inactive', 'error', 'maintenance')"
+      capabilities:
+        type: "JSONB"
+        not_null: true
+        default: "[]"
+      metadata:
+        type: "JSONB"
+        not_null: true
+        default: "{}"
+      last_activity:
+        type: "TIMESTAMP WITH TIME ZONE"
+      created_at:
+        type: "TIMESTAMP WITH TIME ZONE"
+        not_null: true
+        default: "CURRENT_TIMESTAMP"
+      updated_at:
+        type: "TIMESTAMP WITH TIME ZONE"
+        not_null: true
+        default: "CURRENT_TIMESTAMP"
+    indexes:
+      - name: "idx_agents_agent_id"
+        columns: ["agent_id"]
+      - name: "idx_agents_status"
+        columns: ["status"]
+      - name: "idx_agents_type"
+        columns: ["agent_type"]
+
+  tasks:
+    description: "Task management and tracking"
+    columns:
+      id:
+        type: "UUID"
+        primary_key: true
+        default: "gen_random_uuid()"
+      task_id:
+        type: "VARCHAR(100)"
+        unique: true
+        not_null: true
+      name:
+        type: "VARCHAR(255)"
+        not_null: true
+      description:
+        type: "TEXT"
+      priority:
+        type: "VARCHAR(20)"
+        not_null: true
+        default: "medium"
+        check: "priority IN ('critical', 'high', 'medium', 'low')"
+      status:
+        type: "VARCHAR(20)"
+        not_null: true
+        default: "pending"
+        check: "status IN ('pending', 'in_progress', 'completed', 'failed', 'cancelled')"
+      assigned_agent:
+        type: "VARCHAR(100)"
+        references: "agents(agent_id)"
+      dependencies:
+        type: "JSONB"
+        not_null: true
+        default: "[]"
+      progress:
+        type: "INTEGER"
+        not_null: true
+        default: 0
+        check: "progress >= 0 AND progress <= 100"
+      created_at:
+        type: "TIMESTAMP WITH TIME ZONE"
+        not_null: true
+        default: "CURRENT_TIMESTAMP"
+      updated_at:
+        type: "TIMESTAMP WITH TIME ZONE"
+        not_null: true
+        default: "CURRENT_TIMESTAMP"
+      completed_at:
+        type: "TIMESTAMP WITH TIME ZONE"
+    indexes:
+      - name: "idx_tasks_task_id"
+        columns: ["task_id"]
+      - name: "idx_tasks_status"
+        columns: ["status"]
+      - name: "idx_tasks_priority"
+        columns: ["priority"]
+      - name: "idx_tasks_assigned_agent"
+        columns: ["assigned_agent"]
+
+  system_logs:
+    description: "System events and audit logs"
+    columns:
+      id:
+        type: "UUID"
+        primary_key: true
+        default: "gen_random_uuid()"
+      level:
+        type: "VARCHAR(20)"
+        not_null: true
+        check: "level IN ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL')"
+      component:
+        type: "VARCHAR(100)"
+        not_null: true
+      message:
+        type: "TEXT"
+        not_null: true
+      context:
+        type: "JSONB"
+        not_null: true
+        default: "{}"
+      user_id:
+        type: "UUID"
+        references: "users(id)"
+      agent_id:
+        type: "VARCHAR(100)"
+        references: "agents(agent_id)"
+      created_at:
+        type: "TIMESTAMP WITH TIME ZONE"
+        not_null: true
+        default: "CURRENT_TIMESTAMP"
+    indexes:
+      - name: "idx_system_logs_level"
+        columns: ["level"]
+      - name: "idx_system_logs_component"
+        columns: ["component"]
+      - name: "idx_system_logs_created_at"
+        columns: ["created_at"]
+
+  configurations:
+    description: "System configuration values"
+    columns:
+      id:
+        type: "UUID"
+        primary_key: true
+        default: "gen_random_uuid()"
+      config_key:
+        type: "VARCHAR(255)"
+        unique: true
+        not_null: true
+      config_value:
+        type: "TEXT"
+        not_null: true
+      config_type:
+        type: "VARCHAR(50)"
+        not_null: true
+        default: "string"
+        check: "config_type IN ('string', 'integer', 'boolean', 'json', 'yaml')"
+      description:
+        type: "TEXT"
+      is_encrypted:
+        type: "BOOLEAN"
+        not_null: true
+        default: false
+      is_system:
+        type: "BOOLEAN"
+        not_null: true
+        default: false
+      created_at:
+        type: "TIMESTAMP WITH TIME ZONE"
+        not_null: true
+        default: "CURRENT_TIMESTAMP"
+      updated_at:
+        type: "TIMESTAMP WITH TIME ZONE"
+        not_null: true
+        default: "CURRENT_TIMESTAMP"
+    indexes:
+      - name: "idx_configurations_key"
+        columns: ["config_key"]
+      - name: "idx_configurations_type"
+        columns: ["config_type"]
+      - name: "idx_configurations_system"
+        columns: ["is_system"]
+
+# Database constraints and relationships
+constraints:
+  foreign_keys:
+    - table: "tasks"
+      column: "assigned_agent"
+      references: "agents(agent_id)"
+      on_delete: "SET NULL"
+    - table: "system_logs"
+      column: "user_id"
+      references: "users(id)"
+      on_delete: "SET NULL"
+    - table: "system_logs"
+      column: "agent_id"
+      references: "agents(agent_id)"
+      on_delete: "SET NULL"
+
+# Database triggers
+triggers:
+  - name: "update_updated_at_column"
+    table: "users"
+    function: "update_updated_at_column()"
+    timing: "BEFORE"
+    events: ["UPDATE"]
+  - name: "update_updated_at_column"
+    table: "agents"
+    function: "update_updated_at_column()"
+    timing: "BEFORE"
+    events: ["UPDATE"]
+  - name: "update_updated_at_column"
+    table: "tasks"
+    function: "update_updated_at_column()"
+    timing: "BEFORE"
+    events: ["UPDATE"]
+  - name: "update_updated_at_column"
+    table: "configurations"
+    function: "update_updated_at_column()"
+    timing: "BEFORE"
+    events: ["UPDATE"]
+
+# Database functions
+functions:
+  - name: "update_updated_at_column"
+    language: "plpgsql"
+    body: |
+      BEGIN
+        NEW.updated_at = CURRENT_TIMESTAMP;
+        RETURN NEW;
+      END;
+
+# Database views
+views:
+  active_agents:
+    description: "View of currently active agents"
+    query: |
+      SELECT * FROM agents WHERE status = 'active'
+
+  pending_tasks:
+    description: "View of pending tasks"
+    query: |
+      SELECT * FROM tasks WHERE status = 'pending'
+
+  system_health:
+    description: "View of system health metrics"
+    query: |
+      SELECT
+        (SELECT COUNT(*) FROM agents WHERE status = 'active') as active_agents,
+        (SELECT COUNT(*) FROM tasks WHERE status = 'pending') as pending_tasks,
+        (SELECT COUNT(*) FROM system_logs WHERE created_at > NOW() - INTERVAL '1 hour') as recent_logs
+
+# Database policies (Row Level Security)
+policies:
+  users:
+    - name: "Users can view their own data"
+      command: "SELECT"
+      roles: ["authenticated"]
+      using: "auth.uid() = id"
+
+  system_logs:
+    - name: "System logs are readable by authenticated users"
+      command: "SELECT"
+      roles: ["authenticated"]
+      using: "true"

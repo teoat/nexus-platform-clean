@@ -1,0 +1,8 @@
+{
+  "file_path": "docker-compose.staging.yml",
+  "category": "docker_compose",
+  "marked_at": "2025-09-29T00:33:49.069796",
+  "ssot_version": "2.1.0",
+  "description": "Single Source of Truth for docker_compose",
+  "checksum": "b028f263d95cee475d9ae03b40932a52175b836a579815a286642c5522903c62"
+}

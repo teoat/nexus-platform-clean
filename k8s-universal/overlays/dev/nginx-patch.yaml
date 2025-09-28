@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus-nginx
+  namespace: nexus-platform-dev
+spec:
+  template:
+    spec:
+      containers:
+      - name: nginx
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        livenessProbe:
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        readinessProbe:
+          initialDelaySeconds: 3
+          periodSeconds: 10

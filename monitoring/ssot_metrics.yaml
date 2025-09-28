@@ -1,0 +1,63 @@
+# SSOT Metrics Configuration for NEXUS Platform
+# Defines metrics to be collected for SSOT operations.
+
+metrics:
+  - name: ssot_alias_creations_total
+    type: counter
+    description: "Total number of SSOT alias creation attempts."
+    labels:
+      - status # success, failure
+      - context # global, frontend, backend
+
+  - name: ssot_alias_updates_total
+    type: counter
+    description: "Total number of SSOT alias update attempts."
+    labels:
+      - status
+      - context
+
+  - name: ssot_alias_deactivations_total
+    type: counter
+    description: "Total number of SSOT alias deactivation attempts."
+    labels:
+      - status
+      - context
+
+  - name: ssot_alias_resolutions_total
+    type: counter
+    description: "Total number of SSOT alias resolution attempts."
+    labels:
+      - status
+      - context
+
+  - name: ssot_alias_resolution_duration_seconds
+    type: histogram
+    description: "Histogram of SSOT alias resolution durations."
+    buckets: [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 2.5, 5.0]
+    labels:
+      - context
+
+  - name: ssot_active_aliases_count
+    type: gauge
+    description: "Current number of active SSOT aliases."
+    labels:
+      - context
+
+  - name: ssot_expired_aliases_count
+    type: gauge
+    description: "Current number of expired SSOT aliases."
+    labels:
+      - context
+
+  - name: ssot_validation_failures_total
+    type: counter
+    description: "Total number of SSOT validation failures."
+    labels:
+      - rule
+      - operation # create, update
+
+  - name: ssot_audit_log_entries_total
+    type: counter
+    description: "Total number of audit log entries recorded for SSOT operations."
+    labels:
+      - action # created, updated, deactivated

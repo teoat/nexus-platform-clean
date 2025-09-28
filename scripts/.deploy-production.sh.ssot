@@ -1,0 +1,8 @@
+{
+  "file_path": "scripts/deploy-production.sh",
+  "category": "scripts",
+  "marked_at": "2025-09-29T00:33:49.080181",
+  "ssot_version": "2.1.0",
+  "description": "Single Source of Truth for scripts",
+  "checksum": "c43456a1b6c1aee63ac298479c49a94beaf0714e06eb505eadda2495d7423119"
+}

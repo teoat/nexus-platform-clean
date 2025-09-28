@@ -1,0 +1,40 @@
+# Prometheus Alerting Rules for SSOT System
+
+groups:
+  - name: ssot-alerts
+    rules:
+      - alert: SSOTAliasCreationFailure
+        expr: sum(ssot_alias_creations_total{status="failure"}) by (context) > 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "SSOT Alias Creation Failure Detected"
+          description: "High rate of SSOT alias creation failures in context {{ $labels.context }}."
+
+      - alert: SSOTAliasResolutionLatencyHigh
+        expr: histogram_quantile(0.99, sum by (le, context) (rate(ssot_alias_resolution_duration_seconds_bucket[5m]))) > 0.5
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "SSOT Alias Resolution Latency High"
+          description: "99th percentile of SSOT alias resolution latency is above 0.5 seconds in context {{ $labels.context }}."
+
+      - alert: SSOTExpiredAliasesIncreasing
+        expr: increase(ssot_expired_aliases_count[5m]) > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Increasing Number of Expired SSOT Aliases"
+          description: "More than 5 SSOT aliases have expired in the last 5 minutes."
+
+      - alert: SSOTValidationFailureRateHigh
+        expr: sum(rate(ssot_validation_failures_total[5m])) by (rule, operation) > 0.1
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High SSOT Validation Failure Rate"
+          description: "High rate of SSOT validation failures for rule {{ $labels.rule }} during {{ $labels.operation }} operations."

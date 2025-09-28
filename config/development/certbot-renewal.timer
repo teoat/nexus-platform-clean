@@ -1,0 +1,12 @@
+[Unit]
+Description=Run Certbot SSL Certificate Renewal twice daily
+Requires=certbot-renewal.service
+
+[Timer]
+OnCalendar=*-*-* 00,12:00:00
+Persistent=true
+RandomizedDelaySec=3600
+
+[Install]
+WantedBy=timers.target</content>
+</xai:function_call">NEXUS_app/config/certbot-renewal.timer

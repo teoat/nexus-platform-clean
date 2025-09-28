@@ -1,0 +1,177 @@
+# NEXUS Phase 3 Alerting Rules
+# Critical alerts for production monitoring
+
+groups:
+  - name: nexus.performance
+    rules:
+      - alert: HighCPUUsage
+        expr: nexus_cpu_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: performance
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is {{ $value }}% for {{ $labels.instance }}"
+
+      - alert: HighMemoryUsage
+        expr: nexus_memory_percent > 85
+        for: 5m
+        labels:
+          severity: warning
+          service: performance
+        annotations:
+          summary: "High memory usage detected"
+          description: "Memory usage is {{ $value }}% for {{ $labels.instance }}"
+
+      - alert: SlowResponseTime
+        expr: nexus_response_time_seconds > 2
+        for: 3m
+        labels:
+          severity: critical
+          service: performance
+        annotations:
+          summary: "Slow response time detected"
+          description: "Response time is {{ $value }}s for {{ $labels.instance }}"
+
+      - alert: HighErrorRate
+        expr: nexus_error_rate > 0.05
+        for: 2m
+        labels:
+          severity: critical
+          service: performance
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value }} for {{ $labels.instance }}"
+
+  - name: nexus.security
+    rules:
+      - alert: SecurityVulnerabilityDetected
+        expr: nexus_security_vulnerabilities > 0
+        for: 0m
+        labels:
+          severity: critical
+          service: security
+        annotations:
+          summary: "Security vulnerability detected"
+          description: "{{ $value }} security vulnerabilities found"
+
+      - alert: ComplianceCheckFailed
+        expr: nexus_compliance_checks_failed > 0
+        for: 0m
+        labels:
+          severity: warning
+          service: security
+        annotations:
+          summary: "Compliance check failed"
+          description: "{{ $value }} compliance checks failed"
+
+  - name: nexus.ai
+    rules:
+      - alert: AIOptimizationOpportunities
+        expr: nexus_ai_optimization_opportunities > 5
+        for: 10m
+        labels:
+          severity: info
+          service: ai-optimizer
+        annotations:
+          summary: "Multiple AI optimization opportunities"
+          description: "{{ $value }} optimization opportunities available"
+
+      - alert: AIOptimizationConfidenceLow
+        expr: nexus_ai_optimization_confidence < 0.5
+        for: 5m
+        labels:
+          severity: warning
+          service: ai-optimizer
+        annotations:
+          summary: "Low AI optimization confidence"
+          description: "AI optimization confidence is {{ $value }}"
+
+  - name: nexus.deployment
+    rules:
+      - alert: DeploymentFailed
+        expr: nexus_deployment_status == 0
+        for: 0m
+        labels:
+          severity: critical
+          service: deployment
+        annotations:
+          summary: "Deployment failed"
+          description: "Deployment status indicates failure"
+
+      - alert: DeploymentRollback
+        expr: nexus_deployment_rollback_count > 0
+        for: 0m
+        labels:
+          severity: warning
+          service: deployment
+        annotations:
+          summary: "Deployment rollback occurred"
+          description: "{{ $value }} rollbacks detected"
+
+  - name: nexus.analytics
+    rules:
+      - alert: AnalyticsInsightsHigh
+        expr: nexus_analytics_insights_count > 10
+        for: 5m
+        labels:
+          severity: info
+          service: analytics
+        annotations:
+          summary: "High number of analytics insights"
+          description: "{{ $value }} analytics insights generated"
+
+      - alert: PredictiveInsightAnomaly
+        expr: nexus_predictive_insight_anomaly_score > 0.8
+        for: 0m
+        labels:
+          severity: warning
+          service: analytics
+        annotations:
+          summary: "Predictive insight anomaly detected"
+          description: "Anomaly score is {{ $value }}"
+
+  - name: nexus.cache
+    rules:
+      - alert: LowCacheHitRate
+        expr: nexus_cache_hit_rate < 0.8
+        for: 5m
+        labels:
+          severity: warning
+          service: cache
+        annotations:
+          summary: "Low cache hit rate"
+          description: "Cache hit rate is {{ $value }}"
+
+      - alert: CacheConnectionFailed
+        expr: nexus_cache_connection_status == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: cache
+        annotations:
+          summary: "Cache connection failed"
+          description: "Cache connection is down"
+
+  - name: nexus.database
+    rules:
+      - alert: DatabaseConnectionFailed
+        expr: nexus_database_connection_status == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: database
+        annotations:
+          summary: "Database connection failed"
+          description: "Database connection is down"
+
+      - alert: DatabaseSlowQueries
+        expr: nexus_database_slow_queries > 5
+        for: 3m
+        labels:
+          severity: warning
+          service: database
+        annotations:
+          summary: "Slow database queries detected"
+          description: "{{ $value }} slow queries detected"

@@ -1,0 +1,65 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: system
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: varlogs
+          __path__: /var/log/*log
+
+  - job_name: nexus-backend
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: nexus-backend
+          __path__: /var/log/nexus/backend*.log
+
+  - job_name: nexus-frontend
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: nexus-frontend
+          __path__: /var/log/nexus/frontend*.log
+
+  - job_name: nexus-database
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: nexus-database
+          __path__: /var/log/nexus/database*.log
+
+  - job_name: containers
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: containers
+          __path__: /var/log/containers/*/*/*.log
+    pipeline_stages:
+      - docker: {}
+
+  - job_name: journal
+    journal:
+      max_age: 12h
+      labels:
+        job: systemd-journal
+    pipeline_stages:
+      - journal:
+          labels:
+            unit: "%_SYSTEMD_UNIT"
+      - labeldrop:
+          - filename
+          - stream

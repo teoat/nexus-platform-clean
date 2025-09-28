@@ -1,0 +1,57 @@
+[
+  {
+    "rule_id": "high_cpu_usage",
+    "rule_type": "performance",
+    "condition": "cpu_usage > 80",
+    "recommendation_template": "Consider optimizing CPU-intensive operations or scaling resources",
+    "priority": 8,
+    "enabled": true,
+    "parameters": {
+      "threshold": 80
+    }
+  },
+  {
+    "rule_id": "low_success_rate",
+    "rule_type": "reliability",
+    "condition": "success_rate < 80",
+    "recommendation_template": "Investigate and fix failing operations to improve success rate",
+    "priority": 9,
+    "enabled": true,
+    "parameters": {
+      "threshold": 80
+    }
+  },
+  {
+    "rule_id": "frequent_optimizations",
+    "rule_type": "efficiency",
+    "condition": "optimization_frequency > 2",
+    "recommendation_template": "Consider implementing continuous optimization to reduce manual intervention",
+    "priority": 6,
+    "enabled": true,
+    "parameters": {
+      "threshold": 2
+    }
+  },
+  {
+    "rule_id": "large_repository",
+    "rule_type": "optimization",
+    "condition": "repository_size > 1000",
+    "recommendation_template": "Repository size is large, consider implementing aggressive optimization strategies",
+    "priority": 7,
+    "enabled": true,
+    "parameters": {
+      "threshold": 1000
+    }
+  },
+  {
+    "rule_id": "slow_operations",
+    "rule_type": "performance",
+    "condition": "avg_execution_time > 10",
+    "recommendation_template": "Operations are running slowly, consider performance optimization",
+    "priority": 8,
+    "enabled": true,
+    "parameters": {
+      "threshold": 10
+    }
+  }
+]

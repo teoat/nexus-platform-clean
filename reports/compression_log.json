@@ -1,0 +1,103 @@
+[
+  {
+    "timestamp": "2025-09-25T12:23:41.383811",
+    "optimizations": [
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/dependency_graph.json",
+        "original_size": 6373585,
+        "optimized_size": 6375557,
+        "compression_ratio": -0.0003094020084457962,
+        "optimization_type": "gzip_compression",
+        "saved_bytes": -1972
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/qwen-code/.git/objects/pack/pack-3b087ee5d75bb19b3e93dd2dd6919f3ac4dbc338.pack",
+        "original_size": 17691770,
+        "optimized_size": 17697234,
+        "compression_ratio": -0.0003088441687858253,
+        "optimization_type": "generic_compression",
+        "saved_bytes": -5464
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/audit/logs/20250925.jsonl",
+        "original_size": 11985263,
+        "optimized_size": 886716,
+        "compression_ratio": 0.9260161416566328,
+        "optimization_type": "generic_compression",
+        "saved_bytes": 11098547
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/ssot/candidates.csv",
+        "original_size": 6110040,
+        "optimized_size": 6111916,
+        "compression_ratio": -0.0003070356331546111,
+        "optimization_type": "gzip_compression",
+        "saved_bytes": -1876
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/ssot/manifest.yaml",
+        "original_size": 20604856,
+        "optimized_size": 2787648,
+        "compression_ratio": 0.8647091734103844,
+        "optimization_type": "generic_compression",
+        "saved_bytes": 17817208
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/.git/objects/pack/tmp_pack_4JF6gE",
+        "original_size": 12031098,
+        "optimized_size": 12034797,
+        "compression_ratio": -0.0003074532349416487,
+        "optimization_type": "generic_compression",
+        "saved_bytes": -3699
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/.git/objects/pack/pack-e2c2c6e8703f3097caaf21a5a675f8e466d8b53f.pack",
+        "original_size": 109434659,
+        "optimized_size": 109468026,
+        "compression_ratio": -0.0003049034035917268,
+        "optimization_type": "generic_compression",
+        "saved_bytes": -33367
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/.git/objects/pack/pack-7345fb086e012bea4562c775f8e5c57d2919f8b0.pack",
+        "original_size": 5303133,
+        "optimized_size": 5304797,
+        "compression_ratio": -0.0003137767806313739,
+        "optimization_type": "generic_compression",
+        "saved_bytes": -1664
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/.git/objects/pack/pack-bad50992e64a0c5eb2fe0794f6024dbb5414938c.pack",
+        "original_size": 40511466,
+        "optimized_size": 40523872,
+        "compression_ratio": -0.00030623428932441003,
+        "optimization_type": "generic_compression",
+        "saved_bytes": -12406
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/.git/objects/28/dce0520c83cc29c18ce252074fff2f983f9c9e",
+        "original_size": 13974045,
+        "optimized_size": 13978362,
+        "compression_ratio": -0.0003089298767822774,
+        "optimization_type": "generic_compression",
+        "saved_bytes": -4317
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/.git/objects/b8/51f6dc76445abc96e55f66eb6783819ae18597",
+        "original_size": 94759631,
+        "optimized_size": 94788536,
+        "compression_ratio": -0.00030503495734380816,
+        "optimization_type": "generic_compression",
+        "saved_bytes": -28905
+      },
+      {
+        "file_path": "/Users/Arief/Desktop/Nexus/.git/objects/b0/11db0bc2224350bbd220ac720becf1645ba390",
+        "original_size": 60100777,
+        "optimized_size": 60119138,
+        "compression_ratio": -0.00030550353783279706,
+        "optimization_type": "generic_compression",
+        "saved_bytes": -18361
+      }
+    ]
+  }
+]

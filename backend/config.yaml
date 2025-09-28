@@ -1,0 +1,130 @@
+# NEXUS Platform - Backend Configuration
+
+# Server Configuration
+server:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 1
+  reload: false
+  log_level: "info"
+
+# Database Configuration
+database:
+  url: "postgresql://nexus_user:nexus_password@localhost:5432/nexus_db"
+  pool_size: 20
+  max_overflow: 30
+  pool_recycle: 3600
+  echo: false
+
+# Redis Configuration
+redis:
+  url: "redis://localhost:6379/0"
+  max_connections: 20
+  retry_on_timeout: true
+
+# Security Configuration
+security:
+  jwt_secret: "your-super-secret-jwt-key-change-in-production"
+  jwt_algorithm: "HS256"
+  jwt_expiry: 3600
+  password_min_length: 8
+  password_require_special: true
+  cors_origins: ["*"]
+  trusted_hosts: ["*"]
+
+# NUC Orchestrator Configuration
+nuc_orchestrator:
+  health_check_interval: 30
+  metrics_retention_hours: 24
+  circuit_breaker_threshold: 5
+  circuit_breaker_timeout: 60
+
+# Service Registry Configuration
+service_registry:
+  heartbeat_interval: 10
+  cleanup_interval: 60
+  service_ttl: 30
+
+# API Gateway Configuration
+api_gateway:
+  rate_limit_default: 100
+  rate_limit_window: 60
+  cache_default_ttl: 300
+  timeout_default: 30
+  retry_count_default: 3
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "nexus_backend.log"
+  max_size: "10MB"
+  backup_count: 5
+
+# Monitoring Configuration
+monitoring:
+  enabled: true
+  metrics_port: 9090
+  health_check_path: "/health"
+  metrics_path: "/metrics"
+
+# File Storage Configuration
+file_storage:
+  upload_dir: "uploads"
+  max_file_size: "10MB"
+  allowed_extensions: [".jpg", ".jpeg", ".png", ".pdf", ".doc", ".docx"]
+  storage_type: "local" # local, s3, gcs
+
+# Email Configuration
+email:
+  smtp_host: "localhost"
+  smtp_port: 587
+  smtp_username: ""
+  smtp_password: ""
+  smtp_tls: true
+  from_email: "noreply@nexus-platform.com"
+
+# Cache Configuration
+cache:
+  default_ttl: 300
+  max_size: 1000
+  cleanup_interval: 300
+
+# Feature Flags
+features:
+  enable_analytics: true
+  enable_notifications: true
+  enable_file_upload: true
+  enable_websockets: true
+  enable_rate_limiting: true
+  enable_circuit_breaker: true
+
+# Environment-specific overrides
+environments:
+  development:
+    database:
+      url: "postgresql://nexus_user:nexus_password@localhost:5432/nexus_dev"
+    logging:
+      level: "DEBUG"
+    server:
+      reload: true
+
+  production:
+    database:
+      url: "postgresql://nexus_user:nexus_password@prod-db:5432/nexus_prod"
+    logging:
+      level: "WARNING"
+    server:
+      workers: 4
+      reload: false
+    security:
+      cors_origins: ["https://nexus-platform.com"]
+      trusted_hosts: ["nexus-platform.com"]
+
+  testing:
+    database:
+      url: "postgresql://nexus_user:nexus_password@localhost:5432/nexus_test"
+    logging:
+      level: "ERROR"
+    server:
+      workers: 1

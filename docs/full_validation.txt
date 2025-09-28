@@ -1,0 +1,22 @@
+🔍 Validating naming conventions...
+
+❌ Found 9174 errors:
+  scripts/build/consolidated_utility_scripts.py:8119: Class name 'cached_property' should be PascalCase
+  scripts/build/consolidated_utility_scripts.py:9048: Function name 'ETA' should be snake_case
+  scripts/build/consolidated_utility_scripts.py:15274: Function name '_' should be snake_case
+  scripts/build/consolidated_utility_scripts.py:22164: Class name '_WrapNumbers' should be PascalCase
+  scripts/build/consolidated_utility_scripts.py:30816: Function name '_' should be snake_case
+  scripts/build/consolidated_utility_scripts.py:36887: Class name '_WrapNumbers' should be PascalCase
+  scripts/build/consolidated_utility_scripts.py:43356: Function name '_' should be snake_case
+  scripts/build/consolidated_utility_scripts.py:50218: Class name '_WrapNumbers' should be PascalCase
+  scripts/build/consolidated_utility_scripts.py:56331: Class name '_WrapNumbers' should be PascalCase
+  scripts/build/consolidated_utility_scripts.py:67278: Function name '_' should be snake_case
+  ... and 9164 more
+
+⚠️  Found 2176 warnings:
+  Python file name '__main__.py' should be snake_case
+  Python file name '_native.py' should be snake_case
+  Python file name '_util.py' should be snake_case
+  Python file name '_util.py' should be snake_case
+  Python file name '_identifier.py' should be snake_case
+  ... and 2171 more

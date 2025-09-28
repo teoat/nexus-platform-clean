@@ -1,0 +1,342 @@
+# NEXUS Platform - SSOT Validation CI Jobs
+# Generated: 2025-01-27T12:30:00Z
+# Version: 1.0
+
+---
+name: SSOT Validation
+
+on:
+  pull_request:
+    paths:
+      - "config/ssot/**"
+      - "ssot/**"
+      - "locks/**"
+      - ".github/workflows/ssot_checks.yml"
+  push:
+    branches: [main, develop]
+    paths:
+      - "config/ssot/**"
+      - "ssot/**"
+      - "locks/**"
+
+jobs:
+  ssot-validate:
+    name: Validate SSOT Manifest
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml jsonschema
+      - name: Validate SSOT Manifest
+        run: |
+          python scripts/validate_ssot.py ssot_plan/ssot_manifest_proposal.yaml
+        continue-on-error: false
+      - name: Check SSOT Manifest Structure
+        run: |
+          python -c "
+          import yaml
+          with open('ssot_plan/ssot_manifest_proposal.yaml', 'r') as f:
+              data = yaml.safe_load(f)
+          assert 'anchors' in data, 'SSOT manifest must contain anchors'
+          assert len(data['anchors']) > 0, \
+              'SSOT manifest must have at least one anchor'
+          print(f'✅ SSOT manifest contains {len(data[\"anchors\"])} anchors')
+          "
+      - name: Validate Anchor Schemas
+        run: |
+          python -c "
+          import yaml
+          import json
+          with open('ssot_plan/ssot_manifest_proposal.yaml', 'r') as f:
+              data = yaml.safe_load(f)
+          required_fields = [
+              'id', 'family', 'description',
+              'format', 'source_hint', 'owner', 'version'
+          ]
+          for i, anchor in enumerate(data['anchors'], 1):
+               missing = [
+                   field for field in required_fields if field not in anchor
+               ]
+              assert not missing, \
+                  f'Anchor {i} missing fields: {missing}'
+              assert anchor['family'] in [
+                  'api', 'data', 'deployment', 'build',
+                  'automation', 'operator', 'policy', 'observability'
+              ], f'Anchor {i} invalid family: {anchor[\"family\"]}'
+          print('✅ All anchors have required fields and valid families')
+          "
+  lockfile-check:
+    name: Verify Lockfiles
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install jsonschema
+      - name: Verify Lockfiles
+        run: |
+          python scripts/verify_lockfiles.py ssot_plan/locks
+        continue-on-error: false
+      - name: Validate Lockfile Schema
+        run: |
+          python -c "
+          import json
+          import glob
+          with open('ssot_plan/lockfile_schema.json', 'r') as f:
+              schema = json.load(f)
+          lockfiles = glob.glob('ssot_plan/locks/*.json')
+          for lockfile in lockfiles:
+              with open(lockfile, 'r') as f:
+                  data = json.load(f)
+              # Basic validation
+              assert 'lock_version' in data, f'{lockfile} missing lock_version'
+              assert 'workflow' in data, f'{lockfile} missing workflow'
+              assert 'anchors' in data, f'{lockfile} missing anchors'
+              print(f'✅ {lockfile} has valid structure')
+          print(f'✅ Validated {len(lockfiles)} lockfiles')
+          "
+  contract-test:
+    name: Contract Tests
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml requests
+      - name: Run API Contract Tests
+        run: |
+          python -c "
+          import yaml
+          import requests
+          import json
+          # Load SSOT manifest
+          with open('ssot_plan/ssot_manifest_proposal.yaml', 'r') as f:
+              data = yaml.safe_load(f)
+          # Find API contract anchors
+           api_anchors = [
+               a for a in data['anchors'] if a['family'] == 'api'
+           ]
+           print(
+               f'Found {len(api_anchors)} API contract anchors'
+           )
+          for anchor in api_anchors:
+              print(f'Validating API contract: {anchor[\"id\"]}')
+               # Basic validation - validate OpenAPI spec
+               assert anchor['format'] in [
+                   'openapi-3.0.yaml', 'openapi-3.0.json'
+                ], \
+                    f'Invalid API format: {anchor[\"format\"]}'
+               print(
+                   f'✅ {anchor[\"id\"]} has valid format'
+               )
+           print('✅ All API contracts validated')
+          "
+      - name: Run Database Schema Tests
+        run: |
+          python -c "
+          import yaml
+          # Load SSOT manifest
+          with open('ssot_plan/ssot_manifest_proposal.yaml', 'r') as f:
+              data = yaml.safe_load(f)
+          # Find data schema anchors
+           data_anchors = [
+               a for a in data['anchors']
+               if a['family'] == 'data'
+           ]
+           print(
+               f'Found {len(data_anchors)} data schema anchors'
+           )
+          for anchor in data_anchors:
+              print(f'Validating data schema: {anchor[\"id\"]}')
+               # Basic validation - validate SQL/JSON schema
+              assert anchor['format'] in [
+                  'sql', 'json-schema', 'yaml'
+              ], f'Invalid data format: {anchor[\"format\"]}'
+              print(f'✅ {anchor[\"id\"]} has valid format')
+          print('✅ All data schemas validated')
+          "
+  size-check:
+    name: Size and Complexity Check
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Check File Sizes
+        run: |
+          echo "Checking SSOT file sizes..."
+          find ssot_plan/ -name "*.yaml" -o -name "*.json" | while read file; do
+              size=$(wc -c < "$file")
+              if [ $size -gt 1048576 ]; then  # 1MB
+                  echo "❌ $file is too large: $size bytes"
+                  exit 1
+              else
+                  echo "✅ $file size OK: $size bytes"
+              fi
+          done
+      - name: Check YAML Complexity
+        run: |
+          python -c "
+          import yaml
+          import sys
+          def check_yaml_complexity(file_path):
+              with open(file_path, 'r') as f:
+                  data = yaml.safe_load(f)
+              if 'anchors' in data:
+                  anchor_count = len(data['anchors'])
+                  if anchor_count > 50:
+                      print(
+                          f'❌ {file_path} has too many anchors: {anchor_count}'
+                      )
+                      return False
+                  else:
+                      print(f'✅ {file_path} anchor count OK: {anchor_count}')
+                      return True
+              return True
+          # Check SSOT manifest
+          if not check_yaml_complexity('ssot_plan/ssot_manifest_proposal.yaml'):
+              sys.exit(1)
+          print('✅ All YAML files have reasonable complexity')
+          "
+  lint-ssot:
+    name: Lint SSOT Files
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install yamllint
+      - name: Lint YAML files
+        run: |
+          yamllint ssot_plan/ || true  # Don't fail on linting errors for now
+      - name: Check JSON formatting
+        run: |
+          python -c "
+          import json
+          import glob
+          json_files = glob.glob('ssot_plan/**/*.json', recursive=True)
+          for file_path in json_files:
+              try:
+                  with open(file_path, 'r') as f:
+                      json.load(f)
+                  print(f'✅ {file_path} is valid JSON')
+              except json.JSONDecodeError as e:
+                  print(f'❌ {file_path} has JSON error: {e}')
+                  exit(1)
+          print('✅ All JSON files are valid')
+          "
+      - name: Check file
+          permissions
+        run: |
+          find ssot_plan/ -type f -name "*.yaml" -o -name "*.json" \
+              | while read file; do
+              perms=$(stat -c "%a" "$file")
+              if [ "$perms" != "644" ]; then
+                  echo "⚠️  $file has unusual permissions: $perms"
+              else:
+                  echo "✅ $file permissions OK: $perms"
+              fi
+          done
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install bandit safety
+      - name: Run Bandit Security Scan
+        run: |
+          bandit -r scripts/ -f json -o bandit-report.json || true
+          bandit -r scripts/ -f txt
+      - name: Check for secrets in SSOT files
+        run: |
+          python -c "
+          import re
+          import glob
+          # Patterns that might indicate secrets
+          secret_patterns = [
+              r'password\s*[:=]\s*[\"\'][^\"\']+[\"\']',
+              r'secret\s*[:=]\s*[\"\'][^\"\']+[\"\']',
+              r'key\s*[:=]\s*[\"\'][^\"\']+[\"\']',
+              r'token\s*[:=]\s*[\"\'][^\"\']+[\"\']'
+          ]
+          yaml_files = glob.glob('ssot_plan/**/*.yaml', recursive=True)
+          json_files = glob.glob('ssot_plan/**/*.json', recursive=True)
+          all_files = yaml_files + json_files
+          issues_found = False
+          for file_path in all_files:
+              with open(file_path, 'r') as f:
+                  content = f.read()
+              for pattern in secret_patterns:
+                  if re.search(pattern, content, re.IGNORECASE):
+                      print(f'⚠️  Potential secret in {file_path}: {pattern}')
+                      issues_found = True
+          if not issues_found:
+              print('✅ No potential secrets found in SSOT files')
+          else:
+              print('⚠️  Potential secrets found - please review')
+          "
+  notify:
+    name: Notify on Failure
+    runs-on: ubuntu-latest
+    needs:
+      [
+        ssot-validate,
+        lockfile-check,
+        contract-test,
+        size-check,
+        lint-ssot,
+        security-scan,
+      ]
+    if: failure()
+    steps:
+      - name: Notify on
+          Failure
+        run: |
+          echo "❌ SSOT validation failed. Please check the logs and fix the issues."
+          echo "Required checks:"
+          echo "- ssot-validate: Validate SSOT manifest structure"
+          echo "- lockfile-check: Verify lockfile consistency"
+          echo "- contract-test: Run contract tests"
+          echo "- size-check: Check file sizes and complexity"
+          echo "- lint-ssot: Lint SSOT files"
+          echo "- security-scan: Security scan"

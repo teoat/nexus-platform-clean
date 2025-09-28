@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-09-27T18:57:04.834379",
+  "locked_files": [
+    "nexus_platform.db",
+    "nexus.db",
+    "redis.conf",
+    "redis.acl",
+    "encryption_key.key",
+    "frenly_ai_rules.json",
+    "ssot_master_todo.md",
+    "ssot_phase_execution_summary.json"
+  ],
+  "total_locked": 8,
+  "lock_status": "active",
+  "description": "NEXUS Platform Lock Manifest - Protected Files"
+}

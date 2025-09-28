@@ -1,0 +1,140 @@
+# Optimization Thresholds Configuration
+# Defines when and how optimization actions are triggered
+
+thresholds:
+  repo_size_growth:
+    - trigger: "repo_size"
+      threshold_value: 500
+      unit: "MB"
+      action: "compress_assets"
+      priority: 1
+      enabled: true
+    - trigger: "repo_size"
+      threshold_value: 1000
+      unit: "MB"
+      action: "prune_dependencies"
+      priority: 2
+      enabled: true
+    - trigger: "repo_size"
+      threshold_value: 2000
+      unit: "MB"
+      action: "archive_old_releases"
+      priority: 3
+      enabled: true
+
+  file_upload:
+    - trigger: "file_size"
+      threshold_value: 100
+      unit: "MB"
+      action: "lock_file_require_approval"
+      priority: 1
+      enabled: true
+    - trigger: "file_size"
+      threshold_value: 50
+      unit: "MB"
+      action: "auto_compress"
+      priority: 2
+      enabled: true
+
+  dependency_tree:
+    - trigger: "dependency_count"
+      threshold_value: 200
+      unit: "count"
+      action: "suggest_slimming"
+      priority: 1
+      enabled: true
+    - trigger: "dependency_duplication"
+      threshold_value: 3
+      unit: "count"
+      action: "force_ssot_version"
+      priority: 2
+      enabled: true
+
+  build_frequency:
+    - trigger: "old_builds"
+      threshold_value: 10
+      unit: "count"
+      action: "auto_archive"
+      priority: 1
+      enabled: true
+
+# Notification settings
+notifications:
+  slack_channel: "#optimization-alerts"
+  email_recipients: ["devops@nexus.com"]
+  webhook_url: "https://hooks.slack.com/services/your/webhook/url"
+
+# Optimization schedules
+schedules:
+  daily_cleanup:
+    interval: "daily"
+    time: "02:00"
+    enabled: true
+    tasks: ["temp_file_cleanup", "build_artifact_cleanup"]
+
+  weekly_optimization:
+    interval: "weekly"
+    time: "03:00"
+    enabled: true
+    tasks: ["asset_compression", "dependency_optimization", "code_minification"]
+
+  monthly_deep_clean:
+    interval: "monthly"
+    time: "04:00"
+    enabled: true
+    tasks: ["archive_old_releases", "git_history_cleanup", "duplicate_removal"]
+
+# File size thresholds
+file_size_limits:
+  general_mb: 50
+  images_mb: 2
+  code_kb: 500
+  videos_mb: 100
+  documents_mb: 10
+
+# Compression settings
+compression:
+  image_formats: ["png", "jpg", "jpeg"]
+  video_formats: ["mp4", "avi", "mov"]
+  text_formats: ["txt", "log", "json", "csv", "md"]
+  compression_quality: 80
+  webp_quality: 85
+
+# Cleanup patterns
+cleanup_patterns:
+  temp_files:
+    - "**/.tmp"
+    - "**/.cache"
+    - "**/tmp"
+    - "**/temp"
+    - "**/*.tmp"
+    - "**/*.cache"
+    - "**/*.log"
+
+  build_artifacts:
+    - "**/dist"
+    - "**/build"
+    - "**/target"
+    - "**/out"
+    - "**/.gradle"
+    - "**/.mvn"
+    - "**/node_modules/.cache"
+    - "**/.next"
+    - "**/.nuxt"
+    - "**/.output"
+    - "**/coverage"
+    - "**/.nyc_output"
+    - "**/__pycache__"
+    - "**/*.pyc"
+    - "**/*.pyo"
+    - "**/*.class"
+    - "**/*.jar"
+    - "**/*.war"
+    - "**/*.ear"
+
+# Retention policies
+retention:
+  logs_days: 30
+  reports_days: 90
+  snapshots_days: 180
+  archives_days: 365

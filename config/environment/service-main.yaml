@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-frontend-main
+  namespace: nexus-platform
+  labels:
+    app: nexus-frontend-main
+    version: main
+spec:
+  selector:
+    app: nexus-frontend-main
+  ports:
+    - name: http
+      port: 2000
+      targetPort: 2000
+      protocol: TCP
+  type: ClusterIP

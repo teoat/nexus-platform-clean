@@ -1,0 +1,615 @@
+# NEXUS Platform - SSOT Manifest Proposal
+# Generated: 2025-01-27T12:30:00Z
+# Version: 1.0
+
+metadata:
+  generated_at: "2025-01-27T12:30:00Z"
+  version: "1.0"
+  platform: "NEXUS"
+  total_files_analyzed: 3116
+  total_directories: 819
+  total_ssot_anchors: 26
+  features:
+    - "dynamic_api_aliasing"
+    - "multi_context_operation"
+    - "migration_flexibility"
+    - "backward_compatibility"
+
+anchors:
+  # A. API/Contract Anchors (2) - Enhanced with Dynamic Aliasing
+  - id: api_contracts
+    family: api
+    description: "Canonical API contracts for public service surfaces with dynamic aliasing"
+    format: "openapi-3.0.yaml"
+    source_hint: "backend/routes/api_schema.yaml"
+    owner: "@nexus-api-team"
+    version: "v1.0.0"
+    centrality_score: 0.95
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "openapi_spec_validation"
+      - "endpoint_consistency"
+      - "schema_completeness"
+      - "alias_uniqueness"
+    generates:
+      - "frontend/src/types/generated/api.ts"
+      - "docs/api/openapi.yaml"
+      - "backend/routes/generated_routes.py"
+    aliasing:
+      enabled: true
+      alias_types: ["permanent", "temporary", "contextual", "migration"]
+      contexts: ["system", "application", "frenly_ai", "frontend", "backend"]
+      governance: "ssot_maintainers_only"
+      audit_logging: true
+    aliases:
+      - name: "user-api"
+        type: "permanent"
+        context: "frontend"
+        description: "User management API for frontend"
+        created_by: "@nexus-frontend-team"
+        created_at: "2025-01-27T12:30:00Z"
+      - name: "auth-service"
+        type: "permanent"
+        context: "system"
+        description: "Authentication service API"
+        created_by: "@nexus-platform-team"
+        created_at: "2025-01-27T12:30:00Z"
+      - name: "legacy-user-endpoints"
+        type: "temporary"
+        context: "migration"
+        description: "Legacy user endpoints during migration"
+        created_by: "@nexus-api-team"
+        created_at: "2025-01-27T12:30:00Z"
+        expires_at: "2025-06-27T12:30:00Z"
+
+  - id: backend_api_contracts
+    family: api
+    description: "Backend internal API contracts and service interfaces with dynamic aliasing"
+    format: "openapi-3.0.yaml"
+    source_hint: "backend/services/internal_api.yaml"
+    owner: "@nexus-backend-team"
+    version: "v1.0.0"
+    centrality_score: 0.88
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "openapi_spec_validation"
+      - "service_consistency"
+      - "alias_uniqueness"
+    generates:
+      - "backend/services/generated_clients.py"
+      - "docs/internal-api/openapi.yaml"
+    aliasing:
+      enabled: true
+      alias_types: ["permanent", "temporary", "contextual"]
+      contexts: ["system", "backend", "frenly_ai", "automation"]
+      governance: "backend_team_approval"
+      audit_logging: true
+    aliases:
+      - name: "internal-api"
+        type: "permanent"
+        context: "backend"
+        description: "Internal API for backend services"
+        created_by: "@nexus-backend-team"
+        created_at: "2025-01-27T12:30:00Z"
+      - name: "service-mesh"
+        type: "contextual"
+        context: "frenly_ai"
+        description: "Service mesh API for Frenly AI operations"
+        created_by: "@nexus-ai-team"
+        created_at: "2025-01-27T12:30:00Z"
+
+  # B. Data Schema Anchors (3)
+  - id: database_schema
+    family: data
+    description: "Canonical PostgreSQL database schema"
+    format: "sql/json-schema"
+    source_hint: "backend/database/schema.sql"
+    owner: "@nexus-database-team"
+    version: "v1.0.0"
+    centrality_score: 0.92
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "sql_syntax_validation"
+      - "foreign_key_consistency"
+      - "migration_compatibility"
+    generates:
+      - "backend/database/generated_models.py"
+      - "frontend/src/types/generated/database.ts"
+      - "docs/database/schema.md"
+
+  - id: redis_schema
+    family: data
+    description: "Redis data structures and cache schemas"
+    format: "json-schema"
+    source_hint: "backend/cache/redis_schema.json"
+    owner: "@nexus-backend-team"
+    version: "v1.0.0"
+    centrality_score: 0.75
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "json_schema_validation"
+      - "cache_consistency"
+    generates:
+      - "backend/cache/generated_models.py"
+      - "docs/cache/redis-schema.md"
+
+  - id: cache_schema
+    family: data
+    description: "Application cache schemas and TTL policies"
+    format: "yaml"
+    source_hint: "config/cache_schema.yaml"
+    owner: "@nexus-backend-team"
+    version: "v1.0.0"
+    centrality_score: 0.70
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "yaml_schema_validation"
+      - "ttl_consistency"
+    generates:
+      - "backend/cache/cache_config.py"
+      - "docs/cache/cache-schema.md"
+
+  # C. Deployment & Orchestration Anchors (4)
+  - id: kubernetes_manifests
+    family: deployment
+    description: "Kubernetes deployment manifests and configurations"
+    format: "yaml"
+    source_hint: "k8s/unified-manifests.yaml"
+    owner: "@nexus-devops-team"
+    version: "v1.0.0"
+    centrality_score: 0.90
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "kubernetes_schema_validation"
+      - "resource_consistency"
+      - "security_policy_compliance"
+    generates:
+      - "k8s/generated/manifests.yaml"
+      - "docs/deployment/k8s-manifests.md"
+
+  - id: docker_configurations
+    family: deployment
+    description: "Docker configurations and container definitions"
+    format: "yaml"
+    source_hint: "docker-compose.unified.yml"
+    owner: "@nexus-devops-team"
+    version: "v1.0.0"
+    centrality_score: 0.85
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "docker_compose_validation"
+      - "service_consistency"
+      - "network_compatibility"
+    generates:
+      - "docker/generated/compose.yml"
+      - "docs/deployment/docker-config.md"
+
+  - id: infrastructure_config
+    family: deployment
+    description: "Infrastructure as Code configurations"
+    format: "terraform/yaml"
+    source_hint: "infrastructure/main.tf"
+    owner: "@nexus-infrastructure-team"
+    version: "v1.0.0"
+    centrality_score: 0.80
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "terraform_validation"
+      - "resource_naming_consistency"
+      - "cost_optimization"
+    generates:
+      - "infrastructure/generated/terraform.tf"
+      - "docs/infrastructure/terraform-config.md"
+
+  - id: environment_config
+    family: deployment
+    description: "Environment-specific configurations"
+    format: "yaml"
+    source_hint: "config/environments.yaml"
+    owner: "@nexus-devops-team"
+    version: "v1.0.0"
+    centrality_score: 0.88
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "environment_consistency"
+      - "secret_management"
+      - "configuration_validation"
+    generates:
+      - "config/generated/environment.json"
+      - "docs/deployment/environment-config.md"
+
+  # D. Build & Packaging Anchors (3)
+  - id: frontend_build_config
+    family: build
+    description: "Frontend build configuration and dependencies"
+    format: "json/yaml"
+    source_hint: "frontend/package.json"
+    owner: "@nexus-frontend-team"
+    version: "v1.0.0"
+    centrality_score: 0.85
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "package_json_validation"
+      - "dependency_consistency"
+      - "build_optimization"
+    generates:
+      - "frontend/generated/build-config.js"
+      - "docs/build/frontend-build.md"
+
+  - id: backend_build_config
+    family: build
+    description: "Backend build configuration and dependencies"
+    format: "toml"
+    source_hint: "pyproject.toml"
+    owner: "@nexus-backend-team"
+    version: "v1.0.0"
+    centrality_score: 0.88
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "pyproject_toml_validation"
+      - "dependency_consistency"
+      - "build_optimization"
+    generates:
+      - "backend/generated/build_config.py"
+      - "docs/build/backend-build.md"
+
+  - id: dependency_registry
+    family: build
+    description: "Unified dependency management and lockfiles"
+    format: "json"
+    source_hint: "package-lock.json"
+    owner: "@nexus-platform-team"
+    version: "v1.0.0"
+    centrality_score: 0.92
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "lockfile_validation"
+      - "dependency_resolution"
+      - "security_scanning"
+    generates:
+      - "locks/unified.lock.json"
+      - "docs/build/dependency-management.md"
+
+  # E. Automation/Pipeline Anchors (5)
+  - id: ci_pipeline_config
+    family: automation
+    description: "CI pipeline definitions and workflows"
+    format: "yaml"
+    source_hint: ".github/workflows/ci.yml"
+    owner: "@nexus-devops-team"
+    version: "v1.0.0"
+    centrality_score: 0.90
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "github_actions_validation"
+      - "workflow_consistency"
+      - "security_compliance"
+    generates:
+      - ".github/generated/workflows/ci.yml"
+      - "docs/automation/ci-pipelines.md"
+
+  - id: cd_pipeline_config
+    family: automation
+    description: "CD pipeline definitions and deployment workflows"
+    format: "yaml"
+    source_hint: ".github/workflows/cd.yml"
+    owner: "@nexus-devops-team"
+    version: "v1.0.0"
+    centrality_score: 0.88
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "github_actions_validation"
+      - "deployment_consistency"
+      - "rollback_capability"
+    generates:
+      - ".github/generated/workflows/cd.yml"
+      - "docs/automation/cd-pipelines.md"
+
+  - id: monitoring_pipeline_config
+    family: automation
+    description: "Monitoring and observability automation"
+    format: "yaml"
+    source_hint: "monitoring/pipeline.yaml"
+    owner: "@nexus-sre-team"
+    version: "v1.0.0"
+    centrality_score: 0.80
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "monitoring_consistency"
+      - "alert_validation"
+      - "metric_consistency"
+    generates:
+      - "monitoring/generated/pipeline.yaml"
+      - "docs/automation/monitoring-pipelines.md"
+
+  - id: backup_pipeline_config
+    family: automation
+    description: "Backup and disaster recovery automation"
+    format: "yaml"
+    source_hint: "backup/pipeline.yaml"
+    owner: "@nexus-sre-team"
+    version: "v1.0.0"
+    centrality_score: 0.75
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "backup_consistency"
+      - "retention_policy_validation"
+      - "recovery_testing"
+    generates:
+      - "backup/generated/pipeline.yaml"
+      - "docs/automation/backup-pipelines.md"
+
+  - id: security_pipeline_config
+    family: automation
+    description: "Security scanning and compliance automation"
+    format: "yaml"
+    source_hint: "security/pipeline.yaml"
+    owner: "@nexus-security-team"
+    version: "v1.0.0"
+    centrality_score: 0.85
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "security_consistency"
+      - "compliance_validation"
+      - "vulnerability_scanning"
+    generates:
+      - "security/generated/pipeline.yaml"
+      - "docs/automation/security-pipelines.md"
+
+  # F. Operator/Prompt Registry Anchors (4)
+  - id: frenly_ai_config
+    family: operator
+    description: "Frenly AI operator configuration and prompts with dynamic aliasing"
+    format: "yaml"
+    source_hint: "frenly_ai/config/operator.yaml"
+    owner: "@nexus-ai-team"
+    version: "v1.0.0"
+    centrality_score: 0.90
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "prompt_consistency"
+      - "operator_validation"
+      - "ssot_integration"
+      - "alias_uniqueness"
+    generates:
+      - "frenly_ai/generated/operator_config.py"
+      - "docs/operator/frenly-ai-config.md"
+    aliasing:
+      enabled: true
+      alias_types: ["permanent", "contextual", "temporary"]
+      contexts: ["frenly_ai", "system", "migration"]
+      governance: "ai_team_approval"
+      audit_logging: true
+    aliases:
+      - name: "ai-operator"
+        type: "permanent"
+        context: "system"
+        description: "AI operator configuration"
+        created_by: "@nexus-ai-team"
+        created_at: "2025-01-27T12:30:00Z"
+      - name: "frenly-brain"
+        type: "contextual"
+        context: "frenly_ai"
+        description: "Frenly AI brain configuration"
+        created_by: "@nexus-ai-team"
+        created_at: "2025-01-27T12:30:00Z"
+
+  - id: agent_prompt_registry
+    family: operator
+    description: "Agent prompt templates and configurations"
+    format: "yaml"
+    source_hint: "frenly_ai/prompts/agent_templates.yaml"
+    owner: "@nexus-ai-team"
+    version: "v1.0.0"
+    centrality_score: 0.85
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "prompt_validation"
+      - "template_consistency"
+      - "agent_capability_mapping"
+    generates:
+      - "frenly_ai/generated/prompt_templates.py"
+      - "docs/operator/agent-prompts.md"
+
+  - id: template_registry
+    family: operator
+    description: "Code templates and scaffolding configurations"
+    format: "yaml"
+    source_hint: "templates/registry.yaml"
+    owner: "@nexus-platform-team"
+    version: "v1.0.0"
+    centrality_score: 0.70
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "template_validation"
+      - "code_consistency"
+      - "scaffolding_validation"
+    generates:
+      - "templates/generated/registry.py"
+      - "docs/operator/code-templates.md"
+
+  - id: operator_policy_registry
+    family: operator
+    description: "Operator policies and governance rules"
+    format: "yaml"
+    source_hint: "config/operator_policies.yaml"
+    owner: "@nexus-platform-team"
+    version: "v1.0.0"
+    centrality_score: 0.88
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "policy_validation"
+      - "governance_consistency"
+      - "compliance_checking"
+    generates:
+      - "config/generated/operator_policies.py"
+      - "docs/operator/policies.md"
+
+  # G. Secrets & Policy Anchors (3)
+  - id: security_policy_registry
+    family: policy
+    description: "Security policies and access controls"
+    format: "yaml"
+    source_hint: "security/policies.yaml"
+    owner: "@nexus-security-team"
+    version: "v1.0.0"
+    centrality_score: 0.95
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "security_policy_validation"
+      - "access_control_consistency"
+      - "compliance_verification"
+    generates:
+      - "security/generated/policies.py"
+      - "docs/security/policies.md"
+
+  - id: compliance_registry
+    family: policy
+    description: "Compliance requirements and audit configurations"
+    format: "yaml"
+    source_hint: "compliance/requirements.yaml"
+    owner: "@nexus-compliance-team"
+    version: "v1.0.0"
+    centrality_score: 0.80
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "compliance_validation"
+      - "audit_consistency"
+      - "regulatory_verification"
+    generates:
+      - "compliance/generated/requirements.py"
+      - "docs/compliance/requirements.md"
+
+  - id: access_control_registry
+    family: policy
+    description: "Access control policies and permissions"
+    format: "yaml"
+    source_hint: "config/access_control.yaml"
+    owner: "@nexus-security-team"
+    version: "v1.0.0"
+    centrality_score: 0.85
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "access_control_validation"
+      - "permission_consistency"
+      - "role_verification"
+    generates:
+      - "config/generated/access_control.py"
+      - "docs/security/access-control.md"
+
+  # H. Observability & Audit Anchors (2)
+  - id: logging_registry
+    family: observability
+    description: "Logging schemas and audit trail configurations"
+    format: "yaml"
+    source_hint: "config/logging.yaml"
+    owner: "@nexus-sre-team"
+    version: "v1.0.0"
+    centrality_score: 0.80
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "logging_consistency"
+      - "audit_trail_validation"
+      - "log_retention_policy"
+    generates:
+      - "config/generated/logging.py"
+      - "docs/observability/logging.md"
+
+  - id: metrics_registry
+    family: observability
+    description: "Metrics and monitoring configurations"
+    format: "yaml"
+    source_hint: "monitoring/metrics.yaml"
+    owner: "@nexus-sre-team"
+    version: "v1.0.0"
+    centrality_score: 0.82
+    modification_policy: "require_pr_review"
+    validation_rules:
+      - "metrics_consistency"
+      - "monitoring_validation"
+      - "alert_consistency"
+    generates:
+      - "monitoring/generated/metrics.py"
+      - "docs/observability/metrics.md"
+
+# SSOT Configuration
+ssot_config:
+  version: "1.0"
+  generated_at: "2025-01-27T12:30:00Z"
+  total_anchors: 26
+  families:
+    api: 2
+    data: 3
+    deployment: 4
+    build: 3
+    automation: 5
+    operator: 4
+    policy: 3
+    observability: 2
+
+  validation:
+    required_fields:
+      [
+        "id",
+        "family",
+        "description",
+        "format",
+        "source_hint",
+        "owner",
+        "version",
+      ]
+    valid_families:
+      [
+        "api",
+        "data",
+        "deployment",
+        "build",
+        "automation",
+        "operator",
+        "policy",
+        "observability",
+      ]
+    modification_policy: "require_pr_review"
+    approval_required: true
+    min_approvers: 2
+
+  aliasing:
+    enabled: true
+    global_rules:
+      - "alias_uniqueness_across_contexts"
+      - "canonical_name_immutable"
+      - "alias_audit_logging"
+      - "expiration_management"
+    contexts:
+      system: "ssot_maintainers_only"
+      application: "team_approval_required"
+      frenly_ai: "ai_team_approval"
+      migration: "temporary_only"
+    governance:
+      add_alias: "require_pr_review"
+      remove_alias: "require_pr_review"
+      modify_alias: "require_pr_review"
+      audit_retention: "7y"
+
+  governance:
+    owners:
+      "@nexus-platform-team": ["api", "build", "operator"]
+      "@nexus-devops-team": ["deployment", "automation"]
+      "@nexus-backend-team": ["data", "build"]
+      "@nexus-frontend-team": ["api", "build"]
+      "@nexus-ai-team": ["operator"]
+      "@nexus-security-team": ["policy"]
+      "@nexus-sre-team": ["automation", "observability"]
+      "@nexus-compliance-team": ["policy"]
+      "@nexus-database-team": ["data"]
+      "@nexus-infrastructure-team": ["deployment"]
+
+    access_control:
+      read: "all_team_members"
+      write: "code_owners_only"
+      admin: "platform_team_only"
+
+    audit:
+      log_all_changes: true
+      retention_period: "7y"
+      external_storage: "s3://nexus-audit-logs"

@@ -1,0 +1,113 @@
+graph TB
+    %% User Interface Layer
+    subgraph "User Interface Layer"
+        USER[User Request]
+        FRENLY_UI[Frenly AI Frontend]
+        API[Frenly AI API]
+    end
+
+    %% Frenly AI Core (Minimal Operator Layer)
+    subgraph "Frenly AI Core - SSOT Operator"
+        SSOT_INT[SSOT Integration Layer]
+        QUERY_ENGINE[SSOT Query Engine]
+        RESPONSE_GEN[SSOT Response Generator]
+        ADAPTATION[SSOT Adaptation Engine]
+    end
+
+    %% SSOT System Layer
+    subgraph "SSOT System - Master Truth"
+        SSOT_MGR[Unified SSOT Manager]
+        AUTO_REG[Automation Registry]
+        PIPE_REG[Pipeline Registry]
+        ORCH_REG[Orchestration Registry]
+        MON_REG[Monitoring Registry]
+        SEC_REG[Security Registry]
+    end
+
+    %% Agent Coordination Layer
+    subgraph "Agent Coordination"
+        BRAIN_ORCH[Brain Orchestrator]
+        COMM_HUB[Communication Hub]
+        AGENT_MGR[Agent Manager]
+    end
+
+    %% Specialized Agents
+    subgraph "Specialized Agents"
+        AGENT1[Agent 1 - Security]
+        AGENT2[Agent 2 - Frontend]
+        AGENT3[Agent 3 - Backend]
+        AGENT4[Agent 4 - Database]
+        AGENT5[Agent 5 - Testing]
+        AGENT6[Agent 6 - Automation]
+    end
+
+    %% Target Services
+    subgraph "Target Services"
+        FRONTEND_SVC[Frontend Service]
+        BACKEND_SVC[Backend Service]
+        DATABASE_SVC[Database Service]
+        REDIS_SVC[Redis Service]
+        NGINX_SVC[Nginx Service]
+        FRENLY_SVC[Frenly AI Service]
+    end
+
+    %% Data Flows
+    USER --> FRENLY_UI
+    FRENLY_UI --> API
+    API --> SSOT_INT
+
+    SSOT_INT --> QUERY_ENGINE
+    SSOT_INT --> RESPONSE_GEN
+    SSOT_INT --> ADAPTATION
+
+    QUERY_ENGINE --> SSOT_MGR
+    RESPONSE_GEN --> QUERY_ENGINE
+    ADAPTATION --> SSOT_MGR
+
+    SSOT_MGR --> AUTO_REG
+    SSOT_MGR --> PIPE_REG
+    SSOT_MGR --> ORCH_REG
+    SSOT_MGR --> MON_REG
+    SSOT_MGR --> SEC_REG
+
+    SSOT_INT --> BRAIN_ORCH
+    BRAIN_ORCH --> COMM_HUB
+    COMM_HUB --> AGENT_MGR
+
+    AGENT_MGR --> AGENT1
+    AGENT_MGR --> AGENT2
+    AGENT_MGR --> AGENT3
+    AGENT_MGR --> AGENT4
+    AGENT_MGR --> AGENT5
+    AGENT_MGR --> AGENT6
+
+    %% Agent to Service Connections
+    AGENT1 --> FRONTEND_SVC
+    AGENT2 --> FRONTEND_SVC
+    AGENT3 --> BACKEND_SVC
+    AGENT4 --> DATABASE_SVC
+    AGENT5 --> FRONTEND_SVC
+    AGENT5 --> BACKEND_SVC
+    AGENT6 --> FRONTEND_SVC
+    AGENT6 --> BACKEND_SVC
+    AGENT6 --> DATABASE_SVC
+
+    %% SSOT Change Detection
+    SSOT_MGR -.->|Change Detection| ADAPTATION
+    ADAPTATION -.->|Adaptation| QUERY_ENGINE
+    ADAPTATION -.->|Adaptation| RESPONSE_GEN
+
+    %% Styling
+    classDef userInterface fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef frenlyCore fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef ssotSystem fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef agentCoordination fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef specializedAgents fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef targetServices fill:#fafafa,stroke:#424242,stroke-width:2px
+
+    class USER,FRENLY_UI,API userInterface
+    class SSOT_INT,QUERY_ENGINE,RESPONSE_GEN,ADAPTATION frenlyCore
+    class SSOT_MGR,AUTO_REG,PIPE_REG,ORCH_REG,MON_REG,SEC_REG ssotSystem
+    class BRAIN_ORCH,COMM_HUB,AGENT_MGR agentCoordination
+    class AGENT1,AGENT2,AGENT3,AGENT4,AGENT5,AGENT6 specializedAgents
+    class FRONTEND_SVC,BACKEND_SVC,DATABASE_SVC,REDIS_SVC,NGINX_SVC,FRENLY_SVC targetServices

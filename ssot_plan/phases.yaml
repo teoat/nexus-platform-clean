@@ -1,0 +1,456 @@
+# NEXUS Platform - SSOT Migration Phases
+# Generated: 2025-01-27T12:30:00Z
+# Version: 1.0
+
+metadata:
+  generated_at: "2025-01-27T12:30:00Z"
+  version: "1.0"
+  platform: "NEXUS"
+  total_phases: 6
+  estimated_duration: "33 days"
+  risk_level: "medium"
+
+phases:
+  phase_0:
+    name: "Discovery & Snapshot"
+    duration: "1 day"
+    risk_level: "low"
+    objective: "Establish baseline and create immutable snapshot"
+
+    preconditions:
+      - "Repository access available"
+      - "Discovery tools installed"
+
+    actions:
+      - name: "Run RepoScanner"
+        description: "Scan repository structure and dependencies"
+        commands:
+          - "python scripts/repo_scanner.py --output discovery/"
+          - "python scripts/dependency_analyzer.py --output discovery/"
+        expected_artifacts:
+          - "discovery/dir_map.json"
+          - "discovery/dependency_graph.json"
+          - "discovery/duplicates.json"
+          - "discovery/large_files.json"
+          - "discovery/config_candidates.json"
+          - "discovery/ssot_candidates.json"
+
+      - name: "Create Baseline Snapshot"
+        description: "Create immutable snapshot of current state"
+        commands:
+          - "git tag ssot-baseline-$(date +%Y%m%d-%H%M%S)"
+          - "tar -czf snapshots/baseline-$(date +%Y%m%d-%H%M%S).tar.gz ."
+        expected_artifacts:
+          - "snapshots/baseline-*.tar.gz"
+          - "git tag: ssot-baseline-*"
+
+    verification:
+      - "discovery/ directory contains all required artifacts"
+      - "baseline snapshot created and hash verified"
+      - "git tag created successfully"
+
+    rollback:
+      - "No rollback required (read-only operation)"
+
+    acceptance_criteria:
+      - "All discovery artifacts generated successfully"
+      - "Baseline snapshot created with valid hash"
+      - "Repository state documented and tagged"
+
+  phase_1:
+    name: "Establish SSOT Registry"
+    duration: "2 days"
+    risk_level: "low"
+    objective: "Create SSOT manifest without modifying application code"
+
+    preconditions:
+      - "Phase 0 completed successfully"
+      - "Baseline snapshot available"
+      - "Discovery artifacts available"
+
+    actions:
+      - name: "Create SSOT Manifest"
+        description: "Create ssot/modules_index.yaml with all 26 anchors"
+        commands:
+          - "mkdir -p ssot/"
+          - "python scripts/create_ssot_manifest.py --input discovery/ --output ssot/modules_index.yaml"
+        expected_artifacts:
+          - "ssot/modules_index.yaml"
+          - "ssot/anchors/ directory structure"
+
+      - name: "Set up CODEOWNERS"
+        description: "Configure CODEOWNERS for SSOT anchor families"
+        commands:
+          - "python scripts/setup_codeowners.py --manifest ssot/modules_index.yaml --output .github/CODEOWNERS"
+        expected_artifacts:
+          - ".github/CODEOWNERS"
+          - "ssot/CODEOWNERS mapping"
+
+      - name: "Define Anchor Schemas"
+        description: "Create validation schemas for each anchor type"
+        commands:
+          - "python scripts/create_anchor_schemas.py --manifest ssot/modules_index.yaml --output ssot/schemas/"
+        expected_artifacts:
+          - "ssot/schemas/ directory with validation schemas"
+          - "ssot/validation/ directory with validation scripts"
+
+    verification:
+      - "ssot/modules_index.yaml passes syntactic validation"
+      - "All 26 anchors defined with required fields"
+      - "CODEOWNERS file created with proper mappings"
+      - "Validation schemas created for all anchor types"
+
+    rollback:
+      - "Remove ssot/ directory"
+      - "Restore original .github/CODEOWNERS"
+
+    acceptance_criteria:
+      - "SSOT manifest created with all 26 anchors"
+      - "CODEOWNERS configured for all anchor families"
+      - "Validation schemas created and tested"
+      - "No application code modified"
+
+  phase_2:
+    name: "CI Enforcement"
+    duration: "3 days"
+    risk_level: "medium"
+    objective: "Add SSOT validation to CI without blocking merges"
+
+    preconditions:
+      - "Phase 1 completed successfully"
+      - "SSOT manifest available"
+      - "Validation schemas created"
+
+    actions:
+      - name: "Create Validation Scripts"
+        description: "Implement validate_ssot.py and verify_lockfiles.py"
+        commands:
+          - "python scripts/create_validation_scripts.py --output scripts/"
+        expected_artifacts:
+          - "scripts/validate_ssot.py"
+          - "scripts/verify_lockfiles.py"
+          - "scripts/ssot_utils.py"
+
+      - name: "Add CI Jobs"
+        description: "Add SSOT validation jobs to GitHub Actions"
+        commands:
+          - "mkdir -p .github/workflows/"
+          - "python scripts/create_ci_workflows.py --output .github/workflows/ssot_checks.yml"
+        expected_artifacts:
+          - ".github/workflows/ssot_checks.yml"
+          - ".github/workflows/ssot_validation.yml"
+
+      - name: "Test CI Jobs"
+        description: "Test CI jobs on sample PRs without blocking merges"
+        commands:
+          - "git checkout -b test-ssot-ci"
+          - "python scripts/test_ci_jobs.py --workflow .github/workflows/ssot_checks.yml"
+        expected_artifacts:
+          - "CI job test results"
+          - "Validation script test results"
+
+    verification:
+      - "CI jobs execute successfully on test PRs"
+      - "Validation scripts work correctly"
+      - "No existing builds broken by new CI jobs"
+      - "SSOT validation reports correctly"
+
+    rollback:
+      - "Remove .github/workflows/ssot_checks.yml"
+      - "Remove validation scripts from scripts/"
+      - "Revert CI configuration changes"
+
+    acceptance_criteria:
+      - "CI jobs added and tested successfully"
+      - "Validation scripts working correctly"
+      - "No impact on existing build processes"
+      - "SSOT validation integrated into CI pipeline"
+
+  phase_3:
+    name: "Read-only Integration"
+    duration: "5 days"
+    risk_level: "medium"
+    objective: "Integrate services to read from SSOT without changing logic"
+
+    preconditions:
+      - "Phase 2 completed successfully"
+      - "CI enforcement in place"
+      - "NUC has secure access to SSOT"
+
+    actions:
+      - name: "Integrate NUC with SSOT"
+        description: "Update NUC to fetch SSOT snapshot and expose read-only endpoints"
+        commands:
+          - "python scripts/update_nuc_ssot_integration.py --nuc-path backend/services/nuc_orchestrator.py"
+          - "python scripts/create_ssot_api.py --output backend/api/ssot_api.py"
+        expected_artifacts:
+          - "Updated NUC orchestrator with SSOT integration"
+          - "SSOT API endpoints for read-only access"
+          - "NUC SSOT configuration"
+
+      - name: "Update Frontend Build"
+        description: "Update frontend build steps to read SSOT contracts"
+        commands:
+          - "python scripts/update_frontend_build.py --frontend-path frontend/"
+          - "python scripts/create_ssot_frontend_integration.py --output frontend/src/ssot/"
+        expected_artifacts:
+          - "Updated frontend build configuration"
+          - "Frontend SSOT integration layer"
+          - "Generated API types from SSOT"
+
+      - name: "Update Backend Build"
+        description: "Update backend build steps to read SSOT schemas"
+        commands:
+          - "python scripts/update_backend_build.py --backend-path backend/"
+          - "python scripts/create_ssot_backend_integration.py --output backend/ssot/"
+        expected_artifacts:
+          - "Updated backend build configuration"
+          - "Backend SSOT integration layer"
+          - "Generated database models from SSOT"
+
+      - name: "Implement Frenly AI SSOT Query Engine"
+        description: "Create SSOT query engine in Frenly AI"
+        commands:
+          - "python scripts/create_frenly_ssot_engine.py --frenly-path frenly_ai/"
+        expected_artifacts:
+          - "Frenly AI SSOT query engine"
+          - "SSOT response generator"
+          - "SSOT adaptation engine"
+
+    verification:
+      - "NUC successfully fetches SSOT snapshots"
+      - "Frontend builds use SSOT contracts for mock tests"
+      - "Backend builds use SSOT schemas for model generation"
+      - "Frenly AI can query SSOT successfully"
+      - "No runtime changes to application behavior"
+
+    rollback:
+      - "Revert NUC integration changes"
+      - "Restore original frontend/backend build configurations"
+      - "Remove Frenly AI SSOT integration"
+
+    acceptance_criteria:
+      - "All services successfully read from SSOT"
+      - "Build processes use SSOT data for generation"
+      - "Frenly AI integrated with SSOT query engine"
+      - "No runtime behavior changes"
+
+  phase_4:
+    name: "Controlled Canonicalization"
+    duration: "10 days"
+    risk_level: "high"
+    objective: "Gradually migrate services to use SSOT anchors"
+
+    preconditions:
+      - "Phase 3 completed successfully"
+      - "All services reading from SSOT"
+      - "Previous phases green"
+
+    actions:
+      - name: "Migrate Frontend to SSOT"
+        description: "Update frontend to use SSOT API contracts"
+        commands:
+          - "python scripts/migrate_frontend_ssot.py --frontend-path frontend/ --ssot-manifest ssot/modules_index.yaml"
+        expected_artifacts:
+          - "Updated frontend API integration"
+          - "Frontend contract tests against SSOT"
+          - "Frontend SSOT validation"
+
+      - name: "Migrate Backend to SSOT"
+        description: "Update backend to use SSOT database schemas"
+        commands:
+          - "python scripts/migrate_backend_ssot.py --backend-path backend/ --ssot-manifest ssot/modules_index.yaml"
+        expected_artifacts:
+          - "Updated backend database integration"
+          - "Backend schema tests against SSOT"
+          - "Backend SSOT validation"
+
+      - name: "Migrate Automation Scripts"
+        description: "Update automation scripts to read from SSOT"
+        commands:
+          - "python scripts/migrate_automation_ssot.py --scripts-path scripts/ --ssot-manifest ssot/modules_index.yaml"
+        expected_artifacts:
+          - "Updated automation scripts"
+          - "Automation SSOT integration"
+          - "Automation validation tests"
+
+      - name: "Implement Contract Tests"
+        description: "Create contract tests against SSOT-provided schemas"
+        commands:
+          - "python scripts/create_contract_tests.py --ssot-manifest ssot/modules_index.yaml --output tests/contract/"
+        expected_artifacts:
+          - "Contract test suite"
+          - "API contract validation"
+          - "Database schema validation"
+
+    verification:
+      - "Unit tests pass for all migrated services"
+      - "Integration tests pass with SSOT data"
+      - "Contract tests validate against SSOT schemas"
+      - "Staging deployment successful"
+      - "No regression in functionality"
+
+    rollback:
+      - "Revert service migration PRs"
+      - "Restore original service configurations"
+      - "Remove contract tests"
+
+    acceptance_criteria:
+      - "All services successfully migrated to SSOT"
+      - "Contract tests validate SSOT integration"
+      - "No regression in functionality"
+      - "Staging deployment successful"
+
+  phase_5:
+    name: "Archive & Cleanup"
+    duration: "5 days"
+    risk_level: "medium"
+    objective: "Remove duplicate configurations and non-canonical files"
+
+    preconditions:
+      - "Phase 4 completed successfully"
+      - "Canonicalization verified for all services"
+      - "All services using SSOT anchors"
+
+    actions:
+      - name: "Identify Duplicate Files"
+        description: "Identify and catalog duplicate configuration files"
+        commands:
+          - "python scripts/identify_duplicates.py --ssot-manifest ssot/modules_index.yaml --output archive/duplicates.json"
+        expected_artifacts:
+          - "archive/duplicates.json"
+          - "Duplicate file inventory"
+
+      - name: "Archive Duplicate Configs"
+        description: "Move duplicate configs to archive with metadata"
+        commands:
+          - "python scripts/archive_duplicates.py --duplicates archive/duplicates.json --archive-path archive/"
+        expected_artifacts:
+          - "archive/ directory with duplicate files"
+          - "archive/metadata.json"
+          - "Archive manifest"
+
+      - name: "Update References"
+        description: "Update all references to point to SSOT anchors"
+        commands:
+          - "python scripts/update_references.py --ssot-manifest ssot/modules_index.yaml --search-path ."
+        expected_artifacts:
+          - "Updated file references"
+          - "Reference mapping"
+
+      - name: "Remove Obsolete Files"
+        description: "Remove obsolete configuration files"
+        commands:
+          - "python scripts/remove_obsolete.py --ssot-manifest ssot/modules_index.yaml --dry-run"
+          - "python scripts/remove_obsolete.py --ssot-manifest ssot/modules_index.yaml --execute"
+        expected_artifacts:
+          - "Removed obsolete files list"
+          - "Cleanup report"
+
+    verification:
+      - "No code uses archived copies"
+      - "All references point to SSOT anchors"
+      - "Regression tests pass"
+      - "No broken links or missing files"
+
+    rollback:
+      - "Restore files from archive"
+      - "Revert reference updates"
+      - "Restore original file structure"
+
+    acceptance_criteria:
+      - "All duplicate files archived"
+      - "All references updated to SSOT"
+      - "No obsolete files remaining"
+      - "No regression in functionality"
+
+  phase_6:
+    name: "Automation Consolidation & Monitoring"
+    duration: "7 days"
+    risk_level: "medium"
+    objective: "Consolidate all automation under SSOT control"
+
+    preconditions:
+      - "Phase 5 completed successfully"
+      - "All canonical anchors present"
+      - "All services using SSOT"
+
+    actions:
+      - name: "Consolidate Pipeline Definitions"
+        description: "Move all pipeline definitions to SSOT anchors"
+        commands:
+          - "python scripts/consolidate_pipelines.py --ssot-manifest ssot/modules_index.yaml --pipelines-path .github/workflows/"
+        expected_artifacts:
+          - "Consolidated pipeline definitions"
+          - "Pipeline SSOT integration"
+          - "Pipeline validation"
+
+      - name: "Update NUC Orchestration"
+        description: "NUC drives scheduled jobs based on SSOT"
+        commands:
+          - "python scripts/update_nuc_orchestration.py --nuc-path backend/services/nuc_orchestrator.py --ssot-manifest ssot/modules_index.yaml"
+        expected_artifacts:
+          - "Updated NUC orchestration"
+          - "SSOT-driven job scheduling"
+          - "Orchestration validation"
+
+      - name: "Implement Frenly AI Operator Routines"
+        description: "Frenly AI runs operator routines from SSOT"
+        commands:
+          - "python scripts/implement_frenly_operator.py --frenly-path frenly_ai/ --ssot-manifest ssot/modules_index.yaml"
+        expected_artifacts:
+          - "Frenly AI operator routines"
+          - "SSOT-driven automation"
+          - "Operator validation"
+
+      - name: "Set up Comprehensive Monitoring"
+        description: "Implement monitoring and alerting for SSOT operations"
+        commands:
+          - "python scripts/setup_ssot_monitoring.py --ssot-manifest ssot/modules_index.yaml --monitoring-path monitoring/"
+        expected_artifacts:
+          - "SSOT monitoring configuration"
+          - "Alerting rules"
+          - "Dashboard configurations"
+
+    verification:
+      - "Live jobs triggered by NUC"
+      - "Frenly AI operating from SSOT"
+      - "Alerting in place and working"
+      - "All automation consolidated"
+
+    rollback:
+      - "Revert pipeline consolidation"
+      - "Restore original NUC orchestration"
+      - "Remove Frenly AI operator routines"
+      - "Disable SSOT monitoring"
+
+    acceptance_criteria:
+      - "All automation consolidated under SSOT"
+      - "NUC driving scheduled jobs"
+      - "Frenly AI operating from SSOT"
+      - "Comprehensive monitoring in place"
+
+# Migration Summary
+migration_summary:
+  total_duration: "33 days"
+  total_phases: 6
+  risk_level: "medium"
+  success_criteria:
+    - "All 26 SSOT anchors registered and validated"
+    - "CI jobs enforce SSOT integrity"
+    - "All services consume from SSOT"
+    - "Frenly AI operates from SSOT"
+    - "Complete audit trail established"
+    - "Zero configuration drift after 30 days"
+
+  rollback_strategy:
+    - "Each phase includes snapshot and rollback plan"
+    - "Rollback restores system to previous green state"
+    - "All changes reversible with minimal impact"
+    - "Comprehensive testing before each phase"
+
+  monitoring:
+    - "Continuous monitoring of migration progress"
+    - "Real-time alerts for any issues"
+    - "Regular checkpoint reviews"
+    - "Stakeholder communication throughout"

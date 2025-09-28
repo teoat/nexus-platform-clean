@@ -1,0 +1,175 @@
+{
+  "analysis_timestamp": "2025-01-27T12:00:00Z",
+  "dependency_analysis": {
+    "python_modules": {
+      "core_services": [
+        {
+          "module": "unified_ssot_manager.py",
+          "dependencies": [
+            "json",
+            "yaml",
+            "pathlib",
+            "datetime",
+            "hashlib",
+            "logging"
+          ],
+          "imports": ["os", "sys", "asyncio", "threading", "subprocess"],
+          "centrality_score": 0.95,
+          "is_ssot_candidate": true
+        },
+        {
+          "module": "backend/services/nuc_orchestrator.py",
+          "dependencies": ["unified_ssot_manager", "asyncio", "logging"],
+          "imports": ["pathlib", "sys"],
+          "centrality_score": 0.88,
+          "is_ssot_candidate": true
+        },
+        {
+          "module": "backend/main_unified.py",
+          "dependencies": ["fastapi", "uvicorn", "sqlalchemy", "redis"],
+          "imports": ["os", "sys", "pathlib"],
+          "centrality_score": 0.82,
+          "is_ssot_candidate": false
+        },
+        {
+          "module": "frenly_ai/backend/frenly_brain_orchestrator.py",
+          "dependencies": ["openai", "anthropic", "asyncio"],
+          "imports": ["json", "logging", "pathlib"],
+          "centrality_score": 0.75,
+          "is_ssot_candidate": true
+        }
+      ],
+      "configuration_managers": [
+        {
+          "module": "config/config_manager.py",
+          "dependencies": ["yaml", "json", "pathlib"],
+          "imports": ["os", "logging"],
+          "centrality_score": 0.7,
+          "is_ssot_candidate": true
+        },
+        {
+          "module": "configuration_unifier.py",
+          "dependencies": ["yaml", "json", "pathlib"],
+          "imports": ["os", "sys", "logging"],
+          "centrality_score": 0.65,
+          "is_ssot_candidate": true
+        }
+      ]
+    },
+    "typescript_modules": {
+      "frontend_core": [
+        {
+          "module": "frontend/web/src/config/api.ts",
+          "dependencies": [],
+          "imports": [],
+          "centrality_score": 0.9,
+          "is_ssot_candidate": true
+        },
+        {
+          "module": "frontend/web/src/services/unifiedApiClient.ts",
+          "dependencies": ["api.ts"],
+          "imports": ["axios", "react-query"],
+          "centrality_score": 0.85,
+          "is_ssot_candidate": false
+        },
+        {
+          "module": "frontend/web/src/store/aiStore.ts",
+          "dependencies": ["zustand"],
+          "imports": ["react"],
+          "centrality_score": 0.6,
+          "is_ssot_candidate": false
+        }
+      ],
+      "generated_services": [
+        {
+          "module": "frontend/web/generated/api-gateway.ts",
+          "dependencies": ["api.ts"],
+          "imports": ["axios"],
+          "centrality_score": 0.4,
+          "is_ssot_candidate": false
+        }
+      ]
+    }
+  },
+  "configuration_dependencies": {
+    "database_schema": {
+      "primary": "config/database/database_schema.yml",
+      "dependencies": [
+        "backend/database/models.py",
+        "backend/database/schema_normalization.py",
+        "config/database/financial_database_config.json"
+      ],
+      "generates": [
+        "backend/database/enhanced_models.py",
+        "frontend/web/src/types/generated/database.ts"
+      ]
+    },
+    "api_contracts": {
+      "primary": "frontend/web/src/config/api.ts",
+      "dependencies": [
+        "backend/routes/enhanced_auth.py",
+        "backend/services/auth_service.py"
+      ],
+      "generates": [
+        "frontend/web/generated/api-gateway.ts",
+        "frontend/web/generated/user-service.ts",
+        "docs/api/openapi.yaml"
+      ]
+    },
+    "deployment_config": {
+      "primary": "docker-compose.yml",
+      "dependencies": [
+        "config/docker/docker-compose.yaml",
+        "config/kubernetes/consolidated_k8s.yaml"
+      ],
+      "generates": ["docker-compose.optimized.yml", "k8s/nexus-platform.yaml"]
+    }
+  },
+  "ssot_candidates": [
+    {
+      "file": "config/database/database_schema.yml",
+      "type": "database_schema",
+      "centrality_score": 0.95,
+      "dependencies_count": 8,
+      "generates_count": 5,
+      "modification_frequency": "high",
+      "rationale": "Central database schema definition, referenced by multiple services"
+    },
+    {
+      "file": "frontend/web/src/config/api.ts",
+      "type": "api_contract",
+      "centrality_score": 0.9,
+      "dependencies_count": 6,
+      "generates_count": 7,
+      "modification_frequency": "high",
+      "rationale": "API endpoint definitions, used by frontend and generated services"
+    },
+    {
+      "file": "docker-compose.yml",
+      "type": "deployment_config",
+      "centrality_score": 0.85,
+      "dependencies_count": 4,
+      "generates_count": 3,
+      "modification_frequency": "medium",
+      "rationale": "Primary deployment configuration, referenced by all services"
+    },
+    {
+      "file": "config/policies.yaml",
+      "type": "security_policy",
+      "centrality_score": 0.8,
+      "dependencies_count": 3,
+      "generates_count": 2,
+      "modification_frequency": "low",
+      "rationale": "Security and operational policies, referenced by multiple components"
+    },
+    {
+      "file": "unified_ssot_manager.py",
+      "type": "ssot_manager",
+      "centrality_score": 0.95,
+      "dependencies_count": 10,
+      "generates_count": 8,
+      "modification_frequency": "high",
+      "rationale": "Core SSOT management system, orchestrates all SSOT operations"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+# NEXUS Phase 3 Prometheus Metrics Configuration
+# Comprehensive metrics collection for all Phase 3 services
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - "phase3_alerts.yml"
+
+scrape_configs:
+  # NEXUS Backend Services
+  - job_name: "nexus-backend"
+    static_configs:
+      - targets: ["localhost:8000"]
+    metrics_path: "/metrics"
+    scrape_interval: 10s
+
+  # NEXUS Frontend
+  - job_name: "nexus-frontend"
+    static_configs:
+      - targets: ["localhost:3000"]
+    metrics_path: "/metrics"
+    scrape_interval: 30s
+
+  # AI Optimizer Service
+  - job_name: "nexus-ai-optimizer"
+    static_configs:
+      - targets: ["localhost:8001"]
+    metrics_path: "/metrics"
+    scrape_interval: 15s
+
+  # Performance Monitor
+  - job_name: "nexus-performance-monitor"
+    static_configs:
+      - targets: ["localhost:8002"]
+    metrics_path: "/metrics"
+    scrape_interval: 10s
+
+  # Security Hardening Service
+  - job_name: "nexus-security"
+    static_configs:
+      - targets: ["localhost:8003"]
+    metrics_path: "/metrics"
+    scrape_interval: 30s
+
+  # Deployment Automation
+  - job_name: "nexus-deployment"
+    static_configs:
+      - targets: ["localhost:8004"]
+    metrics_path: "/metrics"
+    scrape_interval: 60s
+
+  # Analytics Engine
+  - job_name: "nexus-analytics"
+    static_configs:
+      - targets: ["localhost:8005"]
+    metrics_path: "/metrics"
+    scrape_interval: 20s
+
+  # SSOT Registry
+  - job_name: "nexus-ssot-registry"
+    static_configs:
+      - targets: ["localhost:8006"]
+    metrics_path: "/metrics"
+    scrape_interval: 15s
+
+  # Redis Cache
+  - job_name: "nexus-redis"
+    static_configs:
+      - targets: ["localhost:6379"]
+    metrics_path: "/metrics"
+    scrape_interval: 30s
+
+  # PostgreSQL Database
+  - job_name: "nexus-postgres"
+    static_configs:
+      - targets: ["localhost:5432"]
+    metrics_path: "/metrics"
+    scrape_interval: 60s
+
+# Alerting Rules
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093

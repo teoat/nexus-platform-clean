@@ -1,0 +1,8 @@
+{
+  "file_path": "scripts/health_check.py",
+  "category": "scripts",
+  "marked_at": "2025-09-29T00:33:49.082250",
+  "ssot_version": "2.1.0",
+  "description": "Single Source of Truth for scripts",
+  "checksum": "c2b0ed19a1de59ec593477e8e038938a3590fd2cce885b8c7f5a94e6f3950de7"
+}

@@ -1,0 +1,329 @@
+name: CI/CD Pipeline
+
+"on":
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '18'
+
+jobs:
+  # Code Quality and Linting
+  code-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: nexus_frontend/web/package-lock.json
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pre-commit
+        pip install bandit
+        pip install detect-secrets
+        pip install -r requirements.txt
+
+    - name: Install Node.js dependencies
+      run: |
+        cd nexus_frontend/web
+        npm ci
+
+    - name: Run pre-commit hooks
+      run: |
+        pre-commit run --all-files
+
+    - name: Run continuous audit
+      run: |
+        python scripts/continuous_audit.py
+        if [ -f audit_report.json ]; then
+          echo "Audit report generated successfully"
+        else
+          echo "Audit report not generated"
+          exit 1
+        fi
+
+    - name: Run security scanning
+      run: |
+        cd NEXUS_app
+        bandit -r . -f json -o bandit-report.json || true
+        detect-secrets scan --baseline .secrets.baseline || true
+
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-reports
+        path: |
+          NEXUS_nexus_backend/bandit-report.json
+          .secrets.baseline
+
+  # Backend Tests
+  backend-tests:
+    runs-on: ubuntu-latest
+    needs: [code-quality]
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: nexus_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        cd NEXUS_app
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov pytest-asyncio
+
+    - name: Run linting
+      run: |
+        cd NEXUS_app
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        black --check .
+        isort --check-only .
+
+    - name: Run tests
+      run: |
+        cd NEXUS_app
+        pytest tests/ -v --cov=core --cov-report=xml --cov-report=html
+      env:
+        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/nexus_test
+        REDIS_URL: redis://localhost:6379
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./NEXUS_nexus_backend/coverage.xml
+        flags: backend
+        name: backend-coverage
+
+  # Documentation Validation
+  documentation-validation:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Install markdownlint
+      run: |
+        npm install -g markdownlint-cli
+
+    - name: Validate markdown files
+      run: |
+        markdownlint "docs_new/**/*.md" --config .markdownlint.yaml
+
+    - name: Check for broken internal links
+      run: |
+        npm install -g markdown-link-check
+        find docs_new -name "*.md" -exec markdown-link-check {} \; || true
+
+    - name: Validate API documentation
+      run: |
+        if [ -f "docs_new/DEVELOPMENT/api-reference.md" ]; then
+          echo "API documentation found and validated"
+        else
+          echo "Warning: API documentation not found"
+        fi
+
+  # Frontend Tests
+  frontend-tests:
+    runs-on: ubuntu-latest
+    needs: [code-quality]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: NEXUS_nexus_backend/nexus_frontend/package-lock.json
+
+    - name: Install dependencies
+      run: |
+        cd NEXUS_nexus_backend/frontend
+        npm ci
+
+    - name: Run linting
+      run: |
+        cd NEXUS_nexus_backend/frontend
+        npm run lint
+
+    - name: Run type checking
+      run: |
+        cd frontend/web
+        npm run type-check
+
+    - name: Run tests
+      run: |
+        cd NEXUS_nexus_backend/frontend
+        npm test -- --coverage --watchAll=false
+
+    - name: Build application
+      run: |
+        cd NEXUS_nexus_backend/frontend
+        npm run build
+
+    - name: Run Lighthouse CI
+      run: |
+        npm install -g @lhci/cli@0.12.x
+        lhci autorun --upload.target=temporary-public-storage --collect.url=http://localhost:3000 || true
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./NEXUS_nexus_backend/nexus_frontend/coverage/lcov.info
+        flags: frontend
+        name: frontend-coverage
+
+  # Security Scanning
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/python@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --severity-threshold=high
+        file: NEXUS_nexus_backend/requirements.txt
+
+  # Docker Build and Push
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: [backend-tests, frontend-tests, security-scan]
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./NEXUS_app
+        push: true
+        tags: |
+          nexus-financial:latest
+          nexus-financial:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  # Deploy to Staging
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: [docker-build]
+    if: github.ref == 'refs/heads/develop'
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Deploy to staging
+      run: |
+        echo "Deploying to staging environment..."
+        # Add your staging deployment commands here
+        # kubectl apply -f infrastructure/k8s/staging/
+
+    - name: Run smoke tests
+      run: |
+        echo "Running smoke tests..."
+        # Add smoke test commands here
+
+  # Deploy to Production
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: [docker-build]
+    if: github.ref == 'refs/heads/main'
+    environment: production
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Deploy to production
+      run: |
+        echo "Deploying to production environment..."
+        # Add your production deployment commands here
+        # kubectl apply -f infrastructure/k8s/production/
+
+    - name: Run health checks
+      run: |
+        echo "Running health checks..."
+        # Add health check commands here

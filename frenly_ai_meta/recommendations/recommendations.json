@@ -1,0 +1,38 @@
+[
+  {
+    "recommendation_type": "optimization",
+    "title": "Enable Asset Compression",
+    "description": "Consider enabling automatic asset compression for files larger than 2MB",
+    "confidence": 0.8,
+    "impact": "medium",
+    "action_required": true,
+    "metadata": {
+      "threshold": "2MB",
+      "action": "enable_compression"
+    }
+  },
+  {
+    "recommendation_type": "configuration",
+    "title": "Adjust Optimization Thresholds",
+    "description": "Consider lowering file size thresholds based on usage patterns",
+    "confidence": 0.7,
+    "impact": "low",
+    "action_required": false,
+    "metadata": {
+      "current_threshold": "50MB",
+      "suggested_threshold": "25MB"
+    }
+  },
+  {
+    "recommendation_type": "workflow",
+    "title": "Schedule Daily Cleanup",
+    "description": "Consider scheduling daily cleanup tasks during off-peak hours",
+    "confidence": 0.6,
+    "impact": "low",
+    "action_required": false,
+    "metadata": {
+      "suggested_time": "02:00",
+      "frequency": "daily"
+    }
+  }
+]

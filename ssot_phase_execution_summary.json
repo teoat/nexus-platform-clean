@@ -1,0 +1,50 @@
+{
+  "execution_timestamp": "2025-09-27T04:34:52.735397",
+  "phases_completed": 4,
+  "statistics": {
+    "phase1_backup_files": 0,
+    "phase2_essential_files": 16311,
+    "phase2_removable_files": 1185,
+    "phase2_ssot_files": 0,
+    "phase3_files_removed": 1185,
+    "phase3_space_saved": 10470733,
+    "phase4_files_locked": 16311,
+    "phase4_ssot_files_locked": 0,
+    "errors": 2
+  },
+  "file_counts": {
+    "essential_files": 16311,
+    "removable_files": 1185,
+    "locked_files": 16311,
+    "ssot_files": 0,
+    "ssot_locked_files": 0
+  },
+  "ssot_status": {
+    "total_ssot_files": 0,
+    "files_by_category": {
+      "configuration": 0,
+      "source_code": 0,
+      "database": 0,
+      "documentation": 0,
+      "deployment": 0,
+      "security": 0,
+      "monitoring": 0,
+      "integration": 0
+    },
+    "files_by_priority": {
+      "CRITICAL": 0,
+      "HIGH": 0,
+      "MEDIUM": 0,
+      "LOW": 0
+    },
+    "locked_files": 0,
+    "stats": {
+      "ssot_files_marked": 0,
+      "ssot_files_updated": 0,
+      "ssot_files_locked": 0,
+      "errors": 0
+    }
+  },
+  "space_saved_mb": 9.985669136047363,
+  "errors": 2
+}

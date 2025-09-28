@@ -1,0 +1,49 @@
+# Markdownlint configuration for NEXUS Platform
+# Ensures consistent markdown formatting across documentation
+
+# Enable all rules by default
+default: true
+
+# Customize specific rules
+MD013:
+  line_length: 100 # Overridden by file-specific settings if present
+  code_blocks: false
+  tables: false
+  headers: false
+  html: false
+MD033: false # Inline HTML - allowed for complex formatting
+MD041: false # First line heading - disabled for flexibility
+
+# Configure specific rules
+MD024:
+  siblings_only: true # Allow duplicate headings in different sections
+
+MD029:
+  style: ordered # Use ordered list style
+
+MD033:
+  allowed_elements:
+    - br
+    - hr
+    - img
+    - table
+    - thead
+    - tbody
+    - tr
+    - th
+    - td
+    - div
+    - span
+    - code
+    - pre
+
+# Ignore patterns
+ignore:
+  - "node_modules/**"
+  - "venv/**"
+  - "**/__pycache__/**"
+  - "**/build/**"
+  - "**/dist/**"
+  - "**/.git/**"
+  - "**/archives/**"
+  - "**/docs_backup_phase3/**"

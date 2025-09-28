@@ -1,0 +1,1427 @@
+openapi: 3.0.3
+info:
+  title: NEXUS Platform API
+  description: |
+    # NEXUS Platform - Unified Backend API
+
+    A comprehensive, AI-powered platform providing unified services for modern applications.
+
+    ## Features
+
+    * **SSOT (Single Source of Truth)**: Centralized configuration and alias management
+    * **API Registry**: Service discovery and integration
+    * **Rate Limiting**: Advanced rate limiting with multiple strategies
+    * **Authentication**: JWT-based authentication with MFA support
+    * **Financial Services**: Account management and transaction processing
+    * **AI Services**: Chat, insights, and optimization features
+    * **Monitoring**: Comprehensive system and performance monitoring
+    * **Deployment**: Blue-green deployment and rollback capabilities
+
+    ## Authentication
+
+    Most endpoints require authentication. Include the JWT token in the Authorization header:
+
+    ```
+    Authorization: Bearer <your-jwt-token>
+    ```
+
+    ## Rate Limiting
+
+    API requests are rate-limited. Check the response headers for limit information:
+    - `X-RateLimit-Limit`: Maximum requests per window
+    - `X-RateLimit-Remaining`: Remaining requests
+    - `X-RateLimit-Reset`: Time when limit resets
+
+    ## Versioning
+
+    API endpoints support versioning. Use the version prefix in the URL:
+    - `v1`: Legacy endpoints
+    - `v3`: Current stable version
+
+    ## Error Responses
+
+    All error responses follow this format:
+
+    ```json
+    {
+      "error": "ErrorType",
+      "message": "Human-readable error message",
+      "details": {}
+    }
+    ```
+  version: "3.0.0"
+  contact:
+    name: NEXUS Platform Support
+    email: support@nexus-platform.com
+    url: https://nexus-platform.com/support
+  license:
+    name: Proprietary
+    url: https://nexus-platform.com/license
+
+servers:
+  - url: https://api.nexus-platform.com
+    description: Production server
+  - url: https://staging-api.nexus-platform.com
+    description: Staging server
+  - url: http://localhost:8000
+    description: Local development server
+
+security:
+  - BearerAuth: []
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      description: Check the health status of the API service
+      tags:
+        - System
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "healthy"
+                  timestamp:
+                    type: string
+                    format: date-time
+                  version:
+                    type: string
+                    example: "3.0.0"
+
+  /api/v3/ssot/aliases:
+    get:
+      summary: List all aliases
+      description: Retrieve all SSOT aliases
+      tags:
+        - SSOT
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: List of aliases
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    alias:
+                      type: string
+                    canonical_name:
+                      type: string
+                    created_at:
+                      type: string
+                      format: date-time
+    post:
+      summary: Create new alias
+      description: Create a new SSOT alias
+      tags:
+        - SSOT
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - alias
+                - canonical_name
+              properties:
+                alias:
+                  type: string
+                canonical_name:
+                  type: string
+                metadata:
+                  type: object
+      responses:
+        '201':
+          description: Alias created successfully
+
+  /api/v3/ssot/resolve/{alias}:
+    get:
+      summary: Resolve SSOT alias
+      description: Resolve an alias to its canonical endpoint using the Single Source of Truth system
+      tags:
+        - SSOT
+      parameters:
+        - name: alias
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "user-profile"
+        - name: context
+          in: query
+          schema:
+            type: string
+            default: "frontend"
+            enum: ["frontend", "backend", "mobile", "api"]
+          example: "frontend"
+      responses:
+        '200':
+          description: Alias resolved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  alias:
+                    type: string
+                    example: "user-profile"
+                  canonical:
+                    type: string
+                    example: "/api/v3/users/profile"
+                  context:
+                    type: string
+                    example: "frontend"
+                  success:
+                    type: boolean
+                    example: true
+        '404':
+          description: Alias not found
+
+  /api/v3/monitoring/health:
+    get:
+      summary: System health status
+      description: Get comprehensive system health information
+      tags:
+        - Monitoring
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: System health information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  services:
+                    type: object
+                  timestamp:
+                    type: string
+                    format: date-time
+
+  /api/v3/monitoring/metrics:
+    get:
+      summary: System metrics
+      description: Get system performance metrics
+      tags:
+        - Monitoring
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: System metrics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cpu_usage:
+                    type: number
+                    format: float
+                  memory_usage:
+                    type: number
+                    format: float
+                  disk_usage:
+                    type: number
+                    format: float
+                  network_traffic:
+                    type: object
+                    properties:
+                      in:
+                        type: number
+                        format: float
+                      out:
+                        type: number
+                        format: float
+                  uptime:
+                    type: number
+                    format: float
+                  process_count:
+                    type: integer
+
+  /api/v3/auth/login:
+    post:
+      summary: User login
+      description: Authenticate a user and return a JWT token
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "user@example.com"
+                password:
+                  type: string
+                  format: password
+                  example: "securePassword123"
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Login successful"
+                  status:
+                    type: string
+                    example: "success"
+                  token:
+                    type: string
+                    example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                  user:
+                    type: string
+                    example: "user@example.com"
+                  expires_in:
+                    type: integer
+                    example: 3600
+        '400':
+          description: Invalid credentials
+        '429':
+          description: Rate limit exceeded
+
+  /api/v3/auth/register:
+    post:
+      summary: User registration
+      description: Create a new user account
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "newuser@example.com"
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+                  example: "SecurePass123"
+                name:
+                  type: string
+                  example: "John Doe"
+      responses:
+        '200':
+          description: Registration successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User registered successfully"
+                  status:
+                    type: string
+                    example: "success"
+                  user:
+                    type: string
+                    example: "newuser@example.com"
+        '400':
+          description: Invalid input or user already exists
+        '429':
+          description: Rate limit exceeded
+
+  /api/v3/financial/accounts:
+    get:
+      summary: Get user accounts
+      description: Retrieve all financial accounts for the authenticated user
+      tags:
+        - Financial Services
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          example: 1
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+            default: 50
+          example: 50
+        - name: fields
+          in: query
+          schema:
+            type: string
+          example: "id,name,balance"
+      responses:
+        '200':
+          description: Accounts retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Accounts retrieved"
+                  status:
+                    type: string
+                    example: "success"
+                  accounts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "acc-123"
+                        name:
+                          type: string
+                          example: "Checking Account"
+                        balance:
+                          type: number
+                          format: float
+                          example: 5000.00
+                        type:
+                          type: string
+                          enum: ["checking", "savings", "credit"]
+                          example: "checking"
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                        example: 1
+                      per_page:
+                        type: integer
+                        example: 50
+                      total:
+                        type: integer
+                        example: 3
+                      total_pages:
+                        type: integer
+                        example: 1
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+
+  /api/v3/ai/chat:
+    post:
+      summary: AI Chat
+      description: Send a message to the AI chat service
+      tags:
+        - AI Services
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  example: "What are my recent transactions?"
+                context:
+                  type: object
+                  example: {"user_id": "user-123", "session_id": "sess-456"}
+      responses:
+        '200':
+          description: AI response generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "AI response generated"
+                  status:
+                    type: string
+                    example: "success"
+                  response:
+                    type: string
+                    example: "Based on your recent transactions, you've spent $450 on dining out this month..."
+                  timestamp:
+                    type: string
+                    format: date-time
+        '401':
+          description: Unauthorized
+        '429':
+          description: Rate limit exceeded
+
+  /api/v3/cache/stats:
+    get:
+      summary: Get cache statistics
+      description: Retrieve Redis cache performance statistics
+      tags:
+        - Cache Management
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Cache statistics retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Cache statistics retrieved"
+                  stats:
+                    type: object
+                    properties:
+                      hits:
+                        type: integer
+                        example: 15420
+                      misses:
+                        type: integer
+                        example: 2340
+                      sets:
+                        type: integer
+                        example: 12890
+                      deletes:
+                        type: integer
+                        example: 456
+                      hit_rate:
+                        type: number
+                        format: float
+                        example: 86.8
+                      total_keys:
+                        type: integer
+                        example: 1234
+                      memory_usage_mb:
+                        type: number
+                        format: float
+                        example: 256.7
+                      uptime_hours:
+                        type: number
+                        format: float
+                        example: 168.5
+
+  /api/v3/monitoring/dashboard:
+    get:
+      summary: Get monitoring dashboard
+      description: Retrieve comprehensive system monitoring data
+      tags:
+        - Monitoring
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Monitoring data retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Monitoring dashboard data retrieved"
+                  dashboard:
+                    type: object
+                    properties:
+                      system_health:
+                        type: object
+                        properties:
+                          cpu_percent:
+                            type: number
+                            example: 45.2
+                          memory_percent:
+                            type: number
+                            example: 67.8
+                          disk_percent:
+                            type: number
+                            example: 23.4
+                      active_alerts:
+                        type: integer
+                        example: 2
+                      recent_alerts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: "alert-123"
+                            severity:
+                              type: string
+                              enum: ["critical", "warning", "info"]
+                              example: "warning"
+                            message:
+                              type: string
+                              example: "High memory usage detected"
+                            timestamp:
+                              type: string
+                              format: date-time
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from /api/v3/auth/login
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "ValidationError"
+        message:
+          type: string
+          example: "Invalid input provided"
+        details:
+          type: object
+          example: {"field": "email", "issue": "invalid format"}
+
+    PaginationParams:
+      type: object
+      properties:
+        page:
+          type: integer
+          minimum: 1
+          default: 1
+          example: 1
+        per_page:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 50
+          example: 50
+        sort_by:
+          type: string
+          example: "created_at"
+        sort_order:
+          type: string
+          enum: ["asc", "desc"]
+          default: "asc"
+          example: "desc"
+
+    UserProfileUpdate:
+      type: object
+      properties:
+        full_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        email:
+          type: string
+          format: email
+      additionalProperties: false
+
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        full_name:
+          type: string
+          nullable: true
+        role:
+          type: string
+          enum: [admin, user, auditor]
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - username
+        - email
+        - role
+        - is_active
+        - created_at
+
+    AccountCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        account_type:
+          type: string
+          enum: [checking, savings, credit_card, investment, loan]
+        balance:
+          type: number
+          format: decimal
+          minimum: 0
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+          default: USD
+        institution:
+          type: string
+          maxLength: 100
+        account_number:
+          type: string
+          maxLength: 50
+        is_active:
+          type: boolean
+          default: true
+      required:
+        - name
+        - account_type
+        - balance
+
+    AccountUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        balance:
+          type: number
+          format: decimal
+          minimum: 0
+        institution:
+          type: string
+          maxLength: 100
+        account_number:
+          type: string
+          maxLength: 50
+        is_active:
+          type: boolean
+      additionalProperties: false
+
+    AccountResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        name:
+          type: string
+        account_type:
+          type: string
+          enum: [checking, savings, credit_card, investment, loan]
+        balance:
+          type: number
+          format: decimal
+        currency:
+          type: string
+        institution:
+          type: string
+          nullable: true
+        account_number:
+          type: string
+          nullable: true
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - user_id
+        - name
+        - account_type
+        - balance
+        - currency
+        - is_active
+        - created_at
+        - updated_at
+
+    AccountListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountResponse'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+      required:
+        - data
+        - meta
+
+    TransactionCreate:
+      type: object
+      properties:
+        account_id:
+          type: integer
+        amount:
+          type: number
+          format: decimal
+          minimum: 0.01
+        description:
+          type: string
+          minLength: 1
+          maxLength: 500
+        transaction_type:
+          type: string
+          enum: [income, expense, transfer]
+        category_id:
+          type: integer
+          nullable: true
+        transaction_date:
+          type: string
+          format: date-time
+          nullable: true
+        reference_number:
+          type: string
+          maxLength: 100
+          nullable: true
+        notes:
+          type: string
+          maxLength: 1000
+          nullable: true
+        tags:
+          type: array
+          items:
+            type: string
+          maxItems: 10
+          nullable: true
+      required:
+        - account_id
+        - amount
+        - description
+        - transaction_type
+
+    TransactionUpdate:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: decimal
+          minimum: 0.01
+        description:
+          type: string
+          minLength: 1
+          maxLength: 500
+        category_id:
+          type: integer
+          nullable: true
+        notes:
+          type: string
+          maxLength: 1000
+          nullable: true
+        tags:
+          type: array
+          items:
+            type: string
+          maxItems: 10
+          nullable: true
+        status:
+          type: string
+          enum: [pending, completed, cancelled, failed]
+      additionalProperties: false
+
+    TransactionResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        account_id:
+          type: integer
+        amount:
+          type: number
+          format: decimal
+        description:
+          type: string
+        transaction_type:
+          type: string
+          enum: [income, expense, transfer]
+        category_id:
+          type: integer
+          nullable: true
+        status:
+          type: string
+          enum: [pending, completed, cancelled, failed]
+        transaction_date:
+          type: string
+          format: date-time
+        reference_number:
+          type: string
+          nullable: true
+        notes:
+          type: string
+          nullable: true
+        tags:
+          type: array
+          items:
+            type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+        - id
+        - user_id
+        - account_id
+        - amount
+        - description
+        - transaction_type
+        - status
+        - transaction_date
+        - created_at
+        - updated_at
+
+    TransactionListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionResponse'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+      required:
+        - data
+        - meta
+
+    TransactionSummary:
+      type: object
+      properties:
+        total_income:
+          type: number
+          format: decimal
+        total_expenses:
+          type: number
+          format: decimal
+        net_amount:
+          type: number
+          format: decimal
+        transaction_count:
+          type: integer
+        categories:
+          type: object
+          additionalProperties:
+            type: number
+            format: decimal
+
+    AnalyticsDashboard:
+      type: object
+      properties:
+        period:
+          type: string
+          example: "month"
+        currency:
+          type: string
+          example: "USD"
+        summary:
+          $ref: '#/components/schemas/TransactionSummary'
+        trends:
+          type: object
+          properties:
+            income_trend:
+              type: array
+              items:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date
+                  amount:
+                    type: number
+                    format: decimal
+            expense_trend:
+              type: array
+              items:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date
+                  amount:
+                    type: number
+                    format: decimal
+        categories:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              total:
+                type: number
+                format: decimal
+              percentage:
+                type: number
+                format: decimal
+              trend:
+                type: string
+                enum: [up, down, stable]
+        predictions:
+          type: object
+          properties:
+            next_month_income:
+              type: number
+              format: decimal
+            next_month_expenses:
+              type: number
+              format: decimal
+            savings_goal_progress:
+              type: number
+              format: decimal
+
+    Budget:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: "Monthly Budget"
+        period:
+          type: string
+          enum: [weekly, monthly, quarterly, yearly]
+          example: "monthly"
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        categories:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              budgeted:
+                type: number
+                format: decimal
+              spent:
+                type: number
+                format: decimal
+              remaining:
+                type: number
+                format: decimal
+        total_budgeted:
+          type: number
+          format: decimal
+        total_spent:
+          type: number
+          format: decimal
+        total_remaining:
+          type: number
+          format: decimal
+        status:
+          type: string
+          enum: [active, completed, exceeded]
+          example: "active"
+
+    BudgetCreate:
+      type: object
+      required:
+        - name
+        - period
+        - start_date
+        - end_date
+        - categories
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        period:
+          type: string
+          enum: [weekly, monthly, quarterly, yearly]
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        categories:
+          type: object
+          additionalProperties:
+            type: number
+            format: decimal
+            minimum: 0
+
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        limit:
+          type: integer
+          example: 20
+        total:
+          type: integer
+          example: 150
+        total_pages:
+          type: integer
+          example: 8
+        has_next:
+          type: boolean
+          example: true
+        has_prev:
+          type: boolean
+          example: false
+
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        amount:
+          type: number
+          format: decimal
+          example: 123.45
+        currency:
+          type: string
+          example: "USD"
+        type:
+          type: string
+          enum: [income, expense, transfer]
+          example: "expense"
+        category:
+          type: string
+          example: "groceries"
+        description:
+          type: string
+          example: "Weekly grocery shopping"
+        date:
+          type: string
+          format: date
+        tags:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    TransactionCreate:
+      type: object
+      required:
+        - amount
+        - currency
+        - type
+        - category
+        - description
+        - date
+      properties:
+        amount:
+          type: number
+          format: decimal
+          minimum: 0
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+        type:
+          type: string
+          enum: [income, expense, transfer]
+        category:
+          type: string
+          minLength: 1
+          maxLength: 50
+        description:
+          type: string
+          minLength: 1
+          maxLength: 500
+        date:
+          type: string
+          format: date
+        tags:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+
+    TransactionUpdate:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: decimal
+          minimum: 0
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+        type:
+          type: string
+          enum: [income, expense, transfer]
+        category:
+          type: string
+          minLength: 1
+          maxLength: 50
+        description:
+          type: string
+          minLength: 1
+          maxLength: 500
+        date:
+          type: string
+          format: date
+        tags:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+
+    TransactionSummary:
+      type: object
+      properties:
+        total_income:
+          type: number
+          format: decimal
+        total_expenses:
+          type: number
+          format: decimal
+        net_amount:
+          type: number
+          format: decimal
+        transaction_count:
+          type: integer
+        categories:
+          type: object
+          additionalProperties:
+            type: number
+            format: decimal
+
+    AnalyticsDashboard:
+      type: object
+      properties:
+        period:
+          type: string
+          example: "month"
+        currency:
+          type: string
+          example: "USD"
+        summary:
+          $ref: '#/components/schemas/TransactionSummary'
+        trends:
+          type: object
+          properties:
+            income_trend:
+              type: array
+              items:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date
+                  amount:
+                    type: number
+                    format: decimal
+            expense_trend:
+              type: array
+              items:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date
+                  amount:
+                    type: number
+                    format: decimal
+        categories:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              total:
+                type: number
+                format: decimal
+              percentage:
+                type: number
+                format: decimal
+              trend:
+                type: string
+                enum: [up, down, stable]
+        predictions:
+          type: object
+          properties:
+            next_month_income:
+              type: number
+              format: decimal
+            next_month_expenses:
+              type: number
+              format: decimal
+            savings_goal_progress:
+              type: number
+              format: decimal
+
+    Budget:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: "Monthly Budget"
+        period:
+          type: string
+          enum: [weekly, monthly, quarterly, yearly]
+          example: "monthly"
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        categories:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              budgeted:
+                type: number
+                format: decimal
+              spent:
+                type: number
+                format: decimal
+              remaining:
+                type: number
+                format: decimal
+        total_budgeted:
+          type: number
+          format: decimal
+        total_spent:
+          type: number
+          format: decimal
+        total_remaining:
+          type: number
+          format: decimal
+        status:
+          type: string
+          enum: [active, completed, exceeded]
+          example: "active"
+
+    BudgetCreate:
+      type: object
+      required:
+        - name
+        - period
+        - start_date
+        - end_date
+        - categories
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        period:
+          type: string
+          enum: [weekly, monthly, quarterly, yearly]
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        categories:
+          type: object
+          additionalProperties:
+            type: number
+            format: decimal
+            minimum: 0
+
+  parameters:
+    VersionParam:
+      name: version
+      in: path
+      required: true
+      schema:
+        type: string
+        enum: ["v1", "v3"]
+        default: "v3"
+      description: API version
+      example: "v3"
+
+tags:
+  - name: Authentication
+    description: User authentication and authorization endpoints
+  - name: User Management
+    description: User profile and settings management
+  - name: Financial Services
+    description: Account and transaction management
+  - name: AI Services
+    description: AI-powered features and insights
+  - name: SSOT
+    description: Single Source of Truth operations
+  - name: API Registry
+    description: Service discovery and integration
+  - name: Monitoring
+    description: System monitoring and alerting
+  - name: Deployment
+    description: Deployment and rollback operations
+  - name: Cache Management
+    description: Redis cache operations
+  - name: Database Optimization
+    description: Database performance optimization
+  - name: System Administration
+    description: Administrative operations
+  - name: System
+    description: System health and status endpoints

@@ -1,0 +1,107 @@
+{
+  "analysis_timestamp": "2025-01-27T12:00:00Z",
+  "duplicate_files": [
+    {
+      "pattern": "prometheus.yml",
+      "files": [
+        ".monitoring/grafana/provisioning/datasources/prometheus.yml",
+        ".monitoring/prometheus/prometheus.yml",
+        "config/.monitoring/prometheus.yml",
+        "config/docker/prometheus.yml",
+        "config/development/prometheus.yml"
+      ],
+      "recommended_ssot": "config/monitoring/prometheus.yml",
+      "consolidation_strategy": "merge_configs"
+    },
+    {
+      "pattern": "docker-compose.yml",
+      "files": [
+        "docker-compose.yml",
+        "config/docker/docker-compose.yaml",
+        "docker-compose.optimized.yml"
+      ],
+      "recommended_ssot": "docker-compose.yml",
+      "consolidation_strategy": "keep_primary"
+    },
+    {
+      "pattern": "package.json",
+      "files": [
+        "frontend/web/package.json",
+        "frontend/web/package.optimized.json",
+        "frontend/web/mobile/package.json"
+      ],
+      "recommended_ssot": "frontend/web/package.json",
+      "consolidation_strategy": "merge_dependencies"
+    },
+    {
+      "pattern": "tsconfig.json",
+      "files": [
+        "frontend/web/tsconfig.json",
+        "frontend/web/tsconfig.optimized.json",
+        "frontend/web/mobile/tsconfig.json"
+      ],
+      "recommended_ssot": "frontend/web/tsconfig.json",
+      "consolidation_strategy": "merge_configs"
+    },
+    {
+      "pattern": "nginx.conf",
+      "files": [
+        "nginx.conf",
+        "nginx-simple.conf",
+        "frontend-nginx-simple.conf",
+        "config/nginx/nginx.dev.conf",
+        "config/nginx/nginx.prod.conf"
+      ],
+      "recommended_ssot": "nginx/nginx.conf",
+      "consolidation_strategy": "environment_based"
+    }
+  ],
+  "near_duplicates": [
+    {
+      "pattern": "api_config",
+      "files": [
+        "frontend/web/src/config/api.ts",
+        "frontend/web/generated/api-gateway.ts",
+        "frontend/web/generated/user-service.ts"
+      ],
+      "similarity_score": 0.85,
+      "recommended_ssot": "frontend/web/src/config/api.ts"
+    },
+    {
+      "pattern": "database_config",
+      "files": [
+        "config/database/database_schema.yml",
+        "config/database/financial_database_config.json",
+        "config/database/unified-config.json"
+      ],
+      "similarity_score": 0.7,
+      "recommended_ssot": "config/database/database_schema.yml"
+    }
+  ],
+  "consolidation_recommendations": [
+    {
+      "target_ssot": "config/monitoring/prometheus.yml",
+      "source_files": [
+        ".monitoring/grafana/provisioning/datasources/prometheus.yml",
+        ".monitoring/prometheus/prometheus.yml",
+        "config/.monitoring/prometheus.yml",
+        "config/docker/prometheus.yml",
+        "config/development/prometheus.yml"
+      ],
+      "strategy": "merge_all_configs",
+      "priority": "high"
+    },
+    {
+      "target_ssot": "nginx/nginx.conf",
+      "source_files": [
+        "nginx.conf",
+        "nginx-simple.conf",
+        "frontend-nginx-simple.conf",
+        "config/nginx/nginx.dev.conf",
+        "config/nginx/nginx.prod.conf"
+      ],
+      "strategy": "environment_based_consolidation",
+      "priority": "medium"
+    }
+  ]
+}

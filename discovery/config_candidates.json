@@ -1,0 +1,179 @@
+{
+  "analysis_timestamp": "2025-01-27T12:00:00Z",
+  "configuration_candidates": {
+    "database_schema": {
+      "primary_candidate": "config/database/database_schema.yml",
+      "alternatives": [
+        "config/database/financial_database_config.json",
+        "config/database/unified-config.json",
+        "backend/database/schema_normalization.py"
+      ],
+      "schema_type": "yaml",
+      "centrality_score": 0.95,
+      "modification_frequency": "high",
+      "dependencies": 8,
+      "generates": 5
+    },
+    "api_contracts": {
+      "primary_candidate": "frontend/web/src/config/api.ts",
+      "alternatives": [
+        "frontend/web/generated/api-gateway.ts",
+        "frontend/web/generated/user-service.ts",
+        "config/environment/openapi.yaml"
+      ],
+      "schema_type": "typescript",
+      "centrality_score": 0.9,
+      "modification_frequency": "high",
+      "dependencies": 6,
+      "generates": 7
+    },
+    "deployment_config": {
+      "primary_candidate": "docker-compose.yml",
+      "alternatives": [
+        "config/docker/docker-compose.yaml",
+        "config/kubernetes/consolidated_k8s.yaml",
+        "k8s/unified-manifests.yaml"
+      ],
+      "schema_type": "yaml",
+      "centrality_score": 0.85,
+      "modification_frequency": "medium",
+      "dependencies": 4,
+      "generates": 3
+    },
+    "environment_config": {
+      "primary_candidate": "config/unified.env",
+      "alternatives": [
+        "config/backend.env.production",
+        "config/frontend.env.production",
+        "config/optimized.env"
+      ],
+      "schema_type": "env",
+      "centrality_score": 0.8,
+      "modification_frequency": "medium",
+      "dependencies": 3,
+      "generates": 2
+    },
+    "security_policies": {
+      "primary_candidate": "config/policies.yaml",
+      "alternatives": [
+        "config/security/security_policies.yml",
+        "frenly_ai_rules.json",
+        "config/security.yaml"
+      ],
+      "schema_type": "yaml",
+      "centrality_score": 0.8,
+      "modification_frequency": "low",
+      "dependencies": 3,
+      "generates": 2
+    },
+    "monitoring_config": {
+      "primary_candidate": "config/monitoring/prometheus.yml",
+      "alternatives": [
+        ".monitoring/prometheus/prometheus.yml",
+        "config/docker/prometheus.yml",
+        "monitoring/unified-config.yaml"
+      ],
+      "schema_type": "yaml",
+      "centrality_score": 0.75,
+      "modification_frequency": "medium",
+      "dependencies": 2,
+      "generates": 3
+    },
+    "frontend_config": {
+      "primary_candidate": "frontend/web/package.json",
+      "alternatives": [
+        "frontend/web/tsconfig.json",
+        "frontend/web/webpack.config.js",
+        "frontend/web/babel.config.js"
+      ],
+      "schema_type": "json",
+      "centrality_score": 0.7,
+      "modification_frequency": "medium",
+      "dependencies": 2,
+      "generates": 4
+    },
+    "backend_config": {
+      "primary_candidate": "backend/requirements.txt",
+      "alternatives": [
+        "backend/config.yaml",
+        "pyproject.toml",
+        "backend/main_unified.py"
+      ],
+      "schema_type": "text",
+      "centrality_score": 0.65,
+      "modification_frequency": "medium",
+      "dependencies": 1,
+      "generates": 2
+    }
+  },
+  "ssot_families": [
+    {
+      "family": "database_schema",
+      "canonical_format": "yaml",
+      "primary_ssot": "config/database/database_schema.yml",
+      "scope": "tables, columns, indexes, constraints, triggers, views",
+      "dependencies": [
+        "backend/database/models.py",
+        "frontend/web/src/types/generated/database.ts"
+      ]
+    },
+    {
+      "family": "api_contracts",
+      "canonical_format": "typescript",
+      "primary_ssot": "frontend/web/src/config/api.ts",
+      "scope": "endpoints, schemas, authentication, versioning",
+      "dependencies": ["frontend/web/generated/", "docs/api/openapi.yaml"]
+    },
+    {
+      "family": "deployment_manifests",
+      "canonical_format": "yaml",
+      "primary_ssot": "docker-compose.yml",
+      "scope": "services, networks, volumes, environment variables",
+      "dependencies": ["k8s/", "config/docker/", "config/kubernetes/"]
+    },
+    {
+      "family": "environment_config",
+      "canonical_format": "env",
+      "primary_ssot": "config/unified.env",
+      "scope": "environment variables, secrets, feature flags",
+      "dependencies": ["config/backend.env.*", "config/frontend.env.*"]
+    },
+    {
+      "family": "security_policies",
+      "canonical_format": "yaml",
+      "primary_ssot": "config/policies.yaml",
+      "scope": "authentication, authorization, encryption, compliance",
+      "dependencies": ["config/security/", "frenly_ai_rules.json"]
+    },
+    {
+      "family": "monitoring_config",
+      "canonical_format": "yaml",
+      "primary_ssot": "config/monitoring/prometheus.yml",
+      "scope": "metrics, alerts, dashboards, logging",
+      "dependencies": ["config/monitoring/", ".monitoring/"]
+    },
+    {
+      "family": "frontend_config",
+      "canonical_format": "json",
+      "primary_ssot": "frontend/web/package.json",
+      "scope": "dependencies, build configs, scripts",
+      "dependencies": [
+        "frontend/web/tsconfig.json",
+        "frontend/web/webpack.config.js"
+      ]
+    },
+    {
+      "family": "backend_config",
+      "canonical_format": "toml",
+      "primary_ssot": "pyproject.toml",
+      "scope": "dependencies, build configs, scripts",
+      "dependencies": ["backend/requirements.txt", "backend/config.yaml"]
+    }
+  ],
+  "scoring_criteria": {
+    "centrality_weight": 0.4,
+    "modification_frequency_weight": 0.3,
+    "dependencies_weight": 0.2,
+    "generates_weight": 0.1
+  }
+}

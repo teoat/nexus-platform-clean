@@ -1,0 +1,12 @@
+dependencies:
+  - kubernetes
+metadata:
+  alert_rules: default
+  grafana_url: http://grafana:3000
+  prometheus_url: http://prometheus:9090
+name: monitoring_config
+type: monitoring
+validation_rules:
+  - endpoint_check
+  - metric_validation
+version: 1.0.0

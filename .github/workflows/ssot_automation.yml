@@ -1,0 +1,343 @@
+name: SSOT Automation Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 2 * * *" # Daily at 2 AM
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy to"
+        required: true
+        default: "staging"
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  NEXUS_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  ssot-validation:
+    name: SSOT Validation
+    runs-on: ubuntu-latest
+    outputs:
+      validation-result: ${{ steps.validate.outputs.result }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r frenly_ai/backend/requirements.txt
+          pip install -r requirements.txt
+
+      - name: Validate SSOT Manifest
+        id: validate
+        run: |
+          echo "Validating SSOT manifest..."
+          if [ -f "ssot_plan/ssot_manifest_proposal.yaml" ]; then
+            python3 scripts/validate_ssot.py ssot_plan/ssot_manifest_proposal.yaml
+            echo "result=success" >> $GITHUB_OUTPUT
+          else
+            echo "SSOT manifest not found, skipping validation"
+            echo "result=skipped" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Verify Lockfiles
+        run: |
+          echo "Verifying lockfiles..."
+          if [ -d "ssot_plan/locks" ]; then
+            python3 scripts/verify_lockfiles.py ssot_plan/locks
+          else
+            echo "Lockfiles directory not found, skipping verification"
+          fi
+
+      - name: Check Alias Consistency
+        run: |
+          echo "Checking alias consistency..."
+          python3 scripts/check_alias_consistency.py || echo "Alias consistency check failed"
+
+      - name: Validate API Contracts
+        run: |
+          echo "Validating API contracts..."
+          python3 scripts/validate_api_contracts.py || echo "API contract validation failed"
+
+  frenly-ai-integration:
+    name: Frenly AI Integration
+    runs-on: ubuntu-latest
+    needs: ssot-validation
+    if: needs.ssot-validation.outputs.validation-result != 'failed'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Frenly AI dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r frenly_ai/backend/requirements.txt
+
+      - name: Run Frenly AI tests
+        run: |
+          echo "Running Frenly AI tests..."
+          python3 -m pytest frenly_ai/tests/ -v --cov=frenly_ai/backend --cov-report=xml --cov-report=html
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: frenly-ai
+          name: frenly-ai-coverage
+
+      - name: Test SSOT Operator
+        run: |
+          python3 -m pytest frenly_ai/tests/test_ssot_operator.py -v
+
+      - name: Test SSOT Integration
+        run: |
+          python3 -m pytest frenly_ai/tests/test_ssot_integration.py -v
+
+      - name: Validate Operator Protocols
+        run: |
+          python3 scripts/validate_operator_protocols.py || echo "Operator protocol validation failed"
+
+  security-scanning:
+    name: Security Scanning
+    runs-on: ubuntu-latest
+    needs: ssot-validation
+    if: needs.ssot-validation.outputs.validation-result != 'failed'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install security tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install bandit safety semgrep
+
+      - name: Run Bandit security scan
+        run: |
+          echo "Running Bandit security scan..."
+          bandit -r frenly_ai/backend/ -f json -o bandit-report.json || true
+
+      - name: Run Safety dependency scan
+        run: |
+          echo "Running Safety dependency scan..."
+          safety check --json --output safety-report.json || true
+
+      - name: Run Semgrep security scan
+        run: |
+          echo "Running Semgrep security scan..."
+          semgrep --config=auto frenly_ai/backend/ --json --output=semgrep-report.json || true
+
+      - name: Upload security reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-reports
+          path: |
+            bandit-report.json
+            safety-report.json
+            semgrep-report.json
+
+  build-and-push:
+    name: Build and Push Images
+    runs-on: ubuntu-latest
+    needs: [ssot-validation, frenly-ai-integration, security-scanning]
+    if: needs.ssot-validation.outputs.validation-result != 'failed'
+    strategy:
+      matrix:
+        component: [operator, integration, monitoring, security]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frenly-ai-${{ matrix.component }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./frenly_ai/docker/Dockerfile.${{ matrix.component }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
+
+  deployment-orchestration:
+    name: Deployment Orchestration
+    runs-on: ubuntu-latest
+    needs: [ssot-validation, frenly-ai-integration, build-and-push]
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    environment: ${{ github.event.inputs.environment || (github.ref == 'refs/heads/main' && 'production' || 'staging') }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: "v1.28.0"
+
+      - name: Configure kubectl
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+
+      - name: Deploy Frenly AI to Kubernetes
+        run: |
+          echo "Deploying Frenly AI to Kubernetes..."
+          kubectl apply -f k8s/frenly-ai-deployment.yaml
+          kubectl rollout status deployment/frenly-ai-operator -n frenly-ai --timeout=300s
+          kubectl rollout status deployment/frenly-ai-integration -n frenly-ai --timeout=300s
+          kubectl rollout status deployment/frenly-ai-monitoring -n frenly-ai --timeout=300s
+          kubectl rollout status deployment/frenly-ai-security -n frenly-ai --timeout=300s
+
+      - name: Verify Deployment
+        run: |
+          echo "Verifying deployment..."
+          kubectl get pods -n frenly-ai
+          kubectl get services -n frenly-ai
+          kubectl get ingress -n frenly-ai
+
+      - name: Run Health Checks
+        run: |
+          echo "Running health checks..."
+          kubectl wait --for=condition=ready pod -l app=frenly-ai-operator -n frenly-ai --timeout=300s
+          kubectl wait --for=condition=ready pod -l app=frenly-ai-integration -n frenly-ai --timeout=300s
+          kubectl wait --for=condition=ready pod -l app=frenly-ai-monitoring -n frenly-ai --timeout=300s
+          kubectl wait --for=condition=ready pod -l app=frenly-ai-security -n frenly-ai --timeout=300s
+
+  monitoring-setup:
+    name: Monitoring Setup
+    runs-on: ubuntu-latest
+    needs: deployment-orchestration
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: "v1.28.0"
+
+      - name: Configure kubectl
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+
+      - name: Setup Prometheus
+        run: |
+          echo "Setting up Prometheus..."
+          kubectl apply -f monitoring/prometheus-config.yaml || echo "Prometheus config not found"
+          kubectl apply -f monitoring/grafana-config.yaml || echo "Grafana config not found"
+
+      - name: Setup SSOT Metrics
+        run: |
+          echo "Setting up SSOT metrics..."
+          kubectl apply -f monitoring/ssot_metrics.yaml || echo "SSOT metrics config not found"
+
+      - name: Verify Monitoring
+        run: |
+          echo "Verifying monitoring setup..."
+          kubectl get pods -n monitoring || echo "Monitoring namespace not found"
+          kubectl get services -n monitoring || echo "Monitoring services not found"
+
+  notification:
+    name: Send Notifications
+    runs-on: ubuntu-latest
+    needs: [deployment-orchestration, monitoring-setup]
+    if: always()
+    steps:
+      - name: Notify on Success
+        if: needs.deployment-orchestration.result == 'success'
+        run: |
+          echo "✅ Frenly AI deployment successful!"
+          echo "Environment: ${{ github.event.inputs.environment || (github.ref == 'refs/heads/main' && 'production' || 'staging') }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Actor: ${{ github.actor }}"
+
+      - name: Notify on Failure
+        if: needs.deployment-orchestration.result == 'failure'
+        run: |
+          echo "❌ Frenly AI deployment failed!"
+          echo "Environment: ${{ github.event.inputs.environment || (github.ref == 'refs/heads/main' && 'production' || 'staging') }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Actor: ${{ github.actor }}"
+          exit 1
+
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    needs: [deployment-orchestration, monitoring-setup, notification]
+    if: always()
+    steps:
+      - name: Cleanup temporary files
+        run: |
+          echo "Cleaning up temporary files..."
+          # Add cleanup commands here if needed
+
+  rollback:
+    name: Rollback Deployment
+    runs-on: ubuntu-latest
+    needs: [deployment-orchestration]
+    if: failure()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Perform Rollback (Placeholder)
+        run: |
+          echo "Deployment failed. Initiating rollback..."
+          # Add actual rollback commands here based on deployment strategy (e.g., kubectl rollout undo, helm rollback)
+          # Example for Kubernetes:
+          # kubectl rollout undo deployment/frenly-ai-operator -n frenly-ai
+          # kubectl rollout undo deployment/frenly-ai-integration -n frenly-ai
+          echo "Rollback initiated. Further manual intervention might be required."

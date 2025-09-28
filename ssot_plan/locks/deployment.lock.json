@@ -1,0 +1,49 @@
+{
+  "lock_version": 1,
+  "workflow": "deployment",
+  "generated_at": "2025-01-27T12:30:00Z",
+  "anchors": {
+    "api_contracts": {
+      "version": "v1.2.3",
+      "sha256": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+      "source": "config/ssot/api_contract_registry.yaml",
+      "last_modified": "2025-01-27T10:15:00Z",
+      "dependencies": ["database_schema"]
+    },
+    "database_schema": {
+      "version": "v4.5.6",
+      "sha256": "b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef1234567",
+      "source": "config/ssot/database_schema_registry.yaml",
+      "last_modified": "2025-01-27T09:30:00Z",
+      "dependencies": []
+    },
+    "kubernetes_manifests": {
+      "version": "v2.1.0",
+      "sha256": "c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678",
+      "source": "config/ssot/kubernetes_registry.yaml",
+      "last_modified": "2025-01-27T11:45:00Z",
+      "dependencies": ["api_contracts", "database_schema"]
+    },
+    "docker_configurations": {
+      "version": "v1.8.2",
+      "sha256": "d4e5f6789012345678901234567890abcdef1234567890abcdef123456789",
+      "source": "config/ssot/docker_registry.yaml",
+      "last_modified": "2025-01-27T11:20:00Z",
+      "dependencies": ["kubernetes_manifests"]
+    },
+    "environment_config": {
+      "version": "v3.0.1",
+      "sha256": "e5f6789012345678901234567890abcdef1234567890abcdef1234567890ab",
+      "source": "config/ssot/environment_registry.yaml",
+      "last_modified": "2025-01-27T12:00:00Z",
+      "dependencies": ["kubernetes_manifests", "docker_configurations"]
+    }
+  },
+  "notes": "Lockfile created by SSOTRegistrar for deployment workflow. Use only via PR to modify.",
+  "metadata": {
+    "generator": "SSOTRegistrar v1.0.0",
+    "environment": "production",
+    "team": "@nexus-devops-team",
+    "reviewers": ["@nexus-platform-team", "@nexus-devops-team"]
+  }
+}

@@ -1,0 +1,49 @@
+# Elasticsearch configuration for NEXUS Platform
+cluster.name: nexus-cluster
+node.name: nexus-elasticsearch
+path.data: /usr/share/elasticsearch/data
+path.logs: /usr/share/elasticsearch/logs
+
+# Network configuration
+network.host: 0.0.0.0
+http.port: 9200
+
+# Discovery and cluster formation
+discovery.type: single-node
+
+# Security (disabled for development, enable in production)
+xpack.security.enabled: false
+xpack.monitoring.enabled: false
+xpack.graph.enabled: false
+xpack.watcher.enabled: false
+xpack.ml.enabled: false
+
+# Memory configuration
+bootstrap.memory_lock: true
+
+# JVM options
+# These are set via environment variables in docker-compose
+
+# Index settings
+index.number_of_shards: 1
+index.number_of_replicas: 0
+
+# Thread pools
+thread_pool.search.size: 4
+thread_pool.index.size: 2
+thread_pool.bulk.size: 2
+
+# Circuit breaker settings
+indices.breaker.total.limit: 70%
+indices.breaker.fielddata.limit: 40%
+
+# Slow log settings
+index.search.slowlog.threshold.query.warn: 10s
+index.search.slowlog.threshold.query.info: 5s
+index.search.slowlog.threshold.query.debug: 2s
+index.search.slowlog.threshold.query.trace: 500ms
+
+index.indexing.slowlog.threshold.index.warn: 10s
+index.indexing.slowlog.threshold.index.info: 5s
+index.indexing.slowlog.threshold.index.debug: 2s
+index.indexing.slowlog.threshold.index.trace: 500ms

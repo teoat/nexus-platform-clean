@@ -1,0 +1,577 @@
+{
+  "generated_at": "2025-09-25T13:34:13.559482",
+  "total_files_scanned": 257633,
+  "total_original_size": 911286592,
+  "total_optimized_size": 0,
+  "total_space_saved": 0,
+  "optimization_summary": {
+    "assets_compressed": 0,
+    "binaries_stripped": 0,
+    "code_minified": 0
+  },
+  "file_type_breakdown": {
+    ".md": {
+      "count": 4044,
+      "total_size": 36925209
+    },
+    ".py": {
+      "count": 699,
+      "total_size": 8784197
+    },
+    ".js": {
+      "count": 62476,
+      "total_size": 273650799
+    },
+    ".pid": {
+      "count": 3,
+      "total_size": 31
+    },
+    ".key": {
+      "count": 7,
+      "total_size": 10151
+    },
+    ".production": {
+      "count": 8,
+      "total_size": 18133
+    },
+    ".prod": {
+      "count": 2,
+      "total_size": 2128
+    },
+    ".json": {
+      "count": 15612,
+      "total_size": 64254546
+    },
+    ".orchestrated": {
+      "count": 1,
+      "total_size": 2164
+    },
+    ".conf": {
+      "count": 28,
+      "total_size": 89174
+    },
+    "": {
+      "count": 111076,
+      "total_size": 235081438
+    },
+    ".yml": {
+      "count": 332,
+      "total_size": 638604
+    },
+    ".ini": {
+      "count": 6,
+      "total_size": 6246
+    },
+    ".rdb": {
+      "count": 1,
+      "total_size": 88
+    },
+    ".txt": {
+      "count": 157,
+      "total_size": 1182526
+    },
+    ".staging": {
+      "count": 2,
+      "total_size": 6218
+    },
+    ".acl": {
+      "count": 1,
+      "total_size": 62
+    },
+    ".db": {
+      "count": 7,
+      "total_size": 729088
+    },
+    ".yaml": {
+      "count": 92,
+      "total_size": 3486692
+    },
+    ".agents": {
+      "count": 1,
+      "total_size": 1014
+    },
+    ".sh": {
+      "count": 77,
+      "total_size": 387576
+    },
+    ".backup": {
+      "count": 2,
+      "total_size": 3752
+    },
+    ".backend": {
+      "count": 1,
+      "total_size": 859
+    },
+    ".jpeg": {
+      "count": 1,
+      "total_size": 525230
+    },
+    ".frenly": {
+      "count": 1,
+      "total_size": 910
+    },
+    ".secure": {
+      "count": 1,
+      "total_size": 3666
+    },
+    ".template": {
+      "count": 2,
+      "total_size": 4695
+    },
+    ".self-healer": {
+      "count": 1,
+      "total_size": 927
+    },
+    ".frenly-brain": {
+      "count": 1,
+      "total_size": 1032
+    },
+    ".example": {
+      "count": 6,
+      "total_size": 6172
+    },
+    ".auto-scaler": {
+      "count": 1,
+      "total_size": 625
+    },
+    ".monitoring": {
+      "count": 1,
+      "total_size": 1133
+    },
+    ".development": {
+      "count": 4,
+      "total_size": 6121
+    },
+    ".frontend": {
+      "count": 1,
+      "total_size": 1085
+    },
+    ".mako": {
+      "count": 1,
+      "total_size": 510
+    },
+    ".pkl": {
+      "count": 2,
+      "total_size": 63136
+    },
+    ".mdc": {
+      "count": 3,
+      "total_size": 45910
+    },
+    ".pem": {
+      "count": 4,
+      "total_size": 302800
+    },
+    ".csr": {
+      "count": 1,
+      "total_size": 1025
+    },
+    ".crt": {
+      "count": 7,
+      "total_size": 10821
+    },
+    ".html": {
+      "count": 43,
+      "total_size": 1431359
+    },
+    ".simple": {
+      "count": 2,
+      "total_size": 2052
+    },
+    ".ts": {
+      "count": 24059,
+      "total_size": 47239692
+    },
+    ".cjs": {
+      "count": 656,
+      "total_size": 10711186
+    },
+    ".mjs": {
+      "count": 2360,
+      "total_size": 14016214
+    },
+    ".mts": {
+      "count": 1697,
+      "total_size": 2126322
+    },
+    ".tsbuildinfo": {
+      "count": 20,
+      "total_size": 970814
+    },
+    ".map": {
+      "count": 4439,
+      "total_size": 58821599
+    },
+    ".swf": {
+      "count": 1,
+      "total_size": 21162
+    },
+    ".css": {
+      "count": 551,
+      "total_size": 1464759
+    },
+    ".bnf": {
+      "count": 11,
+      "total_size": 6809
+    },
+    ".1": {
+      "count": 5,
+      "total_size": 37694
+    },
+    ".lock": {
+      "count": 4,
+      "total_size": 106433
+    },
+    ".nix": {
+      "count": 2,
+      "total_size": 918
+    },
+    ".flow": {
+      "count": 87,
+      "total_size": 794988
+    },
+    ".png": {
+      "count": 132,
+      "total_size": 5115599
+    },
+    ".snap": {
+      "count": 14,
+      "total_size": 391266
+    },
+    ".php": {
+      "count": 1,
+      "total_size": 4613
+    },
+    ".cts": {
+      "count": 195,
+      "total_size": 809192
+    },
+    ".tsx": {
+      "count": 113,
+      "total_size": 777754
+    },
+    ".mdown": {
+      "count": 3,
+      "total_size": 6455
+    },
+    ".markdown": {
+      "count": 15,
+      "total_size": 65759
+    },
+    ".coffee": {
+      "count": 20,
+      "total_size": 30435
+    },
+    ".closure-compiler": {
+      "count": 3,
+      "total_size": 34074
+    },
+    ".esprima": {
+      "count": 3,
+      "total_size": 3693
+    },
+    ".ejs": {
+      "count": 2,
+      "total_size": 2597
+    },
+    ".log": {
+      "count": 2,
+      "total_size": 0
+    },
+    ".stub": {
+      "count": 4,
+      "total_size": 742
+    },
+    ".svg": {
+      "count": 6,
+      "total_size": 49694
+    },
+    ".xml": {
+      "count": 6,
+      "total_size": 3089
+    },
+    ".iml": {
+      "count": 1,
+      "total_size": 458
+    },
+    ".bsd": {
+      "count": 11,
+      "total_size": 14135
+    },
+    ".pegjs": {
+      "count": 1,
+      "total_size": 1347
+    },
+    ".applescript": {
+      "count": 2,
+      "total_size": 5348
+    },
+    ".wasm": {
+      "count": 4,
+      "total_size": 3665310
+    },
+    ".jst": {
+      "count": 28,
+      "total_size": 55180
+    },
+    ".jison": {
+      "count": 1,
+      "total_size": 5932
+    },
+    ".gz": {
+      "count": 26738,
+      "total_size": 21183971
+    },
+    ".zip": {
+      "count": 984,
+      "total_size": 59911819
+    },
+    ".bin": {
+      "count": 1,
+      "total_size": 12
+    },
+    ".license": {
+      "count": 2,
+      "total_size": 2122
+    },
+    ".def": {
+      "count": 5,
+      "total_size": 16762
+    },
+    ".opts": {
+      "count": 1,
+      "total_size": 90
+    },
+    ".tag": {
+      "count": 2,
+      "total_size": 382
+    },
+    ".env": {
+      "count": 7,
+      "total_size": 86199
+    },
+    ".cnf": {
+      "count": 1,
+      "total_size": 1290
+    },
+    ".timer": {
+      "count": 1,
+      "total_size": 281
+    },
+    ".sql": {
+      "count": 7,
+      "total_size": 45931
+    },
+    ".service": {
+      "count": 1,
+      "total_size": 399
+    },
+    ".tf": {
+      "count": 78,
+      "total_size": 366464
+    },
+    ".pyc": {
+      "count": 27,
+      "total_size": 853003
+    },
+    ".gemini-code-builder": {
+      "count": 1,
+      "total_size": 3917
+    },
+    ".h": {
+      "count": 88,
+      "total_size": 766880
+    },
+    ".cpp": {
+      "count": 3,
+      "total_size": 21650
+    },
+    ".gyp": {
+      "count": 7,
+      "total_size": 53438
+    },
+    ".bat": {
+      "count": 5,
+      "total_size": 4708
+    },
+    ".cc": {
+      "count": 94,
+      "total_size": 597712
+    },
+    ".ps1": {
+      "count": 9,
+      "total_size": 18864
+    },
+    ".gypi": {
+      "count": 7,
+      "total_size": 11126
+    },
+    ".mk": {
+      "count": 6,
+      "total_size": 9480
+    },
+    ".node": {
+      "count": 3,
+      "total_size": 2939402
+    },
+    ".gif": {
+      "count": 2,
+      "total_size": 243753
+    },
+    ".csv": {
+      "count": 2,
+      "total_size": 6112119
+    },
+    ".scss": {
+      "count": 256,
+      "total_size": 833783
+    },
+    ".jpg": {
+      "count": 1,
+      "total_size": 1186
+    },
+    ".proto": {
+      "count": 7,
+      "total_size": 37331
+    },
+    ".jsdoc": {
+      "count": 1,
+      "total_size": 275
+    },
+    ".mdx": {
+      "count": 2,
+      "total_size": 550
+    },
+    ".tgz": {
+      "count": 2,
+      "total_size": 6869
+    },
+    ".apache2": {
+      "count": 1,
+      "total_size": 586
+    },
+    ".mit": {
+      "count": 1,
+      "total_size": 1088
+    },
+    ".j2": {
+      "count": 1,
+      "total_size": 332
+    },
+    ".sb": {
+      "count": 6,
+      "total_size": 13375
+    },
+    ".pack": {
+      "count": 8,
+      "total_size": 37893274
+    },
+    ".rev": {
+      "count": 8,
+      "total_size": 249988
+    },
+    ".idx": {
+      "count": 8,
+      "total_size": 1755580
+    },
+    ".sample": {
+      "count": 28,
+      "total_size": 51654
+    },
+    ".cfg": {
+      "count": 1,
+      "total_size": 313
+    },
+    ".13": {
+      "count": 1,
+      "total_size": 256
+    },
+    ".fish": {
+      "count": 1,
+      "total_size": 2206
+    },
+    ".csh": {
+      "count": 1,
+      "total_size": 935
+    },
+    ".typed": {
+      "count": 2,
+      "total_size": 312
+    },
+    ".exe": {
+      "count": 6,
+      "total_size": 750592
+    },
+    ".ttf": {
+      "count": 1,
+      "total_size": 80340
+    },
+    ".jsonl": {
+      "count": 2,
+      "total_size": 989263
+    },
+    ".pbfilespec": {
+      "count": 1,
+      "total_size": 701
+    },
+    ".xclangspec": {
+      "count": 1,
+      "total_size": 5088
+    },
+    ".el": {
+      "count": 2,
+      "total_size": 14363
+    },
+    ".fontified": {
+      "count": 1,
+      "total_size": 162854
+    },
+    ".cs": {
+      "count": 1,
+      "total_size": 7931
+    },
+    ".tar": {
+      "count": 1,
+      "total_size": 2560
+    },
+    ".bak": {
+      "count": 15,
+      "total_size": 120898
+    },
+    ".hcl": {
+      "count": 1,
+      "total_size": 2494
+    },
+    ".jsx": {
+      "count": 2,
+      "total_size": 16419
+    },
+    ".sha256": {
+      "count": 4,
+      "total_size": 256
+    }
+  },
+  "recommendations": [
+    {
+      "type": "compress_large_files",
+      "file_type": ".js",
+      "current_size_mb": 260.9737386703491,
+      "potential_savings": "~78.3MB",
+      "action": "Compress .js files to reduce size"
+    },
+    {
+      "type": "compress_large_files",
+      "file_type": "",
+      "current_size_mb": 224.19112968444824,
+      "potential_savings": "~67.3MB",
+      "action": "Compress  files to reduce size"
+    },
+    {
+      "type": "minify_code",
+      "file_type": ".js",
+      "current_size_mb": 260.9737386703491,
+      "potential_savings": "~52.2MB",
+      "action": "Minify .js files to reduce size"
+    }
+  ]
+}

@@ -1,0 +1,207 @@
+name: SSOT Validation Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  validate-ssot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run SSOT manifest validation
+        run: |
+          python scripts/validate_ssot.py
+
+      - name: Verify lockfiles consistency
+        run: |
+          python scripts/verify_lockfiles.py ssot/lockfiles/ ssot/modules_index.yaml
+
+      - name: Check alias governance rules
+        run: |
+          python scripts/compliance_check.py --config-dir config --format json --output compliance_report.json
+
+      - name: Validate environment configurations
+        run: |
+          python -c "
+          import yaml
+          with open('config/environments.yaml', 'r') as f:
+              config = yaml.safe_load(f)
+          print('Environment configurations are valid')
+          "
+
+      - name: Run comprehensive compliance validation
+        run: |
+          python scripts/compliance_validation.py --standards GDPR HIPAA SOX --format json --output comprehensive_compliance_report.json
+
+      - name: Upload comprehensive compliance report
+        uses: actions/upload-artifact@v3
+        with:
+          name: comprehensive-compliance-report
+          path: comprehensive_compliance_report.json
+
+      - name: Run unit tests
+        run: |
+          pytest backend/tests/ -v
+
+      - name: Run integration tests
+        run: |
+          pytest backend/tests/ -m integration -v
+
+      - name: Check code quality
+        run: |
+          pip install flake8
+          flake8 backend/ --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 backend/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Security scan (Bandit)
+        run: |
+          pip install bandit
+          bandit -r backend/ -f json -o bandit_report.json || true
+
+      - name: Security scan (Trivy)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "fs"
+          scan-ref: "."
+          format: "sarif"
+          output: "trivy-results.sarif"
+
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      - name: Upload compliance report
+        uses: actions/upload-artifact@v3
+        with:
+          name: compliance-report
+          path: compliance_report.json
+
+      - name: Upload bandit report
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-report
+          path: bandit_report.json
+
+  frontend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: frontend/web/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend/web
+        run: npm ci
+
+      - name: Run linting
+        working-directory: frontend/web
+        run: npm run lint
+
+      - name: Run type checking
+        working-directory: frontend/web
+        run: npm run type-check
+
+      - name: Run unit tests
+        working-directory: frontend/web
+        run: npm test -- --coverage --watchAll=false
+
+      - name: Build application
+        working-directory: frontend/web
+        run: npm run build
+
+  e2e-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run E2E tests (Placeholder)
+        run: echo "Running End-to-End tests..."
+
+  performance-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run Performance tests (Placeholder)
+        run: echo "Running Performance tests..."
+
+  deploy-staging:
+    needs: [validate-ssot, frontend-tests, e2e-tests, performance-tests]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to staging
+        run: |
+          echo "Deploying to staging environment"
+          # Add your staging deployment commands here
+          # kubectl apply -f k8s/staging-manifests.yaml
+
+  deploy-production:
+    needs: validate-ssot
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run final validation
+        run: |
+          python scripts/compliance_validation.py --standards GDPR HIPAA SOX --format json --output final_validation.json
+
+      - name: Deploy to production
+        run: |
+          echo "Deploying to production environment"
+          # Add your production deployment commands here
+          # kubectl apply -f k8s/production-manifests.yaml
+
+      - name: Post-deployment checks
+        run: |
+          echo "Running post-deployment health checks"
+          # curl http://production-api.nexus.com/api/aliases/health
+
+  notify:
+    needs: [deploy-staging, deploy-production]
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "Pipeline failed - check logs"
+          # Add notification logic here (e.g., Slack webhook)
+
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "Pipeline completed successfully"
+          # Add success notification logic here

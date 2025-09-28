@@ -1,0 +1,165 @@
+groups:
+  - name: nexus_alerts
+    rules:
+      # Service availability alerts
+      - alert: ServiceDown
+        expr: up == 0
+        for: 5m
+        labels:
+          severity: critical
+          service: "{{ $labels.job }}"
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
+          description: "Service {{ $labels.job }} has been down for more than 5 minutes."
+
+      # High error rate alerts
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "High error rate detected"
+          description: 'Error rate is {{ $value | printf "%.2f" }}% for service {{ $labels.service }}'
+
+      # High response time alerts
+      - alert: HighResponseTime
+        expr: rate(http_request_duration_seconds_bucket{le="1"}[5m]) / rate(http_request_duration_seconds_count[5m]) < 0.95
+        for: 5m
+        labels:
+          severity: warning
+          service: "{{ $labels.service }}"
+        annotations:
+          summary: "High response time detected"
+          description: "95th percentile response time is above 1 second for service {{ $labels.service }}"
+
+      # Database connection alerts
+      - alert: DatabaseConnectionHigh
+        expr: pg_stat_activity_count > 50
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High database connections"
+          description: "Database has more than 50 active connections"
+
+      - alert: DatabaseConnectionCritical
+        expr: pg_stat_activity_count > 80
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical database connections"
+          description: "Database has more than 80 active connections"
+
+      # Memory usage alerts
+      - alert: HighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+          instance: "{{ $labels.instance }}"
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is above 85% on {{ $labels.instance }}"
+
+      - alert: CriticalMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 95
+        for: 2m
+        labels:
+          severity: critical
+          instance: "{{ $labels.instance }}"
+        annotations:
+          summary: "Critical memory usage"
+          description: "Memory usage is above 95% on {{ $labels.instance }}"
+
+      # CPU usage alerts
+      - alert: HighCPUUsage
+        expr: (1 - (node_cpu_seconds_total{mode="idle"} / node_cpu_seconds_total)) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          instance: "{{ $labels.instance }}"
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is above 80% on {{ $labels.instance }}"
+
+      - alert: CriticalCPUUsage
+        expr: (1 - (node_cpu_seconds_total{mode="idle"} / node_cpu_seconds_total)) * 100 > 95
+        for: 2m
+        labels:
+          severity: critical
+          instance: "{{ $labels.instance }}"
+        annotations:
+          summary: "Critical CPU usage"
+          description: "CPU usage is above 95% on {{ $labels.instance }}"
+
+      # Disk space alerts
+      - alert: LowDiskSpace
+        expr: (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) * 100 < 15
+        for: 5m
+        labels:
+          severity: warning
+          instance: "{{ $labels.instance }}"
+        annotations:
+          summary: "Low disk space"
+          description: "Available disk space is below 15% on {{ $labels.instance }}"
+
+      - alert: CriticalDiskSpace
+        expr: (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) * 100 < 5
+        for: 2m
+        labels:
+          severity: critical
+          instance: "{{ $labels.instance }}"
+        annotations:
+          summary: "Critical disk space"
+          description: "Available disk space is below 5% on {{ $labels.instance }}"
+
+      # Redis alerts
+      - alert: RedisMemoryUsage
+        expr: redis_memory_used_bytes / redis_memory_max_bytes * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Redis memory usage"
+          description: "Redis memory usage is above 80%"
+
+      - alert: RedisConnectionHigh
+        expr: redis_connected_clients > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Redis connections"
+          description: "Redis has more than 100 connected clients"
+
+      # Fraud detection alerts
+      - alert: HighFraudScore
+        expr: fraud_score > 0.8
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High fraud score detected"
+          description: "Transaction with fraud score above 0.8 detected"
+
+      # Security alerts
+      - alert: HighFailedLogins
+        expr: rate(failed_login_attempts_total[5m]) > 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High failed login attempts"
+          description: "More than 10 failed login attempts per 5 minutes"
+
+      - alert: SuspiciousActivity
+        expr: suspicious_activity_total > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Suspicious activity detected"
+          description: "Suspicious activity has been detected in the system"

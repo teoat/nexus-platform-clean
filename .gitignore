@@ -1,118 +1,83 @@
-# Dependencies
-node_modules/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Environment files
-.env.local
-.env.*.local
-
-# Logs
-*.log
-logs/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory used by tools like istanbul
-coverage/
-
-# nyc test coverage
-.nyc_output
-
-# Dependency directories
-jspm_packages/
-
-# Optional npm cache directory
-.npm
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# dotenv environment variables file
-.env
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Database files
-*.db
-*.sqlite
-*.sqlite3
-
-# Redis dumps
-dump.rdb
-
-# Terraform
-.terraform/
-*.tfstate
-*.tfstate.backup
-
-# Docker
-.dockerignore
-
-# Build outputs
-dist/
-build/
-out/
-
-# Embedded git repositories
-qwen-code/
-infrastructure/terraform/.terraform/
-
-# Temporary files
-*.tmp
-*.temp
-test123
-
-# Reports and logs
-reports/
-logs/
-*.json
-*.md
-
-# Archives
-archive/
-
-# Backup files
+# NUC SSOT Maintenance System - Auto-generated
 *.backup
 *.bak
-
-# Process IDs
-*.pid
-
-# Lock files
+*.db
+*.egg-info/
 *.lock
-
-# Test files
+*.log
+*.old
+*.pid
+*.pid.lock
+*.pyc
+*.pyd
+*.pyo
+*.seed
+*.sqlite
+*.sqlite3
+*.swo
+*.swp
+*.tar.gz
+*.temp
+*.tfstate
+*.tfstate.backup
+*.tgz
+*.tmp
+*_ANALYSIS.md
+*_COMPLETE.md
+*_REPORT.json
+*_REPORT.md
+*_RESULTS.json
+*_SUMMARY.md
+*~
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+._*
+.cache/
+.coverage
+.dockerignore
+.env
+.env.*.local
+.env.local
+.idea/
+.node_repl_history
+.npm
+.npm/
+.nyc_output
+.pytest_cache/
+.terraform/
+.vscode/
+.yarn-integrity
+.yarn/
+Thumbs.db
+__pycache__/
+archive/
+archived_bin/
+backup*/
+backup/
+backup_20250926_044357/
+backups/
+build/
+config/kubernetes/consolidated_k8s.yaml
+coverage/
+dist/
+dump.rdb
+ehthumbs.db
+htmlcov/
+infrastructure/terraform/.terraform/
+jspm_packages/
+logs/
+nexus_backup_20250925_205750.tar.gz
+node_modules/
+npm-debug.log*
+opencodetmp/
+out/
+pids
+qwen-code/
 test.db
+test123
+yarn-debug.log*
+yarn-error.log*
+config/environment/nexus.env
+.cursor/mcp.json

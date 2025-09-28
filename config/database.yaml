@@ -1,0 +1,104 @@
+# NEXUS Database Configuration
+version: "1.0.0"
+environment: "production"
+
+# Primary Database
+primary:
+  type: "postgresql"
+  host: "${DB_HOST:localhost}"
+  port: "${DB_PORT:5432}"
+  name: "${DB_NAME:nexus_platform}"
+  username: "${DB_USER:nexus_user}"
+  password: "${DB_PASSWORD:nexus_password}"
+  ssl_mode: "require"
+  pool_size: 20
+  max_overflow: 30
+  pool_timeout: 30
+  pool_recycle: 3600
+
+# Read Replica (Optional)
+read_replica:
+  enabled: false
+  type: "postgresql"
+  host: "${DB_READ_HOST:localhost}"
+  port: "${DB_READ_PORT:5432}"
+  name: "${DB_READ_NAME:nexus_platform_read}"
+  username: "${DB_READ_USER:nexus_read_user}"
+  password: "${DB_READ_PASSWORD:nexus_read_password}"
+  ssl_mode: "require"
+  pool_size: 10
+  max_overflow: 15
+
+# Redis Cache
+redis:
+  enabled: true
+  host: "${REDIS_HOST:localhost}"
+  port: "${REDIS_PORT:6379}"
+  password: "${REDIS_PASSWORD:}"
+  db: 0
+  max_connections: 20
+  socket_timeout: 5
+  socket_connect_timeout: 5
+  retry_on_timeout: true
+
+# Database Migrations
+migrations:
+  enabled: true
+  auto_migrate: false
+  backup_before_migrate: true
+  migration_path: "backend/migrations"
+
+# Connection Pooling
+connection_pooling:
+  enabled: true
+  min_connections: 5
+  max_connections: 50
+  connection_timeout: 30
+  idle_timeout: 600
+  max_lifetime: 3600
+
+# Query Optimization
+query_optimization:
+  enabled: true
+  slow_query_threshold: 1000 # milliseconds
+  query_logging: true
+  explain_queries: false
+  connection_monitoring: true
+
+# Backup Configuration
+backup:
+  enabled: true
+  schedule: "0 2 * * *" # Daily at 2 AM
+  retention_days: 30
+  compression: true
+  encryption: true
+  storage_type: "s3" # s3, local, gcs
+  s3_bucket: "${BACKUP_S3_BUCKET:nexus-backups}"
+
+# Monitoring
+monitoring:
+  enabled: true
+  metrics_collection: true
+  slow_query_alerting: true
+  connection_pool_monitoring: true
+  disk_space_monitoring: true
+  query_performance_tracking: true
+
+# Security
+security:
+  ssl_required: true
+  certificate_validation: true
+  connection_encryption: true
+  audit_logging: true
+  sensitive_data_masking: true
+
+# Performance Tuning
+performance:
+  query_cache_size: "256MB"
+  shared_buffers: "1GB"
+  effective_cache_size: "4GB"
+  work_mem: "64MB"
+  maintenance_work_mem: "256MB"
+  checkpoint_completion_target: 0.9
+  wal_buffers: "16MB"
+  default_statistics_target: 100

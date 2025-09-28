@@ -1,0 +1,12 @@
+dependencies:
+  - infrastructure
+metadata:
+  environment: production
+  region: us-east-1
+  team: platform
+name: application_config
+type: application
+validation_rules:
+  - schema_validation
+  - dependency_check
+version: 1.0.0
