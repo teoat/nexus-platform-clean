@@ -9,7 +9,7 @@ SQLAlchemy==2.0.30
 asyncpg==0.29.0
 psycopg2-binary==2.9.9
 alembic==1.13.1
-aiomysql==0.2.0
+aiomysql==0.3.2
 
 # Redis dependencies
 redis==5.0.1
